@@ -1,4 +1,4 @@
-import {closeIcon, dragIcon, openIcon} from "../constans";
+import {closeIcon, dragIcon, openIcon} from "../../constans";
 
 
 class SettingsMenu {
@@ -50,28 +50,6 @@ class SettingsMenu {
 
     container.appendChild( this.#settingsContainer )
 
-    /*container.addEventListener('mouseover', (e)=>{
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      this.#dragButton.style.opacity = 0.75
-    })
-    container.addEventListener('mouseout', (e)=>{
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      this.#dragButton.style.opacity = 0
-    })*/
-
-    /*this.#dragButton.addEventListener('mouseover', (e)=>{
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      this.#dragButton.style['-webkit-app-region'] = 'drag'
-    })
-    this.#dragButton.addEventListener('mouseout', (e)=>{
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      this.#dragButton.style['-webkit-app-region'] = 'no-drag'
-    })*/
-
     this.#openButton.addEventListener('click', () => {
       this.#settingsMenu.style.display = 'block'
     })
@@ -80,6 +58,11 @@ class SettingsMenu {
       this.#settingsMenu.style.display = 'none'
     })
 
+    document.addEventListener('blur', (e:any)=>{
+      if(e.target.id !== 'settings-container'){
+        this.#settingsMenu.style.display = 'none'
+      }
+    })
   }
 
   settingsTheme() {

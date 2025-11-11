@@ -1,5 +1,5 @@
 
-export type T_AppSettings = {
+interface IAppSettings {
   width: number
   height: number
   x: number
@@ -7,3 +7,6 @@ export type T_AppSettings = {
   alwaysOnTop: boolean
 }
 
+interface IWidgetsSettings {
+  locked: boolean
+}

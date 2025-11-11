@@ -7,16 +7,11 @@ import {
   writeFileSync,
 } from 'node:fs'
 import {config} from "../config";
-import {T_AppSettings} from "../types";
-import {APP_SETTINGS_DEFAULT, APP_WIDTH} from "../constans";
+import {APP_SETTINGS_DEFAULT, APP_WIDTH } from "../constans";
 
 
-/**
- * Reads the app-settings.json file and returns its contents as a string.
- * @returns The contents of the app-settings.json file as a string.
- * @throws If an error occurs while reading the file.
- */
-export const getAppSettings = ():T_AppSettings => {
+
+export const getAppSettings = ():IAppSettings => {
   try {
     const settingsDataRaw = readFileSync(config.appSettingsPath, 'utf-8')
     const settingsData = JSON.parse(settingsDataRaw)
@@ -55,13 +50,9 @@ export const getAppSettings = ():T_AppSettings => {
 }
 
 
-/**
- * Writes the given JSON data to the app-settings.json file located at the given path.
- * @param jsonData - The JSON data to write.
- */
-export const setAppSettings = ( jsonData: T_AppSettings) => {
+export const setAppSettings = ( settings: IAppSettings) => {
   try {
-    writeFileSync(config.appSettingsPath, JSON.stringify(jsonData, null, 2))
+    writeFileSync(config.appSettingsPath, JSON.stringify(settings, null, 2))
   } catch (err) {
     dialog.showErrorBox('Error writing to data', `${err}`)
   }

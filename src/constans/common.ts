@@ -12,3 +12,9 @@ export const APP_SETTINGS_DEFAULT = {
   y: 0,
   alwaysOnTop: false
 }
+
+export const WIDGETS_SETTINGS_DEFAULT = {
+  locked: false
+}
+
+export const SETTINGS_STORE_KEY = 'dev-widgets-settings'

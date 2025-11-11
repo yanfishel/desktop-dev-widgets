@@ -3,7 +3,7 @@ import {config} from "../config";
 import * as path from "node:path";
 import is from 'electron-is'
 import {openDevToolsWithShortcut, showNotification} from "./common";
-import {getAppSettings, setAppSettings} from "./settingsStore";
+import {getAppSettings, setAppSettings} from "./appSettings";
 import {APP_WIDTH} from "../constans";
 
 
@@ -56,6 +56,8 @@ export function createMainWindow() {
     movable: true,
     icon: config.iconPath, // Set the icon for the app
   })
+
+  mainWindow.setSkipTaskbar(true)
 
 
   // Hide the traffic light buttons (minimize, maximize, close)
