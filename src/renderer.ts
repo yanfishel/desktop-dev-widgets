@@ -25,17 +25,32 @@
  *  });
  * ```
  */
+import settingsMenu from "./widgets/settings-menu";
+import analogClock from './widgets/analog-clock'
+
 
 import './index.css';
 
-console.log(
-  '👋 This message is being logged by "renderer.js", included via webpack',
-);
-
 
 document.addEventListener('DOMContentLoaded', () => {
-  updateTime() // Call the updateTime function when the DOM content is loaded
+
+  //updateTime() // Call the updateTime function when the DOM content is loaded
+
+
+  const topContainer = document.getElementById('top-container')
+
+  // Settings menu
+  settingsMenu.build(topContainer)
+
+  // Analog clock
+  analogClock.build(topContainer)
+
 })
+
+
+
+
+
 
 function updateTime() {
   const now = new Date() // Create a new Date object to get the current date and time
@@ -54,4 +69,7 @@ function updateTime() {
   document.getElementById('clock').textContent = timeHTML // Set the text content of the clock element to the formatted time
 }
 
-setInterval(updateTime, 1000) // Call the updateTime function every second to update the clock
+//setInterval(updateTime, 1000) // Call the updateTime function every second to update the clock
+
+
+

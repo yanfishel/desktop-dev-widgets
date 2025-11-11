@@ -3,7 +3,7 @@ import {config} from "../config";
 import * as path from "node:path";
 import is from 'electron-is'
 import {openDevToolsWithShortcut, showNotification} from "./common";
-import {getAppSettings} from "./settingsStore";
+import {getAppSettings, setAppSettings} from "./settingsStore";
 import {APP_WIDTH} from "../constans";
 
 
@@ -38,19 +38,22 @@ export function createMainWindow() {
     minWidth: appSettings.width || APP_WIDTH.MEDIUM,
     center: false,
     webPreferences: {
-      //nodeIntegration: true,
+      contextIsolation: true,
+      nodeIntegration: true,
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY, // Path to preload script
     },
-    //transparent: true,
-    //autoHideMenuBar: true, // Hide the menu bar
-    //titleBarStyle: 'hidden', // Hide the title bar
+    transparent: true,
+    autoHideMenuBar: true, // Hide the menu bar
+    titleBarStyle: 'hidden', // Hide the title bar
     fullscreenable: false, // Disable fullscreen
     maximizable: false, // Disable maximize
     minimizable: false,
     skipTaskbar: true,
     hasShadow: false,
     resizable: false,
-    //thickFrame: false,
+    thickFrame: false,
+    frame: false,
+    movable: true,
     icon: config.iconPath, // Set the icon for the app
   })
 
@@ -68,6 +71,8 @@ export function createMainWindow() {
       path.join(__dirname, `../renderer/${MAIN_WINDOW_WEBPACK_NAME}/index.html`),
     )
   }
+
+
   mainWindow.on('closed', () => {
     mainWindow = null
     if (BrowserWindow.getAllWindows().length !== 0) {
@@ -84,10 +89,14 @@ export function createMainWindow() {
     const displays = screen.getAllDisplays()
     const display = displays.find(display => display.nativeOrigin.x <= x && display.nativeOrigin.y <= y)
     if(display) {
-      const newHeight = display.workAreaSize.height - y
-      mainWindow.setSize(w, newHeight, true)
+      const height = display.workAreaSize.height - y
+      mainWindow.setBounds({ x, y, width: w, height })
+      const settings = {
+        ...appSettings,
+        x, y, height
+      }
+      setAppSettings(settings)
     }
-
 
   })
 
