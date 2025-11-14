@@ -26,7 +26,7 @@ const config: ForgeConfig = {
     new AutoUnpackNativesPlugin({}),
     new WebpackPlugin({
       mainConfig,
-      devContentSecurityPolicy: "connect-src 'self' * 'unsafe-eval'",
+      devContentSecurityPolicy: "connect-src 'self' * 'unsafe-eval' 'unsafe-inline'",
       renderer: {
         config: rendererConfig,
         entryPoints: [

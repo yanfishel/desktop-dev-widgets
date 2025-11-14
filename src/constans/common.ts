@@ -13,8 +13,15 @@ export const APP_SETTINGS_DEFAULT = {
   alwaysOnTop: false
 }
 
-export const WIDGETS_SETTINGS_DEFAULT = {
-  locked: false
+export const WIDGETS_SETTINGS_DEFAULT:IWidgetsSettings = {
+  theme: 'system',
+  locked: false,
+  notes: {
+    active: true,
+    order: 0
+  }
 }
+
+export const NOTES_PLACEHOLDER = 'TYPE YOUR NOTES HERE'
 
 export const SETTINGS_STORE_KEY = 'dev-widgets-settings'

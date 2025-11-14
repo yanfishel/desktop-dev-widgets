@@ -3,6 +3,7 @@
   position: absolute;
   width: 100%;
   top: 0;
+  left:0;
   z-index: 99;
 }
 #settings-container .settings-menu-open,
@@ -52,14 +53,4 @@
   width: 50%;
   min-width: 50%;
   text-align: left;
-}
-#settings-container .settings-menu select {
-  width: 100%;
-  padding: 6px 16px;
-  border: none;
-  border-radius: 4px;
-  background: rgba(255,255,255,0.1);
-  color: var(--text-primary);
-  font-size: 0.8rem;
-  font-family: inherit;
 }

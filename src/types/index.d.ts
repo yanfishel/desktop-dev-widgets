@@ -7,6 +7,15 @@ interface IAppSettings {
   alwaysOnTop: boolean
 }
 
+type TTheme = 'system' | 'light' | 'dark'
+
+type TWidget = {
+  active: boolean
+  order: number
+}
+
 interface IWidgetsSettings {
-  locked: boolean
+  theme: TTheme
+  locked: boolean,
+  notes: TWidget
 }

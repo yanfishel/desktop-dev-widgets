@@ -5,12 +5,12 @@ export function setStorageItem(key: string, value: string) {
 }
 
 export function getStorageItem(key: string) {
-  const item = window.localStorage.getItem(key) || window.sessionStorage.getItem(key)
+  const item = window.localStorage.getItem(key)
 
   return item ? item : null
 }
 
-export function removeStorageItem(key: string, session = false) {
-  const storage = session ? window.sessionStorage : window.localStorage
+export function removeStorageItem(key: string) {
+  const storage = window.localStorage
   storage.removeItem(key)
 }

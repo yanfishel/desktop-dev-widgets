@@ -9,6 +9,6 @@ export const config = {
   appSettingsDir: path.join(app.getPath('documents'), 'dev-components'),
   appSettingsPath: path.join( app.getPath('documents'), 'dev-components', 'app-settings.json'),
 
-  iconPath: path.join(app.getAppPath(), 'public', 'assets', 'electron.png'),
+  iconPath: path.join(app.getAppPath(), 'public', 'assets', 'icon.png'),
   homePath: path.join(homedir())
 }

@@ -1,9 +1,3 @@
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
 :root {
   --text-primary: #111827;
   --text-muted: rgba(15, 23, 42, 0.65);
@@ -11,9 +5,39 @@
   --accent-contrast: #fff;
   --outline: rgba(186, 207, 234, 0.15);
   --border: #d5d6dd;
-  --button-opacity: 0.75;
+  --button-opacity: 0.35;
+  --container-background: rgb(246, 248, 250);
+
+  --container-box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.65) inset, 0 24px 60px -40px rgba(15, 23, 42, 0.9);
+
+  --radial-background-1: radial-gradient(circle, rgba(212, 179, 255, 0.25), rgba(189, 147, 249, 0.133));
+  --radial-background-2: radial-gradient(circle, rgba(255, 153, 214, 0.19), rgba(255, 121, 198, 0.082));
+
+  --font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   -webkit-user-select: none;
   user-select: none;
+}
+.theme-dark {
+  --text-primary: #f8fafc;
+  --text-muted: rgba(226, 232, 240, 0.68);
+  --accent: #38bdf8;
+  --accent-contrast: #fff;
+  --outline: rgba(148, 163, 184, 0.28);
+  --border: #d5d6dd;
+  --button-opacity: 0.35;
+  --container-background: rgb(32, 34, 43);
+
+  --container-box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.65) inset, 0 24px 60px -40px rgba(15, 23, 42, 0.9);
+
+  --radial-background-1: radial-gradient(circle, rgba(212, 179, 255, 0.25), rgba(189, 147, 249, 0.133));
+  --radial-background-2: radial-gradient(circle, rgba(255, 153, 214, 0.19), rgba(255, 121, 198, 0.082));
+}
+
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 html { height: 100% }
@@ -27,83 +51,11 @@ body {
   gap: 1rem;
   padding: 0;
   background: transparent;
-  font-family:
-    "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    sans-serif;
+  font-family: var(--font-family);
   color: var(--text-primary);
   font-size: 16px;
 }
 
-.container {
-  width: 100%;
-  padding: 20px 25px;
-  border-radius: 18px;
-  border: 6px solid var(--outline);
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.65) inset,
-    0 24px 60px -40px rgba(15, 23, 42, 0.9);
-  /*background:
-    linear-gradient(180deg, rgba(236, 236, 250, 0.76) 0%, rgba(186, 229, 251, 0.6) 100%),
-    radial-gradient(
-      420px 280px at 0% 0%,
-      rgba(56, 189, 248, 0.12),
-      transparent 60%
-    );*/
-  background: #ebebeb;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  overflow: hidden;
-}
-
-
-
-#clock {
-  margin: 0;
-  font-family: "Space Grotesk", "Inter", sans-serif;
-  font-size: clamp(3.2rem, 10vw, 5.5rem);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  background: linear-gradient(135deg, var(--text-primary), var(--accent));
-  -webkit-background-clip: text;
-  color: transparent;
-  text-shadow:
-    0 12px 32px rgba(2, 6, 23, 0.9),
-    0 0 25px rgba(56, 189, 248, 0.25);
-}
-
-#date {
-  margin: 0;
-  font-size: clamp(1rem, 3vw, 1.3rem);
-  letter-spacing: 0.32em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  font-weight: 500;
-}
-
-
-
-.circle-button {
-  width: 34px;
-  height: 34px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background: #dadada;
-  color: #333;
-  cursor: pointer;
-  opacity: var(--button-opacity);
-  transition: opacity 0.2s ease-in-out;
-}
-.circle-button:hover {
-  opacity: 1 !important;
-}
-.circle-button svg {
-  width: 1.2em;
-  height: auto;
-}
 
 #top-container {
   width: 100%;
@@ -112,7 +64,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 5px 0;
+  padding: 5px 35px 0 0;
   margin: 0;
 }
 #top-container:hover #settings-container .settings-menu-open {
@@ -126,11 +78,7 @@ body {
   cursor: grab;
   color: var(--text-primary);
   z-index: 9;
-  opacity: 0.65;
   -webkit-app-region: drag;
-}
-#drag-icon:hover {
-  opacity: 1 !important;
 }
 #drag-icon svg {
   width: 2em;
@@ -138,29 +86,191 @@ body {
   filter: drop-shadow(1px 1px 0px rgba(255,255,255,0.35));
 }
 
-/* -- DARK THEME - */
-
-.theme-dark :root {
-  --text-primary: #f8fafc;
-  --text-muted: rgba(226, 232, 240, 0.68);
-  --accent: #38bdf8;
-  --accent-contrast: #fff;
-  --outline: rgba(148, 163, 184, 0.28);
-  --border: #d5d6dd;
-  --button-opacity: 0.75;
+#content-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding-right: 35px;
+  flex-grow: 1;
 }
 
 
-.theme-dark .container {
-  border: 1px solid var(--outline);
-  box-shadow:
-    0 0 0 1px rgba(15, 23, 42, 0.65) inset,
-    0 24px 60px -40px rgba(15, 23, 42, 0.9);
-  background:
-    linear-gradient(180deg, rgba(2, 6, 23, 0.76) 0%, rgba(2, 6, 23, 0.6) 100%),
-    radial-gradient(
-      420px 280px at 0% 0%,
-      rgba(56, 189, 248, 0.12),
-      transparent 60%
-    );
+.container {
+  position: relative;
+  width: 100%;
+  padding: 8px;
+  border-radius: 10px;
+  border: 6px solid var(--outline);
+  box-shadow: var( --container-box-shadow);
+  background: var(--container-background);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: all 0.2s ease-in-out;
+}
+.container * {
+  transition: all 0.2s ease-in-out;
+}
+
+.circle-button {
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #dadada;
+  color: #333;
+  cursor: pointer;
+  position: relative;
+  opacity: var(--button-opacity);
+  transition: opacity 0.2s ease-in-out;
+}
+.circle-button:hover {
+  opacity: 1 !important;
+}
+.circle-button svg {
+  width: 1.2em;
+  height: auto;
+}
+.circle-button .icon-regular,
+.circle-button .icon-hover {
+  position: absolute;
+  left:50%;
+  top:50%;
+  transform: translate(-50%, -50%);
+}
+.circle-button .icon-regular {
+  opacity: 1;
+}
+.circle-button .icon-hover {
+  opacity: 0;
+}
+.circle-button:hover .icon-regular {
+  opacity: 0;
+}
+.circle-button:hover .icon-hover {
+  opacity: 1;
+}
+.circle-button.danger-button:hover .icon-hover {
+  color: #ff0000;
+  opacity: 1;
+}
+
+.container .acction-bar {
+  position: absolute;
+  top: -6px;
+  right: -9px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  transform: translateX(50%);
+  opacity: 0;
+}
+.container .acction-bar .circle-button {
+  width: 24px;
+  height: 24px;
+}
+.container .acction-bar .circle-button svg {
+  width: 0.9rem;
+}
+.container:hover .acction-bar,
+.container:focus-within .acction-bar,
+.container:active .acction-bar {
+  transform: translateX(100%);
+  opacity: 1;
+}
+
+
+select {
+  width: 100%;
+  padding: 5px 8px;
+  border: 0;
+  border-radius: 4px;
+  background: rgba(0,0,0,0.05);
+  color: var(--text-primary);
+  font-size: 0.8rem;
+  font-family: inherit;
+}
+.theme-dark select {
+  background: rgba(255,255,255,0.1);
+}
+.theme-dark select option {
+  background-color: var(--container-background);
+}
+
+.switch-container {
+  flex:1;
+  text-align: start;
+  padding: 0.15rem;
+  font-size: 16px
+}
+input:where([type="checkbox"][role="switch"]) {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  position: relative;
+  color: inherit;
+  font-size: inherit;
+  width: 2em;
+  height: 1em;
+  box-sizing: content-box;
+  border: 1px solid;
+  border-radius: 1em;
+  vertical-align: text-bottom;
+  margin: auto;
+  cursor: pointer;
+}
+
+input:where([type="checkbox"][role="switch"])::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translate(0, -50%);
+  box-sizing: border-box;
+  width: 0.7em;
+  height: 0.7em;
+  margin: 0 0.15em;
+  border: 1px solid;
+  border-radius: 50%;
+  background: currentcolor;
+}
+input:where([type="checkbox"][role="switch"]):checked {
+  /*background: var(--accent);*/
+  border-color: var(--accent);
+}
+input:where([type="checkbox"][role="switch"]):checked::before {
+  left: 1em;
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+input:where([type="checkbox"][role="switch"]):disabled {
+  opacity: 0.4;
+}
+
+.toast {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 5px 12px;
+  border-radius: 5px;
+  background: var(--accent);
+  color: var(--accent-contrast);
+  font-size: 0.7rem;
+  font-weight: bold;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+  transition: all 0.2s ease-in-out;
+}
+.toast.success { background: var(--accent); }
+.toast.error { background: #ff0000; }
+.toast.hidden {
+  opacity: 0;
+  transform: translateX(-50%) translateY(-100%) scale(0.9);
 }

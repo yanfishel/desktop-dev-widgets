@@ -1,10 +1,11 @@
 import {BrowserWindow, screen} from "electron";
-import {config} from "../config";
 import * as path from "node:path";
 import is from 'electron-is'
-import {openDevToolsWithShortcut, showNotification} from "./common";
+
+import {APP_WIDTH} from "../../constans";
+import {config} from "../../config";
+import {openDevToolsWithShortcut, showNotification} from "./app";
 import {getAppSettings, setAppSettings} from "./appSettings";
-import {APP_WIDTH} from "../constans";
 
 
 declare const MAIN_WINDOW_WEBPACK_NAME: string;
@@ -37,6 +38,7 @@ export function createMainWindow() {
     minHeight: APP_WIDTH.LARGE,
     minWidth: appSettings.width || APP_WIDTH.MEDIUM,
     center: false,
+    type:'desktop',
     webPreferences: {
       contextIsolation: true,
       nodeIntegration: true,
@@ -58,7 +60,6 @@ export function createMainWindow() {
   })
 
   mainWindow.setSkipTaskbar(true)
-
 
   // Hide the traffic light buttons (minimize, maximize, close)
   is.macOS() && mainWindow.setWindowButtonVisibility(false)

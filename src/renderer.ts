@@ -1,29 +1,33 @@
-
 import {getWidgetsSettings} from "./utils/widgetsSettings";
-
-import settingsMenu from "./components/settings-menu";
-import './components/settings-menu/style.css'
-
-import analogClock from './components/analog-clock'
-import './components/analog-clock/style.css'
 
 import './styles/main.css';
 
+import lockPositionController from "./controllers/lockPosition";
+import themeController from "./controllers/theme";
+import analogClockController from "./controllers/analogClock";
+import notesController from "./controllers/notes";
+import settingsMenuController from "./controllers/settingsMenu";
 
 
-const widgetsSettings = getWidgetsSettings()
-
-console.log('renderer.ts', widgetsSettings)
 
 document.addEventListener('DOMContentLoaded', () => {
 
+  const widgetsSettings = getWidgetsSettings()
+
   const topContainer = document.getElementById('top-container')
+  const contentContainer = document.getElementById('content-container')
+
+  themeController.init()
+  lockPositionController.init()
 
   // Settings menu
-  settingsMenu.build(topContainer)
+  settingsMenuController.build(topContainer)
 
   // Analog clock
-  analogClock.build(topContainer)
+  analogClockController.build(topContainer)
+
+  // Notes
+  notesController.build(contentContainer)
 
 })
 
