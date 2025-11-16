@@ -4,6 +4,7 @@ import themeController from "../theme";
 import {settingsContainerHtml} from "./html";
 
 import "./style.css"
+import weatherController from "../weather";
 
 
 class SettingsMenuController {
@@ -49,6 +50,12 @@ class SettingsMenuController {
     // Theme Item
     const itemRowTheme = themeController.settingsMenuElement()
     this.#settingsMenu.appendChild( itemRowTheme )
+    // Weather Item
+    const title = document.createElement('h1')
+    title.textContent = 'Weather'
+    this.#settingsMenu.appendChild( title )
+    const itemRowWeather = weatherController.settingsMenuElement()
+    this.#settingsMenu.appendChild( itemRowWeather )
 
     container.appendChild( this.#settingsContainer )
   }

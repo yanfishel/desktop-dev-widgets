@@ -16,10 +16,19 @@ export const APP_SETTINGS_DEFAULT = {
 export const WIDGETS_SETTINGS_DEFAULT:IWidgetsSettings = {
   theme: 'system',
   locked: false,
+  weather: {
+    active: true
+  },
+  dailyWeather: {
+    active: true
+  },
   notes: {
     active: true,
     order: 0
-  }
+  },
+  autoGeoPosition: true,
+  geoInfo: null,
+  geoManual: { name:'', lat: 0, lon: 0 }
 }
 
 export const NOTES_PLACEHOLDER = 'TYPE YOUR NOTES HERE'

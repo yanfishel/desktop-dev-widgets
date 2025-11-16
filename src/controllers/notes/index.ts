@@ -10,6 +10,7 @@ class NotesController {
   static instance: NotesController | null = null
 
   #widgetsSettings:IWidgetsSettings
+  #widgetSettings: TWidget
   #toast: Toast
   #input: HTMLTextAreaElement
   #view: HTMLElement
@@ -19,6 +20,7 @@ class NotesController {
   constructor() {
     const settings = getWidgetsSettings()
     this.#widgetsSettings = settings
+    this.#widgetSettings = settings.notes
   }
 
 
@@ -34,6 +36,7 @@ class NotesController {
     const elem = document.createElement('div')
     elem.id = 'notes-widget'
     elem.innerHTML = notesWidgetHtml
+    elem.style.order = this.#widgetSettings.order.toString()
 
     this.#input = elem.querySelector('textarea')
     this.#view = elem.querySelector('.notes-view')

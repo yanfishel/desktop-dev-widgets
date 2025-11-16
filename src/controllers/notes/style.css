@@ -6,19 +6,19 @@
 }
 #notes-widget .container {
   height: 100%;
-  padding: 0;
-  opacity: 0.45
+  padding: 8px 10px;
+  /*opacity: 0.45*/
 }
-#notes-widget:hover .container,
+/*#notes-widget:hover .container,
 #notes-widget:active .container,
 #notes-widget:focus-within .container {
   opacity: 1;
-}
+}*/
 
 #notes-widget .container textarea {
   resize: none;
-  width: 100%;
-  height: 100%;
+  width: calc(100% - 16px);
+  height: calc(100% - 20px);
   position: absolute;
   background: transparent;
   color: var(--text-primary);
@@ -28,14 +28,14 @@
   font-size: 0.75rem;
   line-height: 1.35em;
   text-align: start;
-  padding: 4px 6px;
-  padding-inline-start: calc(1rem + 6px);
+  padding: 0;
+  padding-inline-start: 1rem;
   opacity: 0;
 }
 #notes-widget .container .notes-view {
   position: absolute;
-  width: 100%;
-  height: 100%;
+  width: calc(100% - 16px);
+  height: calc(100% - 20px);
   background: transparent;
   color: var(--text-primary);
   border: none;
@@ -44,7 +44,6 @@
   font-size: 0.75rem;
   line-height: 1.35em;
   text-align: start;
-  padding: 4px 6px;
   overflow: auto;
   opacity: 1;
 }

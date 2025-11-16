@@ -3,10 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="Content-Security-Policy"
-          content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data:;" />
+          content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: http://ip-api.com/ https://api.open-meteo.com/;" />
 
   </head>
   <body>
+
+  <input type="hidden" id="global-time">
 
   <div id="drag-icon" style="display: none">
     <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">

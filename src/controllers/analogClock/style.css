@@ -1,7 +1,7 @@
 /* -- ANALOG CLOCK - */
 
 #analog-clock {
-  --analog-clock-size: 100px;
+  --analog-clock-size: 110px;
   --analog-clock-main-color:  #000;
   --analog-clock-second-color:  #000;
 

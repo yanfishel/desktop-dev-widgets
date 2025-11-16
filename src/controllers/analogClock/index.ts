@@ -12,6 +12,8 @@ class AnalogClockController {
   #secondhand: HTMLElement
   #date: HTMLElement
 
+  #globalTimeInput: HTMLInputElement
+
   constructor() {
     const settings = getWidgetsSettings()
     this.#widgetsSettings = settings
@@ -38,6 +40,8 @@ class AnalogClockController {
     this.#secondhand = elem.querySelector('.secondhand')
     this.#date = elem.querySelector('.date')
 
+    this.#globalTimeInput = document.getElementById('global-time') as HTMLInputElement
+
     this.update()
   }
 
@@ -47,15 +51,6 @@ class AnalogClockController {
     }
     const element = document.createElement('div')
     element.classList.add('settings-menu-item')
-
-    /*element.innerHTML = settingsMenuHtml
-
-    // Add event listener to select element
-    const select = element.querySelector('select')
-    select.value = this.#widgetsSettings.theme ?? 'system'
-    select.addEventListener('change', (e:any)=> this.changeTheme(e.target.value))
-
-    element.appendChild(select)*/
 
     return element
   }
@@ -74,6 +69,10 @@ class AnalogClockController {
     const weekday = new Intl.DateTimeFormat('en-US', { weekday:'long' }).format(now)
     const date = new Intl.DateTimeFormat('en-US', { day: 'numeric', month: 'short' }).format(now)
     this.#date.innerHTML = `<span>${ weekday }</span>${ date }`
+
+    if(second % 15 === 0) {
+      this.#globalTimeInput.value = `${hour}:${minute}:${second}`
+    }
 
     setTimeout(this.update.bind(this), 1000)
   }

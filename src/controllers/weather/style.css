@@ -1,0 +1,186 @@
+
+
+#weather-widget {
+  width: calc(100% - 35px);
+  height: 45px;
+  position: absolute;
+  left: 0;
+  top: calc(110px - 40px);
+}
+#weather-widget .container {
+  width: 100%;
+  height: 100%;
+  border:0;
+  /*background-color: rgb(from var(--container-background) r g b / 0.7);*/
+}
+
+#weather-widget .container .weather-info {
+  position: absolute;
+  left:0;
+  bottom: 0;
+  width: 100%;
+  height: 45px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 0 15px 5px;
+  line-height: 1em;
+  color: var(--text-primary);
+  text-shadow: var(--text-shadow);
+}
+
+#weather-widget .container .weather-info .date {
+  text-align: start;
+  /*text-transform: uppercase;*/
+  opacity: 0.85;
+  font-size: 0.7rem;
+  letter-spacing: 0.25px;
+}
+#weather-widget .container .weather-info .date .country {
+  font-weight: 600;
+}
+#weather-widget .container .weather-info .date .day {
+  font-weight: 600;
+}
+#weather-widget .container .weather-info .date .day span {
+  font-weight: 500;
+}
+#weather-widget .container .weather-info .weather {
+  text-align: end;
+  position: relative;
+  width: calc((100% - 140px) / 2);
+}
+#weather-widget .container .weather-info .weather .temperature {
+  color: var(--text-primary);
+  font-size: 1.3rem;
+  position: relative;
+  font-weight: 600;
+  z-index: 2;
+}
+#weather-widget .container .weather-info .weather .description {
+  font-size: .65rem;
+  position: relative;
+  z-index: 2;
+}
+#weather-widget .container .weather-info .weather .icon {
+  position: absolute;
+  bottom: 5px;
+  right: 50%;
+  transform: translateX(50%);
+  opacity: 0.95;
+}
+#weather-widget .container .weather-info .weather .icon img {
+  width: 60px;
+  height: auto;
+  z-index:-1;
+}
+.theme-dark #weather-widget .container .weather-info .weather .icon img {
+  filter: brightness(0.7);
+}
+
+#daily-weather-widget {
+  width: 100%;
+  padding-top: .75rem;
+}
+#daily-weather-widget .container {
+  border:0;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 0;
+  padding: 8px 2px 4px;
+}
+#daily-weather-widget .container .day {
+  width: calc(100% / 7);
+  min-width: calc(100% / 7);
+  max-width: calc(100% / 7);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6rem;
+  position: relative;
+  color: var(--text-primary);
+  text-shadow: var(--text-shadow);
+}
+#daily-weather-widget .container .day:after {
+  content: '';
+  position: absolute;
+  bottom: 10%;
+  right: -.5px;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 80%;
+  background-color: rgb( from var(--text-primary) r g b / 0.15);
+}
+#daily-weather-widget .container .day:last-child:after {
+  display: none;
+}
+
+#daily-weather-widget .container .day .date {
+  font-size: 0.55rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  line-height: 1.1em;
+}
+#daily-weather-widget .container .day .date span {
+  display: block;
+}
+
+#daily-weather-widget .container .day .weather .icon img {
+  width: 80%;
+  height: auto;
+}
+.theme-dark #daily-weather-widget .container .day .weather .icon img {
+  filter: brightness(0.8);
+}
+
+#daily-weather-widget .container .day .weather .description {
+  width: 100%;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: lowercase;
+  font-size: 0.525rem;
+  letter-spacing: 0.25px;
+  line-height: 1.1em;
+}
+
+#daily-weather-widget .container .day .weather .temperature {
+  width: 100%;
+  font-size: 0.8rem;
+  font-weight: 700;
+  line-height: 1em;
+  margin-top: -4px;
+  margin-bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#daily-weather-widget .container .day .weather .temperature span:last-child {
+  color: rgb( from var(--text-primary) r g b / 0.7);
+}
+
+
+/* -- SETTINGS -*/
+#geo-position-manual.item-content-row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+#geo-position-manual.item-content-row > div {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+#geo-position-manual.item-content-row label {
+  padding-inline-end: 10px;
+  text-align: end !important;
+}
+#geo-position-manual.item-content-row input {
+  width: 100%;
+  min-width: 40px !important;
+}

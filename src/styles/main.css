@@ -6,12 +6,17 @@
   --outline: rgba(186, 207, 234, 0.15);
   --border: #d5d6dd;
   --button-opacity: 0.35;
-  --container-background: rgb(246, 248, 250);
+  --main-background: rgb(246, 248, 250);
+  --container-background: rgba(246, 248, 250, .75);
 
+  --text-shadow: 1px 1px 0 rgba(255,255,255,0.45);
   --container-box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.65) inset, 0 24px 60px -40px rgba(15, 23, 42, 0.9);
 
   --radial-background-1: radial-gradient(circle, rgba(212, 179, 255, 0.25), rgba(189, 147, 249, 0.133));
   --radial-background-2: radial-gradient(circle, rgba(255, 153, 214, 0.19), rgba(255, 121, 198, 0.082));
+
+  --scrollbar-background: #F7F7F9;
+  --scrollbar-thumb: rgba(0,0,0,0.25);
 
   --font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   -webkit-user-select: none;
@@ -25,9 +30,14 @@
   --outline: rgba(148, 163, 184, 0.28);
   --border: #d5d6dd;
   --button-opacity: 0.35;
-  --container-background: rgb(32, 34, 43);
+  --main-background: rgb(32, 34, 43);
+  --container-background: rgba(32, 34, 43, 0.75);
 
+  --text-shadow: 1px 1px 0 rgba(0,0,0,1);
   --container-box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.65) inset, 0 24px 60px -40px rgba(15, 23, 42, 0.9);
+
+  --scrollbar-background: #102331;
+  --scrollbar-thumb: rgba(255,255,255,0.25);
 
   --radial-background-1: radial-gradient(circle, rgba(212, 179, 255, 0.25), rgba(189, 147, 249, 0.133));
   --radial-background-2: radial-gradient(circle, rgba(255, 153, 214, 0.19), rgba(255, 121, 198, 0.082));
@@ -48,7 +58,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  gap: 1rem;
+  gap: .75rem;
   padding: 0;
   background: transparent;
   font-family: var(--font-family);
@@ -56,6 +66,20 @@ body {
   font-size: 16px;
 }
 
+::-webkit-scrollbar-track, *::-webkit-scrollbar-track {
+  border-radius: 8px;
+  background-color: var(--scrollbar-background);
+}
+::-webkit-scrollbar, *::-webkit-scrollbar {
+  border-radius: 20px;
+  width: 8px;
+  height: 8px;
+  background-color: var(--scrollbar-background);
+}
+::-webkit-scrollbar-thumb, *::-webkit-scrollbar-thumb {
+  border-radius: 20px;
+  background-color: var(--scrollbar-thumb);
+}
 
 #top-container {
   width: 100%;
@@ -69,6 +93,15 @@ body {
 }
 #top-container:hover #settings-container .settings-menu-open {
   opacity: var(--button-opacity);
+}
+#top-container #analog-clock, #top-container #digital-clock {
+  order:1;
+}
+#top-container #weather-widget {
+  order: 2;
+}
+#top-container #daily-weather-widget {
+  order: 3;
 }
 
 #drag-icon {
@@ -102,7 +135,7 @@ body {
   width: 100%;
   padding: 8px;
   border-radius: 10px;
-  border: 6px solid var(--outline);
+  /*border: 6px solid var(--outline);*/
   box-shadow: var( --container-box-shadow);
   background: var(--container-background);
   text-align: center;
@@ -113,6 +146,21 @@ body {
 }
 .container * {
   transition: all 0.2s ease-in-out;
+}
+.container:has(.widget-title) {
+  border-top-width: 24px;
+}
+.widget-title {
+  position: absolute;
+  top: -20px;
+  left: 6px;
+  font-size: 0.75rem;
+  font-weight: 200;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  opacity: 0.65;
 }
 
 .circle-button {
@@ -149,7 +197,7 @@ body {
 .circle-button .icon-hover {
   opacity: 0;
 }
-.circle-button:hover .icon-regular {
+.circle-button:has(.icon-hover):hover .icon-regular {
   opacity: 0;
 }
 .circle-button:hover .icon-hover {
@@ -162,8 +210,8 @@ body {
 
 .container .acction-bar {
   position: absolute;
-  top: -6px;
-  right: -9px;
+  top: 0;
+  right: -4px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -201,6 +249,19 @@ select {
 }
 .theme-dark select option {
   background-color: var(--container-background);
+}
+input:not([type="checkbox"]) {
+  width: 100%;
+  padding: 5px 8px;
+  border: 0;
+  border-radius: 4px;
+  background: rgba(0,0,0,0.05);
+  color: var(--text-primary);
+  font-size: 0.8rem;
+  font-family: inherit;
+}
+.theme-dark input {
+  background: rgba(255,255,255,0.1);
 }
 
 .switch-container {
