@@ -223,7 +223,6 @@ class WeatherController {
     }
   }
 
-
   async updateWeatherDaily() {
     const parent = document.getElementById('daily-weather-widget')
     if(!parent) return
@@ -231,7 +230,7 @@ class WeatherController {
     const settings = getWidgetsSettings()
     if(!settings.dailyWeather.active) return
 
-    const weatherData = await this.getWeatherData()
+    const weatherData = await this.getWeatherData(!settings.weather.active)
     if(!weatherData || !weatherData.daily) return
     const { daily } = weatherData
 
@@ -252,13 +251,13 @@ class WeatherController {
     const time = e.target.value.split(':')
     const hour = time[0]
     const minutes = parseInt(time[1], 10)
-    // Update weather every 3 hour
-    if(hour % 3 === 0){
+    // Update weather every hour
+    if(minutes === 0){
       this.updateWeather(true)
-    }
-    // Update date every day
-    if(hour === 0) {
-      this.updateDate()
+      // Update date every day
+      if(hour === 0) {
+        this.updateDate()
+      }
     }
   }
 
