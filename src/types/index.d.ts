@@ -9,28 +9,28 @@ interface IAppSettings {
 
 type TTheme = 'system' | 'light' | 'dark'
 
+type TWidgetsSize = 'small' | 'medium' | 'large'
+
 type TWidget = {
   active: boolean
   order: number
 }
 
-type TGeoInfo = {
-  country: string,
-  countryCode: string,
-  region: string,
-  regionName: string,
-  city: string,
-  lat: number,
-  lon: number
-}
 
 interface IWidgetsSettings {
   theme: TTheme
+  size: TWidgetsSize
   locked: boolean,
   weather: { active: boolean }
-  dailyWeather: { active: boolean }
+  dailyWeather: TWidget
   notes: TWidget
   autoGeoPosition: boolean
-  geoInfo: TGeoInfo | null
-  geoManual: { name: string, lat: number, lon: number } | null
+  location: { name: string, lat: number, lon: number } | null
+}
+
+interface Window {
+  electronAPI: {
+    setWidgetsSize: (size: string) => void
+    onWidgetsResize: (callback: (_event: any, size: TWidgetsSize) => void) => void
+  }
 }

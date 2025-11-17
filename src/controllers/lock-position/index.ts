@@ -1,4 +1,4 @@
-import {getWidgetsSettings, setWidgetsSetting} from "../../utils/widgetsSettings";
+import {getWidgetsSettings, setWidgetsSetting} from "../../utils/widgets-settings";
 import {settingsMenuLockPositionHtml} from "./html";
 
 class LockPositionController {

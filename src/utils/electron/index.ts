@@ -1,3 +1,3 @@
 export * from './app'
-export * from './mainWindow'
-export * from './appSettings'
+export * from './main-window'
+export * from './app-settings'

@@ -7,7 +7,7 @@
 #notes-widget .container {
   height: 100%;
   padding: 8px 10px;
-  /*opacity: 0.45*/
+  padding-right: var(--action-bar-padding);
 }
 /*#notes-widget:hover .container,
 #notes-widget:active .container,
@@ -17,8 +17,8 @@
 
 #notes-widget .container textarea {
   resize: none;
-  width: calc(100% - 16px);
-  height: calc(100% - 20px);
+  width: calc(100% - 10px - var(--action-bar-padding));
+  height: calc(100% - 16px);
   position: absolute;
   background: transparent;
   color: var(--text-primary);
@@ -34,8 +34,8 @@
 }
 #notes-widget .container .notes-view {
   position: absolute;
-  width: calc(100% - 16px);
-  height: calc(100% - 20px);
+  width: calc(100% - 10px - var(--action-bar-padding));
+  height: calc(100% - 16px);
   background: transparent;
   color: var(--text-primary);
   border: none;

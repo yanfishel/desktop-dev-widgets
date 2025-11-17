@@ -1,4 +1,4 @@
-import {getWidgetsSettings, setWidgetsSetting} from "../../utils/widgetsSettings";
+import {getWidgetsSettings, setWidgetsSetting} from "../../utils/widgets-settings";
 import {analogClockHtml} from "./html";
 import "./style.css"
 

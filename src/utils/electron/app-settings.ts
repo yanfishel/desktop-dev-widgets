@@ -34,7 +34,7 @@ export const getAppSettings = ():IAppSettings => {
           initial = {
             ...initial,
             height,
-            x: width - APP_WIDTH.MEDIUM
+            x: width - APP_WIDTH.LARGE
           }
         }
         writeFileSync(config.appSettingsPath, JSON.stringify(initial, null, 2))

@@ -1,3 +1,3 @@
 export * from './common'
 export * from './storage'
-export * from './widgetsSettings'
+export * from './widgets-settings'

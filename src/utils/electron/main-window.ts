@@ -4,8 +4,10 @@ import is from 'electron-is'
 
 import {APP_WIDTH} from "../../constans";
 import {config} from "../../config";
+import {IpcChannels} from "../../ipc/channels";
 import {openDevToolsWithShortcut, showNotification} from "./app";
-import {getAppSettings, setAppSettings} from "./appSettings";
+import {getAppSettings, setAppSettings} from "./app-settings";
+import {destroyTray, registerTray} from "./tray";
 
 
 declare const MAIN_WINDOW_WEBPACK_NAME: string;
@@ -33,10 +35,10 @@ export function createMainWindow() {
     title: config.applicationName,
     x: appSettings.x !== undefined ? appSettings.x : undefined,
     y: appSettings.y !== undefined ? appSettings.y : undefined,
-    width: appSettings.width || APP_WIDTH.MEDIUM, // Set the initial width of the window
-    height: appSettings.height || APP_WIDTH.MEDIUM, // Set the initial height of the window
+    width: appSettings.width || APP_WIDTH.LARGE, // Set the initial width of the window
+    height: appSettings.height || APP_WIDTH.LARGE, // Set the initial height of the window
     minHeight: APP_WIDTH.LARGE,
-    minWidth: appSettings.width || APP_WIDTH.MEDIUM,
+    minWidth: appSettings.width || APP_WIDTH.LARGE,
     center: false,
     type:'desktop',
     webPreferences: {
@@ -107,4 +109,40 @@ export function createMainWindow() {
   // Open the DevTools for debugging
   // mainWindow.webContents.openDevTools();
   openDevToolsWithShortcut(mainWindow)
+}
+
+
+export function resizeMainWindow(size:TWidgetsSize) {
+
+  let mainWindow:BrowserWindow | null = null
+
+  BrowserWindow.getAllWindows().forEach(win => {
+    if (win.title === config.applicationName) mainWindow = win;
+  })
+
+  if(!mainWindow) return
+
+  destroyTray()
+
+  const appSettings = getAppSettings()
+  const newWidth = size === 'small' ? APP_WIDTH.SMALL : size === 'medium' ? APP_WIDTH.MEDIUM : APP_WIDTH.LARGE
+
+  let bounds = mainWindow.getBounds()
+  bounds = {...bounds, width: newWidth}
+  // Calculate the new bounds based on the size
+  const screens = screen.getAllDisplays()
+  const maxX = screens.reduce((max, screen) => Math.max(max, screen.bounds.x + screen.bounds.width), 0)
+  if(bounds.x + newWidth > maxX) {
+    bounds = { ...bounds, x: maxX - newWidth }
+  }
+  mainWindow.setBounds(bounds)
+  mainWindow.webContents.send(IpcChannels.WIDGET_SIZE, size)
+  const settings = {
+    ...appSettings,
+    x:bounds.x, y:bounds.y, width:bounds.width, height:bounds.height
+  }
+  setAppSettings(settings)
+
+  registerTray()
+
 }

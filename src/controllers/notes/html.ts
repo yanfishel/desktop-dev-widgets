@@ -1,4 +1,4 @@
-import {copyIconHover, copyIconRegular, trashIconHover, trashIconRegular} from "../../constans";
+import {copyIconHover, copyIconRegular, trashIconHover, trashIconRegular} from "../../assets";
 
 export const notesWidgetHtml = `
   <div class="container">

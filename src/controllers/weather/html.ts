@@ -1,4 +1,5 @@
-import {WEATHER_DATA, WEATHER_ICONS} from "../../constans";
+import { WEATHER_DATA } from "../../constans";
+import {WEATHER_ICONS} from "../../assets";
 
 export const dayWeatherHtml = `
 <div class="container">
@@ -54,6 +55,7 @@ export const weeklyWeatherDay = ({ time, min, max, code }:{time:number, min:numb
 
 
 export const settingsMenuWeatherHtml = `
+<h1>Weather</h1>
 <div class="settings-menu-item">
   <div class="settings-item-content">
     <div class="item-content-row">

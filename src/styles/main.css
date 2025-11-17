@@ -18,7 +18,13 @@
   --scrollbar-background: #F7F7F9;
   --scrollbar-thumb: rgba(0,0,0,0.25);
 
+  --weather-days-number: 7;
+  --top-container-height: 125px;
+  --weather-icon-size: 70px;
+  --widgets-distance: .85rem;
+
   --font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --action-bar-padding: 30px;
   -webkit-user-select: none;
   user-select: none;
 }
@@ -43,6 +49,18 @@
   --radial-background-2: radial-gradient(circle, rgba(255, 153, 214, 0.19), rgba(255, 121, 198, 0.082));
 }
 
+.widgets-size-medium {
+  --weather-icon-size: 60px;
+  --top-container-height: 106px;
+  --widgets-distance: .75rem;
+}
+.widgets-size-small {
+  --weather-icon-size: 50px;
+  --top-container-height: 90px;
+  --widgets-distance: .65rem;
+  --weather-days-number: 6;
+}
+
 
 *,
 *::before,
@@ -58,7 +76,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  gap: .75rem;
+  gap: var(--widgets-distance);
   padding: 0;
   background: transparent;
   font-family: var(--font-family);
@@ -88,7 +106,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 5px 35px 0 0;
+  padding: 5px 2px 0;
   margin: 0;
 }
 #top-container:hover #settings-container .settings-menu-open {
@@ -124,11 +142,10 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
-  padding-right: 35px;
+  padding: 0 2px;
+  gap: var(--widgets-distance);
   flex-grow: 1;
 }
-
 
 .container {
   position: relative;
@@ -147,9 +164,10 @@ body {
 .container * {
   transition: all 0.2s ease-in-out;
 }
-.container:has(.widget-title) {
-  border-top-width: 24px;
+.container:has(.acction-bar) {
+  padding-right: var(--action-bar-padding);
 }
+
 .widget-title {
   position: absolute;
   top: -20px;
@@ -210,13 +228,13 @@ body {
 
 .container .acction-bar {
   position: absolute;
-  top: 0;
-  right: -4px;
+  top: 3px;
+  right: 3px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 3px;
-  transform: translateX(50%);
+  /*transform: translateX(50%);*/
   opacity: 0;
 }
 .container .acction-bar .circle-button {
@@ -229,7 +247,7 @@ body {
 .container:hover .acction-bar,
 .container:focus-within .acction-bar,
 .container:active .acction-bar {
-  transform: translateX(100%);
+  /*transform: translateX(100%);*/
   opacity: 1;
 }
 
@@ -320,14 +338,38 @@ input:where([type="checkbox"][role="switch"]):disabled {
   top: 10px;
   left: 50%;
   transform: translateX(-50%);
-  padding: 5px 12px;
+  height: 26px;
+  padding: 5px 12px 7px;
   border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: var(--accent);
   color: var(--accent-contrast);
   font-size: 0.7rem;
+  line-height: 1em;
   font-weight: bold;
   box-shadow: 0 3px 6px rgba(0,0,0,0.2);
   transition: all 0.2s ease-in-out;
+}
+.toast:has(button) {
+  padding-right: 25px;
+}
+.toast button {
+  position: absolute;
+  top: 50%;
+  right: 3px;
+  margin-top: -1px;
+  transform: translateY(-50%);
+  background: transparent;
+  border: 0;
+  color: var(--accent-contrast);
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0;
+}
+.toast button svg {
+  display: block;
 }
 .toast.success { background: var(--accent); }
 .toast.error { background: #ff0000; }

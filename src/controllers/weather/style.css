@@ -1,11 +1,11 @@
 
 
 #weather-widget {
-  width: calc(100% - 35px);
+  width: calc(100% - 4px);
   height: 45px;
   position: absolute;
-  left: 0;
-  top: calc(110px - 40px);
+  left: 2px;
+  top: calc(var(--top-container-height) - 40px);
 }
 #weather-widget .container {
   width: 100%;
@@ -48,7 +48,7 @@
 #weather-widget .container .weather-info .weather {
   text-align: end;
   position: relative;
-  width: calc((100% - 140px) / 2);
+  width: calc((100% - var(--top-container-height) - 15px) / 2);
 }
 #weather-widget .container .weather-info .weather .temperature {
   color: var(--text-primary);
@@ -70,7 +70,7 @@
   opacity: 0.95;
 }
 #weather-widget .container .weather-info .weather .icon img {
-  width: 60px;
+  width: var(--weather-icon-size);
   height: auto;
   z-index:-1;
 }
@@ -80,9 +80,11 @@
 
 #daily-weather-widget {
   width: 100%;
-  padding-top: .75rem;
+  overflow: hidden;
+  position: relative;
 }
 #daily-weather-widget .container {
+  min-height: 120px;
   border:0;
   display: flex;
   flex-direction: row;
@@ -91,9 +93,9 @@
   padding: 8px 2px 4px;
 }
 #daily-weather-widget .container .day {
-  width: calc(100% / 7);
-  min-width: calc(100% / 7);
-  max-width: calc(100% / 7);
+  width: calc(100% / var(--weather-days-number));
+  min-width: calc(100% / var(--weather-days-number));
+  max-width: calc(100% / var(--weather-days-number));
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -102,6 +104,9 @@
   position: relative;
   color: var(--text-primary);
   text-shadow: var(--text-shadow);
+}
+.widgets-size-small #daily-weather-widget .container .day:first-child {
+  display: none;
 }
 #daily-weather-widget .container .day:after {
   content: '';
@@ -128,7 +133,7 @@
 }
 
 #daily-weather-widget .container .day .weather .icon img {
-  width: 80%;
+  width: 38px;
   height: auto;
 }
 .theme-dark #daily-weather-widget .container .day .weather .icon img {
@@ -136,7 +141,8 @@
 }
 
 #daily-weather-widget .container .day .weather .description {
-  width: 100%;
+  width: 90%;
+  max-width: 90%;
   height: 26px;
   display: flex;
   align-items: center;

@@ -1,4 +1,4 @@
-import {getWidgetsSettings, setWidgetsSetting} from "../../utils/widgetsSettings";
+import {getWidgetsSettings, setWidgetsSetting} from "../../utils";
 import {settingsMenuHtml} from "./html";
 
 
@@ -76,7 +76,11 @@ class ThemeController {
   }
 
   private setDarkTheme(set:boolean){
-    document.documentElement.className = set ? "theme-dark" : '';
+    if(set){
+      document.documentElement.classList.add("theme-dark")
+    } else {
+      document.documentElement.classList.remove("theme-dark")
+    }
   }
 
 }

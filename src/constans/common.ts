@@ -1,13 +1,13 @@
 
 export const APP_WIDTH = {
-  SMALL: 320,
-  MEDIUM: 380,
-  LARGE: 450,
+  SMALL: 300,
+  MEDIUM: 360,
+  LARGE: 440,
 }
 
 export const APP_SETTINGS_DEFAULT = {
-  width: APP_WIDTH.MEDIUM,
-  height: APP_WIDTH.MEDIUM,
+  width: APP_WIDTH.LARGE,
+  height: APP_WIDTH.LARGE,
   x: 0,
   y: 0,
   alwaysOnTop: false
@@ -15,20 +15,21 @@ export const APP_SETTINGS_DEFAULT = {
 
 export const WIDGETS_SETTINGS_DEFAULT:IWidgetsSettings = {
   theme: 'system',
+  size: 'large',
   locked: false,
   weather: {
     active: true
   },
   dailyWeather: {
-    active: true
-  },
-  notes: {
     active: true,
     order: 0
   },
+  notes: {
+    active: true,
+    order: 1
+  },
   autoGeoPosition: true,
-  geoInfo: null,
-  geoManual: { name:'', lat: 0, lon: 0 }
+  location: { name:'', lat: 0, lon: 0 }
 }
 
 export const NOTES_PLACEHOLDER = 'TYPE YOUR NOTES HERE'

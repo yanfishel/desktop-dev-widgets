@@ -1,27 +1,19 @@
-import {getWidgetsSettings} from "../../utils/widgetsSettings";
-import lockPositionController from "../lockPosition";
+import lockPositionController from "../lock-position";
+import sizeController from "../widgets-size";
 import themeController from "../theme";
+import weatherController from "../weather";
 import {settingsContainerHtml} from "./html";
 
 import "./style.css"
-import weatherController from "../weather";
 
 
 class SettingsMenuController {
   static instance: SettingsMenuController | null = null
 
-  #widgetsSettings:IWidgetsSettings
-
   #settingsContainer: HTMLElement
   #openButton: HTMLElement
   #closeButton: HTMLElement
   #settingsMenu: HTMLElement
-
-  constructor() {
-    const settings = getWidgetsSettings()
-    this.#widgetsSettings = settings
-  }
-
 
   static getInstance() {
     if (!SettingsMenuController.instance) {
@@ -47,13 +39,13 @@ class SettingsMenuController {
     // Lock Position Item
     const itemRowLock = lockPositionController.settingsMenuElement()
     this.#settingsMenu.appendChild( itemRowLock )
+    // Size Item
+    const itemRowSize = sizeController.settingsMenuElement()
+    this.#settingsMenu.appendChild( itemRowSize )
     // Theme Item
     const itemRowTheme = themeController.settingsMenuElement()
     this.#settingsMenu.appendChild( itemRowTheme )
     // Weather Item
-    const title = document.createElement('h1')
-    title.textContent = 'Weather'
-    this.#settingsMenu.appendChild( title )
     const itemRowWeather = weatherController.settingsMenuElement()
     this.#settingsMenu.appendChild( itemRowWeather )
 
@@ -69,6 +61,16 @@ class SettingsMenuController {
     this.#closeButton.addEventListener('click', () => {
       this.#settingsMenu.style.display = 'none'
     })
+
+    document.addEventListener('click', (e:any) => {
+      if ( !this.#settingsMenu.contains(e.target)
+        && e.target !== this.#settingsMenu
+        && !this.#openButton.contains(e.target)
+        && e.target !== this.#openButton ) {
+        this.#settingsMenu.style.display = 'none'
+      }
+    })
+
   }
 
 

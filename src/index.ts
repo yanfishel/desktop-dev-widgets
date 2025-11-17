@@ -1,5 +1,9 @@
 import { app, BrowserWindow } from 'electron';
 import {createMainWindow} from "./utils/electron"
+import {registerTray} from "./utils/electron/tray";
+
+import './ipc/handlers'
+
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -9,6 +13,7 @@ if (require('electron-squirrel-startup')) {
 app.whenReady().then(() => {
 
   createMainWindow()
+  registerTray();
 
   app.on('activate', () => {
     // On OS X it's common to re-create a window in the app when the
