@@ -5,9 +5,9 @@ export const devUtilsHtml = `
     <div class="tabs">
         
       <!--TABS-->  
-      <input type="radio" id="tab1" name="tab-control" checked>
-      <input type="radio" id="tab2" name="tab-control">
-      <input type="radio" id="tab3" name="tab-control">  
+      <input type="radio" id="tab1" name="tab-control" data-tab="duck" checked>
+      <input type="radio" id="tab2" name="tab-control" data-tab="datetime">
+      <input type="radio" id="tab3" name="tab-control" data-tab="encode">  
       <ul>
         <li title="Rubber Duck">
           <label for="tab1" role="button" class="home-tab">

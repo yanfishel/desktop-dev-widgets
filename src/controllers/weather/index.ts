@@ -133,7 +133,7 @@ class WeatherController {
 
     dailyWeatherCheckbox.addEventListener('change', (e:any)=> {
       setWidgetsSetting('dailyWeather', {...settings.dailyWeather, active: e.target.checked })
-      this.toggledailyWeather(e.target.checked)
+      this.toggleDailyWeather(e.target.checked)
     })
 
     return element
@@ -148,7 +148,7 @@ class WeatherController {
     const location = getStorageItem('dev-widgets-geo-location')
     if(location){
       const parsed = JSON.parse(location)
-      if(parsed.timestamp + (30 * 60) > new Date().getSeconds()){
+      if(parsed.timestamp + (30 * 60) > new Date().getTime()){
         return parsed
       }
     }
@@ -157,7 +157,7 @@ class WeatherController {
       if(location){
         const data = {
           ...location,
-          timestamp: new Date().getSeconds()
+          timestamp: new Date().getTime()
         }
         setStorageItem('dev-widgets-geo-location', JSON.stringify(data))
         return data
@@ -186,7 +186,7 @@ class WeatherController {
     const forecast = getStorageItem('dev-widgets-weather-forecast')
     if(forecast){
       const data = JSON.parse(forecast)
-      if(data.timestamp + (30 * 60) < new Date().getSeconds() && data.lat === location.lat && data.lon === location.lon){
+      if(data.timestamp + (30 * 60) < new Date().getTime() && data.lat === location.lat && data.lon === location.lon){
         return data
       }
     }
@@ -201,7 +201,7 @@ class WeatherController {
       const responseJson = await response.json()
       const data = {
         ...responseJson,
-        timestamp: new Date().getSeconds(),
+        timestamp: new Date().getTime(),
         lat: location.lat,
         lon: location.lon
       }
@@ -249,7 +249,7 @@ class WeatherController {
 
     const weatherCondition = WEATHER_DATA.find(data => data.code.includes(current.weather_code))
     if(weatherCondition){
-      const icon = WEATHER_ICONS[`${weatherCondition.icon}_${current.isDay ? 'd' : 'n'}` as keyof typeof WEATHER_ICONS]
+      const icon = WEATHER_ICONS[`${weatherCondition.icon}_${current.is_day ? 'd' : 'n'}` as keyof typeof WEATHER_ICONS]
       if(icon) {
         this.#weatherIcon.innerHTML = `<img src="${icon}" alt="${weatherCondition?.description}">`
       }
@@ -318,10 +318,16 @@ class WeatherController {
 
   toggleWeather(show = true) {
     document.getElementById('weather-widget').style.display = show ? 'block' : 'none'
+    if(show) {
+      this.updateWeather()
+    }
   }
 
-  toggledailyWeather(show = true) {
+  toggleDailyWeather(show = true) {
     document.getElementById('daily-weather-widget').style.display = show ? 'block' : 'none'
+    if(show) {
+      this.updateWeatherDaily()
+    }
   }
 
 }

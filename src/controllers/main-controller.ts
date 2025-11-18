@@ -71,6 +71,9 @@ class MainController {
     })
 
     window.electronAPI.onPowerMonitorEvent((_event, name) => {
+      if(name === 'resume') {
+        weatherController.updateAll()
+      }
       console.log('Power Monitor Event:', name);
     })
   }
