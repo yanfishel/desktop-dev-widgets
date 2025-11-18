@@ -4,14 +4,6 @@ import {settingsMenuLockPositionHtml} from "./html";
 class LockPositionController {
   static instance: LockPositionController | null = null
 
-  #widgetsSettings:IWidgetsSettings
-
-  constructor() {
-    const settings = getWidgetsSettings()
-    this.#widgetsSettings = settings
-  }
-
-
   static getInstance() {
     if (!LockPositionController.instance) {
       LockPositionController.instance = new LockPositionController()
@@ -20,10 +12,11 @@ class LockPositionController {
     return LockPositionController.instance
   }
 
-
   init() {
+    const settings = getWidgetsSettings()
+
     // DRAGGABLE ICON IF NOT LOCKEDs
-    if(!this.#widgetsSettings.locked){
+    if(!settings.locked){
       document.getElementById('drag-icon').style.display = 'block'
     }
   }

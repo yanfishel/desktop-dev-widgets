@@ -1,16 +1,18 @@
 :root {
   --text-primary: #111827;
-  --text-muted: rgba(15, 23, 42, 0.65);
+  --text-muted: rgb( from var(--text-primary) r g b / 0.35);
   --accent: #38bdf8;
   --accent-contrast: #fff;
   --outline: rgba(186, 207, 234, 0.15);
-  --border: #d5d6dd;
+
   --button-opacity: 0.35;
   --main-background: rgb(246, 248, 250);
-  --container-background: rgba(246, 248, 250, .75);
+  --container-background: rgb(246, 248, 250);
+  --container-opacity: 0.85;
 
   --text-shadow: 1px 1px 0 rgba(255,255,255,0.45);
   --container-box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.65) inset, 0 24px 60px -40px rgba(15, 23, 42, 0.9);
+  --input-background: rgba(0,0,0,0.05);
 
   --radial-background-1: radial-gradient(circle, rgba(212, 179, 255, 0.25), rgba(189, 147, 249, 0.133));
   --radial-background-2: radial-gradient(circle, rgba(255, 153, 214, 0.19), rgba(255, 121, 198, 0.082));
@@ -23,6 +25,8 @@
   --weather-icon-size: 70px;
   --widgets-distance: .85rem;
 
+  --border: rgb( from var(--text-primary) r g b / 0.15);
+
   --font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --action-bar-padding: 30px;
   -webkit-user-select: none;
@@ -30,17 +34,17 @@
 }
 .theme-dark {
   --text-primary: #f8fafc;
-  --text-muted: rgba(226, 232, 240, 0.68);
+  /*--text-muted: rgba(226, 232, 240, 0.68);*/
   --accent: #38bdf8;
   --accent-contrast: #fff;
   --outline: rgba(148, 163, 184, 0.28);
-  --border: #d5d6dd;
   --button-opacity: 0.35;
   --main-background: rgb(32, 34, 43);
-  --container-background: rgba(32, 34, 43, 0.75);
+  --container-background: rgb(32, 34, 43);
 
   --text-shadow: 1px 1px 0 rgba(0,0,0,1);
   --container-box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.65) inset, 0 24px 60px -40px rgba(15, 23, 42, 0.9);
+  --input-background: rgba(255,255,255,0.05);
 
   --scrollbar-background: #102331;
   --scrollbar-thumb: rgba(255,255,255,0.25);
@@ -154,7 +158,7 @@ body {
   border-radius: 10px;
   /*border: 6px solid var(--outline);*/
   box-shadow: var( --container-box-shadow);
-  background: var(--container-background);
+  background: rgba(from var(--container-background) r g b / var(--container-opacity));
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -228,7 +232,7 @@ body {
 
 .container .acction-bar {
   position: absolute;
-  top: 3px;
+  top: 6px;
   right: 3px;
   display: flex;
   flex-direction: column;
@@ -257,15 +261,12 @@ select {
   padding: 5px 8px;
   border: 0;
   border-radius: 4px;
-  background: rgba(0,0,0,0.05);
+  background: var(--input-background);
   color: var(--text-primary);
   font-size: 0.8rem;
   font-family: inherit;
 }
-.theme-dark select {
-  background: rgba(255,255,255,0.1);
-}
-.theme-dark select option {
+select option {
   background-color: var(--container-background);
 }
 input:not([type="checkbox"]) {
@@ -273,14 +274,12 @@ input:not([type="checkbox"]) {
   padding: 5px 8px;
   border: 0;
   border-radius: 4px;
-  background: rgba(0,0,0,0.05);
+  background: var(--input-background);
   color: var(--text-primary);
   font-size: 0.8rem;
   font-family: inherit;
 }
-.theme-dark input {
-  background: rgba(255,255,255,0.1);
-}
+
 
 .switch-container {
   flex:1;

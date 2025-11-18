@@ -2,7 +2,7 @@ import {getStorageItem, getWidgetsSettings, setStorageItem, setWidgetsSetting} f
 import {WEATHER_DATA} from "../../constans";
 import Toast from "../../shared/toast";
 import {WEATHER_ICONS} from "../../assets";
-import {dailyWeatherHtml, dayWeatherHtml, settingsMenuWeatherHtml, weeklyWeatherDay} from "./html";
+import {dailyWeatherHtml, dayWeatherHtml, settingsMenuDailyWeatherHtml, settingsMenuWeatherHtml, weeklyWeatherDay} from "./html";
 
 import "./style.css"
 
@@ -10,22 +10,14 @@ import "./style.css"
 class WeatherController {
   static instance: WeatherController | null = null
 
-  #widgetsSettings:IWidgetsSettings
-
   #globalTimeinput: HTMLInputElement
+  #toast: Toast
 
   #date: HTMLElement
   #country: HTMLElement
   #temp: HTMLElement
   #weatherIcon: HTMLElement
   #weatherDescription: HTMLElement
-  #toast: Toast
-
-
-  constructor() {
-    const settings = getWidgetsSettings()
-    this.#widgetsSettings = settings
-  }
 
 
   static getInstance() {
@@ -90,13 +82,6 @@ class WeatherController {
       setWidgetsSetting('weather', {active: e.target.checked})
       this.toggleWeather(e.target.checked)
     })
-    // Daily weather visible Checkbox
-    const dailyWeatherCheckbox:HTMLInputElement = element.querySelector('input[name="daily-weather-active"]')
-    dailyWeatherCheckbox.checked = settings.dailyWeather.active
-    dailyWeatherCheckbox.addEventListener('change', (e:any)=> {
-      setWidgetsSetting('dailyWeather', {...settings.dailyWeather, active: e.target.checked })
-      this.toggledailyWeather(e.target.checked)
-    })
 
     // Geolocation Auto/Manual settings
     const manualGeoPositionBlock:HTMLElement = element.querySelector('.geo-position-manual')
@@ -130,6 +115,25 @@ class WeatherController {
     geoManualLon?.addEventListener('change', (e:any)=> {
       setWidgetsSetting('location', {name: geoManualCity.value, lat: geoManualLat.value, lon: e.target.value})
       this.updateAll()
+    })
+
+    return element
+  }
+
+  settingsMenuElementDaily() {
+    const settings = getWidgetsSettings()
+
+    const element = document.createElement('div')
+    element.classList.add('settings-menu-item')
+    element.innerHTML = settingsMenuDailyWeatherHtml
+
+    // Daily weather visible Checkbox
+    const dailyWeatherCheckbox:HTMLInputElement = element.querySelector('input[name="daily-weather-active"]')
+    dailyWeatherCheckbox.checked = settings.dailyWeather.active
+
+    dailyWeatherCheckbox.addEventListener('change', (e:any)=> {
+      setWidgetsSetting('dailyWeather', {...settings.dailyWeather, active: e.target.checked })
+      this.toggledailyWeather(e.target.checked)
     })
 
     return element

@@ -93,10 +93,10 @@ export const settingsMenuWeatherHtml = `
   <div class="switch-container">
     <input type="checkbox" id="weather-active" name="weather-active" role="switch">
   </div>
-</div>
-<div class="settings-menu-item">
+</div>`
+
+export const settingsMenuDailyWeatherHtml = `
   <label for="daily-weather-active">Daily Weather</label>
   <div class="switch-container">
     <input type="checkbox" id="daily-weather-active" name="daily-weather-active" role="switch">
-  </div>
-</div>`
+  </div>`

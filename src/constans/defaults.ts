@@ -22,11 +22,19 @@ export const WIDGETS_SETTINGS_DEFAULT:IWidgetsSettings = {
   },
   dailyWeather: {
     active: true,
-    order: 0
+    order: 1
+  },
+  webSearch: {
+    active: true,
+    order: 2
+  },
+  devUtils: {
+    active: true,
+    order: 3
   },
   notes: {
     active: true,
-    order: 1
+    order: 4
   },
   autoGeoPosition: true,
   location: { name:'', lat: 0, lon: 0 }

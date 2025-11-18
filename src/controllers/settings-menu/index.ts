@@ -5,6 +5,8 @@ import weatherController from "../weather";
 import {settingsContainerHtml} from "./html";
 
 import "./style.css"
+import webSearchController from "../web-search";
+import notesController from "../notes";
 
 
 class SettingsMenuController {
@@ -48,6 +50,24 @@ class SettingsMenuController {
     // Weather Item
     const itemRowWeather = weatherController.settingsMenuElement()
     this.#settingsMenu.appendChild( itemRowWeather )
+
+    // Sortable Settings Items
+    const sortable = document.createElement('div')
+    sortable.classList.add('sortable-container')
+
+    // Weather Daily Item
+    const itemRowWeatherDaily = weatherController.settingsMenuElementDaily()
+    sortable.appendChild( itemRowWeatherDaily )
+
+    // Web Search Item
+    const itemRowSearch = webSearchController.settingsMenuElement()
+    sortable.appendChild( itemRowSearch )
+
+    const itemRowNotes = notesController.settingsMenuElement()
+    sortable.appendChild( itemRowNotes )
+
+    this.#settingsMenu.appendChild( sortable )
+    // ./ End Sortable Settings Items
 
     container.appendChild( this.#settingsContainer )
   }

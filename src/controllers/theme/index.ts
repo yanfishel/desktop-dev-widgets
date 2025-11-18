@@ -5,14 +5,6 @@ import {settingsMenuHtml} from "./html";
 class ThemeController {
   static instance: ThemeController | null = null
 
-  #widgetsSettings:IWidgetsSettings
-
-  constructor() {
-    const settings = getWidgetsSettings()
-    this.#widgetsSettings = settings
-  }
-
-
   static getInstance() {
     if (!ThemeController.instance) {
       ThemeController.instance = new ThemeController()
@@ -22,29 +14,28 @@ class ThemeController {
   }
 
   init() {
-    
+    const settings = getWidgetsSettings()
 
     // Set initial theme && Listen for system theme changes
     const systemDarkTheme = window.matchMedia("(prefers-color-scheme: dark)")
     systemDarkTheme.addEventListener("change", (e)=>this.setSystemTheme(e.matches))
-    if(this.#widgetsSettings.theme === 'system') {
+    if(settings.theme === 'system') {
       this.setDarkTheme(systemDarkTheme.matches);
     } else {
-      this.setDarkTheme(this.#widgetsSettings.theme === 'dark')
+      this.setDarkTheme(settings.theme === 'dark')
     }
   }
 
   settingsMenuElement() {
-    if(!this.#widgetsSettings){
-      this.#widgetsSettings = getWidgetsSettings()
-    }
+    const settings = getWidgetsSettings()
+
     const element = document.createElement('div')
     element.classList.add('settings-menu-item')
     element.innerHTML = settingsMenuHtml
 
     // Add event listener to select element
     const select = element.querySelector('select')
-    select.value = this.#widgetsSettings.theme ?? 'system'
+    select.value = settings.theme ?? 'system'
     select.addEventListener('change', (e:any)=> this.changeTheme(e.target.value))
 
     element.appendChild(select)
@@ -59,7 +50,7 @@ class ThemeController {
     } else {
       this.setDarkTheme(theme === 'dark')
     }
-    this.#widgetsSettings = setWidgetsSetting('theme', theme)
+    setWidgetsSetting('theme', theme)
   }
 
   private systemTheme(){

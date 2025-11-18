@@ -15,3 +15,9 @@ export const notesWidgetHtml = `
     <div class="notes-view"></div>
     <textarea></textarea>
   </div>`
+
+export const settingsMenuNotesHtml = `
+  <label for="notes-active">Notes</label>
+  <div class="switch-container">
+    <input type="checkbox" id="notes-active" name="notes-active" role="switch">
+  </div>`

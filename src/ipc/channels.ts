@@ -1,10 +1,11 @@
 // IPC channels
 export enum IpcChannels {
   WIDGET_SIZE = 'widget-size', // Set widget size
+  POWER_MONITOR_EVENT = 'power-monitor-event',
 
+  OPEN_EXTERNAL = 'open-external', // Channel for opening external links
 
-  WINDOW_ACTION = 'window-action', // Channel for window actions
-
+  /*WINDOW_ACTION = 'window-action', // Channel for window actions
   GET_APP_VERSION = 'get-app-version', // Channel for getting app version
 
   READ_CUSTOM_DATA = 'read-custom-data', // Channel for reading custom data
@@ -33,11 +34,10 @@ export enum IpcChannels {
   LOCK_WIDGET = 'lock-widget', // Channel for locking widgets
   SET_ALWAYS_ON_TOP = 'set-always-on-top', // Channel for setting always on top
 
-  OPEN_EXTERNAL = 'open-external', // Channel for opening external links
   SHOW_NOTIFICATION = 'show-notification', // Channel for showing notifications
   GET_DISK_USAGE = 'get-disk-usage', // Channel for opening external links
   SYSTEM_INFO = 'system-info', // Channel for getting system information
   GET_LOCATION = 'get-location', // Channel for getting location
   RSS_FEED_PARSER = 'rss-feed-parser', // Channel for parse rss feed
-  OPML_TO_JSON = 'opml-to-json', // Channel for parse opml to json
+  OPML_TO_JSON = 'opml-to-json', // Channel for parse opml to json*/
 }

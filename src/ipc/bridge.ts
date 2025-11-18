@@ -7,8 +7,17 @@ import {IpcChannels} from "./channels";
  */
 contextBridge.exposeInMainWorld('electronAPI', {
 
-  setWidgetsSize: (size: string) => ipcRenderer.invoke(IpcChannels.WIDGET_SIZE, size),
+  setWidgetsSize: (size: string) =>
+    ipcRenderer.invoke(IpcChannels.WIDGET_SIZE, size),
 
-  onWidgetsResize: (callback:any) => ipcRenderer.on(IpcChannels.WIDGET_SIZE, callback)
+  openExternal: (path: string) =>
+    ipcRenderer.invoke(IpcChannels.OPEN_EXTERNAL, path),
+
+
+  onWidgetsResize: (callback:any) =>
+    ipcRenderer.on(IpcChannels.WIDGET_SIZE, callback),
+
+  onPowerMonitorEvent: (callback:any) =>
+    ipcRenderer.on(IpcChannels.POWER_MONITOR_EVENT, callback),
 
 })

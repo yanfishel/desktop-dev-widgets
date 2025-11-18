@@ -1,11 +1,8 @@
-import {getWidgetsSettings, setWidgetsSetting} from "../../utils/widgets-settings";
 import {analogClockHtml} from "./html";
 import "./style.css"
 
 class AnalogClockController {
   static instance: AnalogClockController | null = null
-
-  #widgetsSettings:IWidgetsSettings
 
   #hourhand: HTMLElement
   #minutehand: HTMLElement
@@ -13,12 +10,6 @@ class AnalogClockController {
   #date: HTMLElement
 
   #globalTimeInput: HTMLInputElement
-
-  constructor() {
-    const settings = getWidgetsSettings()
-    this.#widgetsSettings = settings
-  }
-
 
   static getInstance() {
     if (!AnalogClockController.instance) {
@@ -46,9 +37,6 @@ class AnalogClockController {
   }
 
   settingsMenuElement() {
-    if(!this.#widgetsSettings){
-      this.#widgetsSettings = getWidgetsSettings()
-    }
     const element = document.createElement('div')
     element.classList.add('settings-menu-item')
 

@@ -1,7 +1,7 @@
 import {NOTES_PLACEHOLDER} from "../../constans";
 import Toast from "../../shared/toast";
-import { getWidgetsSettings, getStorageItem, setStorageItem } from "../../utils";
-import { notesWidgetHtml } from "./html";
+import {getWidgetsSettings, getStorageItem, setStorageItem, setWidgetsSetting} from "../../utils";
+import {notesWidgetHtml, settingsMenuNotesHtml} from "./html";
 
 import "./style.css"
 
@@ -9,19 +9,11 @@ import "./style.css"
 class NotesController {
   static instance: NotesController | null = null
 
-  #widgetsSettings:IWidgetsSettings
-  #widgetSettings: TWidget
   #toast: Toast
   #input: HTMLTextAreaElement
   #view: HTMLElement
   #buttonCopy: HTMLElement
   #buttonClear: HTMLElement
-
-  constructor() {
-    const settings = getWidgetsSettings()
-    this.#widgetsSettings = settings
-    this.#widgetSettings = settings.notes
-  }
 
 
   static getInstance() {
@@ -33,10 +25,13 @@ class NotesController {
   }
 
   build(container: HTMLElement) {
+    const settings = getWidgetsSettings()
+
     const elem = document.createElement('div')
     elem.id = 'notes-widget'
     elem.innerHTML = notesWidgetHtml
-    elem.style.order = this.#widgetSettings.order.toString()
+    elem.style.order = settings.notes.order+''
+    elem.style.display = settings.notes.active ? 'block' : 'none'
 
     this.#input = elem.querySelector('textarea')
     this.#view = elem.querySelector('.notes-view')
@@ -51,6 +46,22 @@ class NotesController {
     this.listeners()
 
     container.appendChild(elem)
+  }
+
+  settingsMenuElement() {
+    const settings = getWidgetsSettings()
+
+    const element = document.createElement('div')
+    element.classList.add('settings-menu-item')
+    element.innerHTML = settingsMenuNotesHtml
+    const checkbox:HTMLInputElement = element.querySelector('input[name="notes-active"]')
+    checkbox.checked = settings.notes.active
+
+    checkbox.addEventListener('change', (e:any)=> {
+      document.getElementById('notes-widget').style.display = e.target.checked ? 'block' : 'none'
+      setWidgetsSetting('notes', {...settings.notes, active: e.target.checked })
+    })
+    return element
   }
   
   listeners() {
