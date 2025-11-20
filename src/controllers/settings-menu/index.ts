@@ -7,6 +7,7 @@ import {settingsContainerHtml} from "./html";
 import "./style.css"
 import webSearchController from "../web-search";
 import notesController from "../notes";
+import devUtilsController from "../dev-utils";
 
 
 class SettingsMenuController {
@@ -26,7 +27,7 @@ class SettingsMenuController {
   }
 
 
-  build(container: HTMLElement) {
+  public build(container: HTMLElement) {
     this.#settingsContainer = document.createElement('div')
     this.#settingsContainer.id = 'settings-container'
     this.#settingsContainer.innerHTML = settingsContainerHtml
@@ -51,6 +52,11 @@ class SettingsMenuController {
     const itemRowWeather = weatherController.settingsMenuElement()
     this.#settingsMenu.appendChild( itemRowWeather )
 
+    // Title
+    const widgetsTitle = document.createElement('h1')
+    widgetsTitle.textContent = 'Widgets'
+    this.#settingsMenu.appendChild( widgetsTitle )
+
     // Sortable Settings Items
     const sortable = document.createElement('div')
     sortable.classList.add('sortable-container')
@@ -58,11 +64,13 @@ class SettingsMenuController {
     // Weather Daily Item
     const itemRowWeatherDaily = weatherController.settingsMenuElementDaily()
     sortable.appendChild( itemRowWeatherDaily )
-
     // Web Search Item
     const itemRowSearch = webSearchController.settingsMenuElement()
     sortable.appendChild( itemRowSearch )
-
+    // Dev Utils Item
+    const itemRowDevUtils = devUtilsController.settingsMenuElement()
+    sortable.appendChild( itemRowDevUtils )
+    // Item Notes
     const itemRowNotes = notesController.settingsMenuElement()
     sortable.appendChild( itemRowNotes )
 
@@ -72,7 +80,7 @@ class SettingsMenuController {
     container.appendChild( this.#settingsContainer )
   }
 
-  listeners() {
+  private listeners() {
     // Add event listeners
     this.#openButton.addEventListener('click', () => {
       this.#settingsMenu.style.display = 'block'

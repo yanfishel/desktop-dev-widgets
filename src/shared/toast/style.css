@@ -1,0 +1,55 @@
+
+.toast {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 26px;
+  padding: 5px 12px 7px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent);
+  color: var(--accent-contrast);
+  font-size: 0.7rem;
+  line-height: 1em;
+  font-weight: bold;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+  transition: all 0.2s ease-in-out;
+
+  button {
+    position: absolute;
+    top: 50%;
+    right: 3px;
+    margin-top: -1px;
+    transform: translateY(-50%);
+    background: transparent;
+    border: 0;
+    color: var(--accent-contrast);
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 0;
+
+    svg {
+      display: block;
+    }
+  }
+
+  &:has(button) {
+    padding-right: 25px;
+  }
+
+  &.hidden {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-100%) scale(0.8);
+    z-index: -1;
+  }
+
+  &.success {
+    background: var(--accent);
+  }
+  &.error {
+    background: #ff0000;
+  }
+}

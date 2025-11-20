@@ -3,61 +3,58 @@
   position: relative;
   width: 100%;
   height: 100px;
-}
-#notes-widget .container {
-  height: 100%;
-  padding: 8px 10px;
-  padding-right: var(--action-bar-padding);
-}
-/*#notes-widget:hover .container,
-#notes-widget:active .container,
-#notes-widget:focus-within .container {
-  opacity: 1;
-}*/
 
-#notes-widget .container textarea {
-  resize: none;
-  width: calc(100% - 10px - var(--action-bar-padding));
-  height: calc(100% - 16px);
-  position: absolute;
-  background: transparent;
-  color: var(--text-primary);
-  border: none;
-  outline: none;
-  font-family: var(--font-family);
-  font-size: 0.75rem;
-  line-height: 1.35em;
-  text-align: start;
-  padding: 0;
-  padding-inline-start: 1rem;
-  opacity: 0;
-}
-#notes-widget .container .notes-view {
-  position: absolute;
-  width: calc(100% - 10px - var(--action-bar-padding));
-  height: calc(100% - 16px);
-  background: transparent;
-  color: var(--text-primary);
-  border: none;
-  outline: none;
-  font-family: var(--font-family);
-  font-size: 0.75rem;
-  line-height: 1.35em;
-  text-align: start;
-  overflow: auto;
-  opacity: 1;
-}
+  .container {
+    height: 100%;
+    padding: 8px var(--action-bar-padding) 8px 10px;
 
-#notes-widget .container .notes-view ul {
-  padding: 0;
-  padding-inline-start: 1rem;
-  margin: 0;
-}
-#notes-widget .container .notes-view ul li {
-  padding:0;
-  margin:0;
-}
-#notes-widget .container .notes-view ul li::marker {
-  margin: 0;
-  padding: 0;
+    textarea {
+      resize: none;
+      width: calc(100% - 10px - var(--action-bar-padding));
+      height: calc(100% - 16px);
+      position: absolute;
+      background: transparent;
+      color: var(--text-primary);
+      border: none;
+      outline: none;
+      font-family: var(--font-family);
+      font-size: 0.75rem;
+      line-height: 1.35em;
+      text-align: start;
+      padding: 0;
+      padding-inline-start: 1rem;
+      opacity: 0;
+    }
+
+    .notes-view {
+      position: absolute;
+      width: calc(100% - 10px - var(--action-bar-padding));
+      height: calc(100% - 16px);
+      background: transparent;
+      color: var(--text-primary);
+      border: none;
+      outline: none;
+      font-family: var(--font-family);
+      font-size: 0.75rem;
+      line-height: 1.35em;
+      text-align: start;
+      overflow: auto;
+      opacity: 1;
+
+      ul {
+        padding: 0;
+        padding-inline-start: 1rem;
+        margin: 0;
+
+        li {
+          padding:0;
+          margin:0;
+          &::marker {
+            margin: 0;
+            padding: 0;
+          }
+        }
+      }
+    }
+  }
 }

@@ -24,7 +24,7 @@ class NotesController {
     return NotesController.instance
   }
 
-  build(container: HTMLElement) {
+  public build(container: HTMLElement) {
     const settings = getWidgetsSettings()
 
     const elem = document.createElement('div')
@@ -48,7 +48,7 @@ class NotesController {
     container.appendChild(elem)
   }
 
-  settingsMenuElement() {
+  public settingsMenuElement() {
     const settings = getWidgetsSettings()
 
     const element = document.createElement('div')
@@ -64,7 +64,7 @@ class NotesController {
     return element
   }
   
-  listeners() {
+  private listeners() {
     this.#input.addEventListener('change', (e:any)=> {
       this.updateNotes(e.target.value)
     })
@@ -88,7 +88,7 @@ class NotesController {
     })
   }
 
-  switchVisibility(edit = false){
+  private switchVisibility(edit = false){
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     this.#input.style.opacity = edit ? 1 : 0
@@ -97,7 +97,7 @@ class NotesController {
     this.#view.style.opacity = edit ? 0 : 1
   }
   
-  updateNotes(notes:string){
+  private updateNotes(notes:string){
     if(notes === '') {
       this.#view.innerHTML = ''
       setStorageItem('dev-widgets-notes', '')
@@ -117,7 +117,7 @@ class NotesController {
     setStorageItem('dev-widgets-notes', stringValue)
   }
 
-  async copyNotesToClipboard() {
+  private async copyNotesToClipboard() {
     if(!this.#input.value) return
     try {
       await navigator.clipboard.writeText(this.#input.value);
@@ -128,7 +128,7 @@ class NotesController {
     }
   }
 
-  clearNotes() {
+  private clearNotes() {
     this.updateNotes('')
   }
 

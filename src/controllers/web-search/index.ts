@@ -20,7 +20,7 @@ class WebSearch {
     return WebSearch.instance
   }
 
-  build(container: HTMLElement){
+  public build(container: HTMLElement){
     const settings = getWidgetsSettings()
     const storedEngine = getStorageItem('dev-widgets-web-search-engine')
 
@@ -59,7 +59,7 @@ class WebSearch {
     container.appendChild(elem)
   }
 
-  settingsMenuElement(){
+  public settingsMenuElement(){
     const settings = getWidgetsSettings()
 
     const element = document.createElement('div')
@@ -76,7 +76,7 @@ class WebSearch {
     return element
   }
 
-  search(){
+  private search(){
     const query = this.#searchInput.value.trim()
     if(!query) return
     const engine = SEARCH_ENGINES.find(engine => engine.name === this.#searchIngineSelect.value)

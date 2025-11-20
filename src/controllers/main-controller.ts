@@ -64,6 +64,11 @@ class MainController {
     }
   }
 
+  onResume() {
+    weatherController.updateAll()
+    devUtilsController.update()
+  }
+
   electronAPI(){
     // Listen for widgets resize event
     window.electronAPI.onWidgetsResize((_event, size) => {
@@ -72,9 +77,8 @@ class MainController {
 
     window.electronAPI.onPowerMonitorEvent((_event, name) => {
       if(name === 'resume') {
-        weatherController.updateAll()
+        this.onResume()
       }
-      console.log('Power Monitor Event:', name);
     })
   }
 

@@ -1,0 +1,180 @@
+
+#dev-utils-widget {
+
+  /* -- DATE AND TIME - */
+  .date-time-container {
+    padding: 10px 0 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+
+    h2 {
+      width: 100%;
+      font-size: 0.725rem;
+      font-weight: 500;
+      padding: 0;
+      margin: 0 0 3px;
+      text-align: left;
+    }
+
+    table {
+      width: 100%;
+      border: 0;
+      border-collapse: collapse;
+      font-size: 0.7rem;
+      line-height: 1.25em;
+      margin-bottom: 6px;
+
+      td {
+        padding: 0 6px;
+        text-align: left;
+        position: relative;
+      }
+
+      &.current-time,
+      &.date-time-result {
+        width: auto;
+        /*align-self: flex-end;*/
+        margin-bottom: 8px;
+
+
+        input:not([type="checkbox"]) {
+          width: auto;
+          max-width: 105px;
+          background: transparent;
+          font-family: monospace;
+          letter-spacing: 0.5px;
+          font-size: 0.725rem;
+          font-weight: 600;
+          text-align: left;
+          padding: 2px 6px;
+        }
+      }
+
+      &.convert-time,
+      &.convert-date {
+        width: 100%;
+        align-self: flex-start;
+
+        tr:nth-child(even) td {
+          padding: 1px 6px;
+        }
+
+        tr:nth-child(odd) td {
+          padding-left: 9px;
+        }
+
+        input:not([type="checkbox"]) {
+          padding: 2px 6px;
+          min-width: unset;
+          letter-spacing: 0.5px;
+          font-size: 0.7rem;
+          height: 20px;
+        }
+
+        select {
+          max-width: 178px;
+          font-size: 0.7rem;
+          padding: 4px 6px;
+          outline: none;
+
+          &[name="standart-formats"] {
+            max-width: 150px;
+          }
+        }
+      }
+
+      &.convert-date {
+        input {
+          text-align: center;
+        }
+      }
+
+      &.date-time-result {
+        width: 100%;
+        margin: 2px 0 0;
+
+        td:last-child {
+          width: 20px;
+        }
+        input:not([type="checkbox"]) {
+          width: 100%;
+          max-width: 100%;
+          padding: 0;
+          text-align: right;
+        }
+      }
+
+    }
+
+    .help-text {
+      font-size: 0.7rem;
+      line-height: 1.1em;
+      margin: -1px 0 6px;
+      color: rgb(from var(--text-primary) r g b / 0.55);
+    }
+
+    .copy-button {
+      display: inline-flex;
+      vertical-align: middle;
+      width: 20px;
+      height: 20px;
+      svg {
+        width: 0.75rem;
+      }
+    }
+
+    input {
+      & + span {
+        display: none;
+        &:before {
+          content: "Enter a number";
+          position: absolute;
+          width: max-content;
+          top: -18px;
+          left: 6px;
+          background: #cc0000;
+          color: #fff;
+          border-radius: 4px;
+          padding: 3px 6px;
+          font-size: 0.6rem;
+          line-height: 1.1em;
+        }
+      }
+      &[name="year"] + span:before {
+        content: "Enter year from 1970 to 9999";
+      }
+      &[name="month"] + span:before {
+        content: "Enter month from 1 to 12";
+      }
+      &[name="day"] + span:before {
+        content: "Enter day from 1 to 31";
+        left: auto;
+        right: 6px;
+      }
+      &[name="hour"] + span:before {
+        content: "Enter hour from 0 to 23";
+      }
+      &[name="minute"] + span:before {
+        content: "Enter minute from 0 to 59";
+      }
+      &[name="second"] + span:before {
+        content: "Enter second from 0 to 59";
+        left: auto;
+        right: 6px;
+      }
+      &.has-error:focus + span {
+        display: block;
+      }
+    }
+  }
+}
+
+.widgets-size-small #dev-utils-widget .date-time-container .convert-time select {
+  max-width: 152px !important;
+
+  &[name="standart-formats"] {
+    max-width: 120px !important;
+  }
+}

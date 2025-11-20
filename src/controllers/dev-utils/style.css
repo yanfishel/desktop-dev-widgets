@@ -1,70 +1,50 @@
 
 :root {
-  --dev-utils-widget-height: 270px;
+  --dev-utils-widget-height: 336px;
 }
+
 
 #dev-utils-widget {
   width: 100%;
-}
-#dev-utils-widget > .container {
-  height: var(--dev-utils-widget-height);
-  padding-right: 8px;
-}
 
-#dev-utils-widget .tabs {
-  height: 100%;
-}
-#dev-utils-widget .tabs .content {
-  height: calc(var(--dev-utils-widget-height) - 26px - 16px);
-}
-#dev-utils-widget .tabs .content section {
-  height: 100%;
-}
-#dev-utils-widget .tabs ul li {
-  width: auto;
-  max-width: unset;
-}
-#dev-utils-widget .tabs .home-tab svg {
-  width: .9rem;
-  min-width: .9rem;
-  height: .9rem;
-}
+  & > .container {
+    height: var(--dev-utils-widget-height);
+    padding: 8px;
+  }
 
-#dev-utils-widget .container .content .container {
-  height: 100%;
-  border: 0;
-  background: transparent;
-  box-shadow: none;
-}
+  .tabs {
+    height: 100%;
 
-#dev-utils-widget .rubber-duck-container {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-}
-#dev-utils-widget .rubber-duck-container #filter-button {
-  position: absolute;
-  top: 5px;
-  right: 0;
-}
-#dev-utils-widget .rubber-duck-container #rubber-duck-info-button {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-}
-#dev-utils-widget .rubber-duck-image {
-  width: 160px;
-  height: 160px;
-  background: url("/public/images/duck.png") no-repeat center center;
-  background-size: contain;
-  filter: grayscale(1);
-  opacity: 0.65;
-  margin-bottom: 5px;
-}
-#dev-utils-widget .rubber-duck-image.image-on {
-  filter: none;
-  opacity: 1;
+    ul {
+      li {
+        width: auto;
+        max-width: unset;
+
+        .home-tab {
+          svg {
+            width: .9rem;
+            min-width: .9rem;
+            height: .9rem;
+          }
+        }
+      }
+    }
+
+    .content {
+      height: calc(var(--dev-utils-widget-height) - 26px - 16px);
+
+      section {
+        height: 100%;
+        position: relative;
+      }
+
+      .container {
+        height: 100%;
+        border: 0;
+        background: transparent;
+        box-shadow: none;
+      }
+
+    }
+  }
 }

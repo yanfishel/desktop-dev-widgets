@@ -1,0 +1,92 @@
+
+#dev-utils-widget {
+
+  /* -- RUBBER DUCK - */
+  .rubber-duck-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+
+    .rubber-duck-image {
+      width: 160px;
+      height: 160px;
+      background: url("/public/images/duck.png") no-repeat center center;
+      background-size: contain;
+      filter: grayscale(1);
+      opacity: 0.65;
+      margin-bottom: 5px;
+
+      &.image-on {
+        filter: none;
+        opacity: 1;
+      }
+    }
+
+    #filter-button {
+      position: absolute;
+      top: 5px;
+      right: 0;
+    }
+
+    #info-button {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+    }
+
+    .rubber-duck-info {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      border-radius: 5px;
+      padding: 10px 14px;
+      font-size: 0.725rem;
+      line-height: 1.25em;
+      text-align: left;
+      background: rgb( from var(--container-background) r g b / 0.85);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.25);
+      text-shadow: var(--text-shadow);
+      transition: all 0.2s ease-in-out;
+      z-index: -1;
+      transform: translateY(-50px);
+      opacity: 0;
+
+      &.open {
+        transform: translateY(0);
+        opacity: 1;
+        z-index: 1;
+      }
+
+      p {
+        padding: 0;
+        margin: 0;
+      }
+
+      .close-info-button {
+        width: 24px;
+        height: 24px;
+        position: absolute;
+        top: -24px;
+        right: 0;
+        color: var(--text-primary);
+        background: transparent;
+        border: 0;
+        padding: 0;
+        cursor: pointer;
+        opacity: 0.65;
+        transition: opacity 0.2s ease-in-out;
+        svg {
+          width: 24px;
+          height: 24px;
+        }
+        &:hover {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+}

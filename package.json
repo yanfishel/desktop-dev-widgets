@@ -42,6 +42,9 @@
     "typescript": "~4.5.4"
   },
   "dependencies": {
+    "@date-fns/tz": "^1.4.1",
+    "base32-encode": "^2.0.0",
+    "date-fns": "^4.1.0",
     "electron-is": "^3.0.0",
     "electron-localshortcut": "^3.2.1",
     "electron-squirrel-startup": "^1.0.1",

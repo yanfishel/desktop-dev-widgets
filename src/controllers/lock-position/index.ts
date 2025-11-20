@@ -12,7 +12,7 @@ class LockPositionController {
     return LockPositionController.instance
   }
 
-  init() {
+  public init() {
     const settings = getWidgetsSettings()
 
     // DRAGGABLE ICON IF NOT LOCKEDs
@@ -22,7 +22,7 @@ class LockPositionController {
   }
 
 
-  settingsMenuElement() {
+  public settingsMenuElement() {
     const settings = getWidgetsSettings()
 
     const element = document.createElement('div')

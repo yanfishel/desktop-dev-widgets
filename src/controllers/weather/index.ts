@@ -10,6 +10,8 @@ import "./style.css"
 class WeatherController {
   static instance: WeatherController | null = null
 
+  #dataLifetime = 30 * 60 * 1000
+
   #globalTimeinput: HTMLInputElement
   #toast: Toast
 
@@ -28,7 +30,7 @@ class WeatherController {
     return WeatherController.instance
   }
 
-  async build(container: HTMLElement) {
+  public async build(container: HTMLElement) {
     const settings = getWidgetsSettings()
 
     const elem = document.createElement('div')
@@ -52,7 +54,7 @@ class WeatherController {
     container.appendChild(elem)
   }
 
-  buildDaily(container: HTMLElement){
+  public buildDaily(container: HTMLElement){
     const settings = getWidgetsSettings()
 
     const elem = document.createElement('div')
@@ -69,7 +71,7 @@ class WeatherController {
     this.updateWeatherDaily()
   }
 
-  settingsMenuElement() {
+  public settingsMenuElement() {
     const element = document.createElement('span')
     element.innerHTML = settingsMenuWeatherHtml
 
@@ -120,7 +122,7 @@ class WeatherController {
     return element
   }
 
-  settingsMenuElementDaily() {
+  public settingsMenuElementDaily() {
     const settings = getWidgetsSettings()
 
     const element = document.createElement('div')
@@ -139,7 +141,7 @@ class WeatherController {
     return element
   }
 
-  async getGeoPosition() {
+  private async getGeoPosition() {
     const settings = getWidgetsSettings()
     if(!settings.autoGeoPosition) {
       return settings.location
@@ -148,7 +150,7 @@ class WeatherController {
     const location = getStorageItem('dev-widgets-geo-location')
     if(location){
       const parsed = JSON.parse(location)
-      if(parsed.timestamp + (30 * 60) > new Date().getTime()){
+      if(parsed.timestamp + this.#dataLifetime > new Date().getTime()){
         return parsed
       }
     }
@@ -167,7 +169,7 @@ class WeatherController {
     }
   }
   
-  async getWeatherData() {
+  private async getWeatherData() {
     if(this.#toast){
       await this.#toast.hide()
     }
@@ -186,7 +188,7 @@ class WeatherController {
     const forecast = getStorageItem('dev-widgets-weather-forecast')
     if(forecast){
       const data = JSON.parse(forecast)
-      if(data.timestamp + (30 * 60) < new Date().getTime() && data.lat === location.lat && data.lon === location.lon){
+      if( data.timestamp + this.#dataLifetime > new Date().getTime() && data.lat === location.lat && data.lon === location.lon ){
         return data
       }
     }
@@ -215,7 +217,7 @@ class WeatherController {
     }
   }
 
-  async updateDate() {
+  private async updateDate() {
     const settings = getWidgetsSettings()
     if(!settings.weather.active) return
 
@@ -232,7 +234,7 @@ class WeatherController {
     }
   }
   
-  async updateWeather() {
+  private async updateWeather() {
     const settings = getWidgetsSettings()
     if(!settings.weather.active) return
 
@@ -257,7 +259,7 @@ class WeatherController {
     }
   }
 
-  async updateWeatherDaily() {
+  private async updateWeatherDaily() {
     const parent = document.getElementById('daily-weather-widget')
     if(!parent) return
     if(this.#toast){
@@ -286,13 +288,13 @@ class WeatherController {
     parent.querySelector('.container').innerHTML = daysHtml
   }
 
-  async updateAll(){
+  public async updateAll(){
     await this.updateDate()
     await this.updateWeather()
     await this.updateWeatherDaily()
   }
 
-  timeListener(e:any){
+  private timeListener(e:any){
     const time = e.target.value.split(':')
     const hour = time[0]
     const minutes = parseInt(time[1], 10)
@@ -306,7 +308,7 @@ class WeatherController {
     }
   }
 
-  dailyTimeListener(e:any) {
+  private dailyTimeListener(e:any) {
     const time = e.target.value.split(':')
     const hour = time[0]
     const minutes = parseInt(time[1], 10)
@@ -316,14 +318,14 @@ class WeatherController {
     }
   }
 
-  toggleWeather(show = true) {
+  public toggleWeather(show = true) {
     document.getElementById('weather-widget').style.display = show ? 'block' : 'none'
     if(show) {
       this.updateWeather()
     }
   }
 
-  toggleDailyWeather(show = true) {
+  public toggleDailyWeather(show = true) {
     document.getElementById('daily-weather-widget').style.display = show ? 'block' : 'none'
     if(show) {
       this.updateWeatherDaily()

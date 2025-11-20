@@ -2,7 +2,7 @@ import {copyIconHover, copyIconRegular, trashIconHover, trashIconRegular} from "
 
 export const notesWidgetHtml = `
   <div class="container">
-    <div class="acction-bar">
+    <div class="action-bar">
       <div class="circle-button copy-button">
         ${ copyIconRegular }
         ${ copyIconHover }

@@ -14,14 +14,14 @@ class SizeController {
     return SizeController.instance
   }
 
-  init(){
+  public init(){
     const settings = getWidgetsSettings()
 
     document.documentElement.classList.remove("widgets-size-small", "widgets-size-medium", "widgets-size-large")
     document.documentElement.classList.add(`widgets-size-${settings.size ?? 'large'}`)
   }
 
-  settingsMenuElement() {
+  public settingsMenuElement() {
     const settings = getWidgetsSettings()
 
     const element = document.createElement('div')
@@ -45,7 +45,7 @@ class SizeController {
     return element
   }
 
-  setWidgetsSize(size:TWidgetsSize){
+  public setWidgetsSize(size:TWidgetsSize){
     document.documentElement.classList.remove("widgets-size-small", "widgets-size-medium", "widgets-size-large")
     document.documentElement.classList.add(`widgets-size-${size}`)
     setWidgetsSetting('size', size);

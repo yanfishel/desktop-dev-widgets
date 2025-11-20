@@ -1,5 +1,8 @@
-import {wait} from "../utils";
-import {closeIcon} from "../assets";
+import {wait} from "../../utils";
+import {closeIcon} from "../../assets";
+
+import './style.css'
+
 
 class Toast {
 
@@ -17,7 +20,7 @@ class Toast {
     this.#container.appendChild(this.#toastElement);
   }
 
-  async show(message: string, delay:number|'infinity' = 3000) {
+  public async show(message: string, delay:number|'infinity' = 3000) {
     const text = document.createTextNode(message)
     this.#toastElement.appendChild(text);
     this.#toastElement.classList.remove('hidden');
@@ -27,7 +30,7 @@ class Toast {
     }
   }
 
-  async success(message: string, delay:number|'infinity' = 3000, closeButton = false) {
+  public async success(message: string, delay:number|'infinity' = 3000, closeButton = false) {
     if(this.#visible || this.#timeout) {
       await this.hide()
     }
@@ -38,7 +41,7 @@ class Toast {
     this.show(message, delay);
   }
 
-  async error(message: string, delay:number|'infinity' = 3000, closeButton = false) {
+  public async error(message: string, delay:number|'infinity' = 3000, closeButton = false) {
     if(this.#visible || this.#timeout) {
       await this.hide()
     }
@@ -49,18 +52,18 @@ class Toast {
     this.show(message, delay);
   }
 
-  addCloseButton() {
+  private addCloseButton() {
     const button = document.createElement('button');
     button.innerHTML = closeIcon;
     this.#toastElement.appendChild(button);
     button.addEventListener('click', () => this.hide());
   }
 
-  removeCloseButton() {
+  private removeCloseButton() {
     this.#toastElement.querySelector('button')?.remove();
   }
 
-  async hide() {
+  public async hide() {
     this.#toastElement.classList.add('hidden');
     await wait(0.25)
     this.removeCloseButton()

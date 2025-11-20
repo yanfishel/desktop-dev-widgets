@@ -1,5 +1,6 @@
 import './styles/main.css';
 import './styles/tabs.css';
+import './styles/form.css';
 
 import mainController from "./controllers/main-controller";
 

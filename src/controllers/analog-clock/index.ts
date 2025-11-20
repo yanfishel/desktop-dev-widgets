@@ -19,7 +19,7 @@ class AnalogClockController {
     return AnalogClockController.instance
   }
 
-  build(container: HTMLElement ) {
+  public build(container: HTMLElement ) {
 
     const elem = document.createElement('div')
     elem.id = 'analog-clock'
@@ -36,7 +36,7 @@ class AnalogClockController {
     this.update()
   }
 
-  settingsMenuElement() {
+  public settingsMenuElement() {
     const element = document.createElement('div')
     element.classList.add('settings-menu-item')
 
