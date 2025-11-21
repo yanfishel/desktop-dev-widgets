@@ -41,7 +41,7 @@ class DevUtils {
       else tab.checked = idx === 0
       tab.addEventListener('change', (e:any)=> {
         const tabActive = e.target.dataset.tab
-        dateTimeTabController.toggleActive(activeTab === 'datetime')
+        dateTimeTabController.toggleActive(tabActive === 'datetime')
         setStorageItem('dev-utils-active-tab', tabActive)
       })
     })

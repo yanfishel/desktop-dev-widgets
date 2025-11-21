@@ -48,6 +48,8 @@
     "electron-is": "^3.0.0",
     "electron-localshortcut": "^3.2.1",
     "electron-squirrel-startup": "^1.0.1",
+    "highlight.js": "^11.11.1",
+    "jwt-decode": "^4.0.0",
     "systeminformation": "^5.27.11"
   }
 }

@@ -42,4 +42,6 @@ export const WIDGETS_SETTINGS_DEFAULT:IWidgetsSettings = {
 
 export const NOTES_PLACEHOLDER = 'TYPE YOUR NOTES HERE'
 
+export const IMAGES_MIME = ['image/jpeg', 'image/png', 'image/apng', 'image/gif', 'image/bmp', 'image/webp', 'svg+xml']
+
 export const SETTINGS_STORE_KEY = 'dev-widgets-settings'

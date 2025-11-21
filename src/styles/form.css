@@ -9,6 +9,7 @@ select {
   font-size: 0.8rem;
   font-family: inherit;
 
+  optgroup,
   option {
     background-color: var(--container-background);
   }

@@ -41,14 +41,16 @@ export const dateTimeTabHtml = `
         </td>
       </tr>
     </table>
-    <table class="convert-time">
+    
+    <table class="convert-time time-zone-select">
       <tr>
-        <td style="width:40%;text-align:right">Time zone</td>
-        <td style="text-align: right">
+        <td>Time zone</td>
+        <td>
           <select name="time-zone"></select>
         </td>
       </tr>
     </table>
+    
     <table class="convert-date">
       <tr>
         <td>Year</td>

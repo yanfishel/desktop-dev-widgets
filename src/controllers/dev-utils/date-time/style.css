@@ -83,6 +83,20 @@
             max-width: 150px;
           }
         }
+
+        &.time-zone-select {
+          margin-top: 4px;
+          td {
+            text-align: right;
+            &:last-child {
+              width: 202px;
+            }
+          }
+          select {
+            width: 100%;
+            max-width: 202px;
+          }
+        }
       }
 
       &.convert-date {
@@ -171,10 +185,25 @@
   }
 }
 
-.widgets-size-small #dev-utils-widget .date-time-container .convert-time select {
-  max-width: 152px !important;
+.widgets-size-small #dev-utils-widget .date-time-container {
+  .convert-time {
+    select {
+      max-width: 152px;
 
-  &[name="standart-formats"] {
-    max-width: 120px !important;
+      &[name="standart-formats"] {
+        max-width: 120px !important;
+      }
+    }
+
+    &.time-zone-select {
+      td {
+        &:last-child {
+          width: 176px;
+        }
+      }
+      select {
+        max-width: 176px;
+      }
+    }
   }
 }

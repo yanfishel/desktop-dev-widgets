@@ -17,6 +17,7 @@ class DateTimeTabController {
 
   #interval: NodeJS.Timeout | null = null
   #toast: Toast
+  #started = false
 
   #elem: HTMLElement
   #currentSeconds:HTMLInputElement
@@ -119,18 +120,20 @@ class DateTimeTabController {
   }
 
   private start(){
+    this.#started = true
     this.update()
-    if (this.#interval) {
+    /*if (this.#interval) {
       clearInterval(this.#interval)
     }
-    this.#interval = setInterval(this.update.bind(this), 1000)
+    this.#interval = setInterval(()=>this.update(), 1000)*/
   }
 
   private stop() {
-    if (this.#interval) {
+    this.#started = false
+    /*if (this.#interval) {
       clearInterval(this.#interval)
       this.#interval = null
-    }
+    }*/
   }
 
   public toggleActive(active = false) {
@@ -142,6 +145,9 @@ class DateTimeTabController {
     const now = new Date()
     this.#currentSeconds.value = Math.floor(now.getTime() / 1000).toString()
     this.#currentMilliseconds.value = now.getTime().toString()
+    if(this.#started) {
+      setTimeout(()=>this.update(), 1000 - (now.getMilliseconds() % 1000))
+    }
   }
 
   private setNow() {
