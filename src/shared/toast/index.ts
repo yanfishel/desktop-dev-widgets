@@ -3,6 +3,7 @@ import {closeIcon} from "../../assets";
 
 import './style.css'
 
+export type TToastProps = { message:string, delay?:number|'infinity', closeButton?:boolean }
 
 class Toast {
 
@@ -20,7 +21,7 @@ class Toast {
     this.#container.appendChild(this.#toastElement);
   }
 
-  public async show(message: string, delay:number|'infinity' = 3000) {
+  public async show({message, delay = 3000}:TToastProps) {
     const text = document.createTextNode(message)
     this.#toastElement.appendChild(text);
     this.#toastElement.classList.remove('hidden');
@@ -30,7 +31,7 @@ class Toast {
     }
   }
 
-  public async success(message: string, delay:number|'infinity' = 3000, closeButton = false) {
+  public async success({ message, delay = 3000, closeButton = false}:TToastProps) {
     if(this.#visible || this.#timeout) {
       await this.hide()
     }
@@ -38,10 +39,10 @@ class Toast {
     if(closeButton) {
       this.addCloseButton()
     }
-    this.show(message, delay);
+    this.show({message, delay});
   }
 
-  public async error(message: string, delay:number|'infinity' = 3000, closeButton = false) {
+  public async error({ message, delay = 3000, closeButton = false}:TToastProps) {
     if(this.#visible || this.#timeout) {
       await this.hide()
     }
@@ -49,7 +50,7 @@ class Toast {
     if(closeButton) {
       this.addCloseButton()
     }
-    this.show(message, delay);
+    this.show({message, delay});
   }
 
   private addCloseButton() {

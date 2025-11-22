@@ -16,6 +16,7 @@
     align-items: flex-end;
     flex-wrap: wrap;
     position: relative;
+    z-index: 10;
     height: 26px;
 
     &:before {
@@ -71,7 +72,6 @@
           height: .8rem;
           display: block;
           min-width: .8rem;
-          transition: all 0.2s ease-in-out;
         }
       }
     }

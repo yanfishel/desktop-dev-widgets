@@ -25,3 +25,24 @@ export const formatBytes = (bytes: number, decimals = 2) => {
 
   return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`
 }
+
+export const base64urlEncode = (obj:object) => {
+  const jsonString = JSON.stringify(obj);
+  const base64 = btoa(jsonString);
+  return base64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+
+export const stripslashes = (str:string) => {
+  return (str + '').replace(/\\(.?)/g, function (s, n1) {
+    switch (n1) {
+      case '\\':
+        return '\\'
+      case '0':
+        return '\u0000'
+      case '':
+        return ''
+      default:
+        return n1
+    }
+  })
+}

@@ -176,7 +176,7 @@ class WeatherController {
     const location = await this.getGeoPosition()
     if(!location || !(location.lat*1 && location.lon*1)) {
       if(this.#toast) {
-        this.#toast.error('Error getting Location.', 'infinity', true)
+        this.#toast.error({ message:'Error getting Location.', delay:'infinity', closeButton:true })
       }
       return
     }
@@ -211,7 +211,7 @@ class WeatherController {
       return data
     } catch (error) {
       if(this.#toast) {
-        this.#toast.error('Error fetching weather data.', 'infinity', true)
+        this.#toast.error({message:'Error fetching weather data.', delay:'infinity', closeButton:true})
       }
       console.log('Error fetching weather data:', error)
     }

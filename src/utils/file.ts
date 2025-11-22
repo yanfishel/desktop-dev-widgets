@@ -62,5 +62,8 @@ export const htmlFilePreview = (file:File|string) => {
   image.onload = function() {
     URL.revokeObjectURL(image.src);
   }
+  image.onerror = function(error) {
+    console.error('Error loading image:', error);
+  }
   return image
 }

@@ -108,7 +108,7 @@ class DateTimeTabController {
       })
     })
 
-    this.#toast = new Toast(elem)
+    this.#toast = new Toast(elem.querySelector('.date-time-container'))
 
     this.start()
 
@@ -266,9 +266,9 @@ class DateTimeTabController {
     if(!value) return
     try {
       await navigator.clipboard.writeText(value);
-      this.#toast.success('Copied!')
+      this.#toast.success({message: 'Copied!'})
     } catch (err) {
-      this.#toast.error('Failed to copy!')
+      this.#toast.error({message: 'Failed to copy!'})
       console.error('Failed to copy: ', err);
     }
   }

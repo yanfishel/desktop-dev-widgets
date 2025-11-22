@@ -14,7 +14,7 @@
   --container-opacity: 0.9;
 
   --text-shadow: 1px 1px 0 rgba(255,255,255,0.45);
-  --container-box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.65) inset, 0 24px 60px -40px rgba(15, 23, 42, 0.9);
+  --container-box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.65) inset, 0 14px 30px -24px rgba(15, 23, 42, 0.9);
   --input-background: rgba(0,0,0,0.05);
 
   --radial-background-1: radial-gradient(circle, rgba(212, 179, 255, 0.25), rgba(189, 147, 249, 0.133));
@@ -48,7 +48,7 @@
   --container-background: rgb(32, 34, 43);
 
   --text-shadow: 1px 1px 0 rgba(0,0,0,1);
-  --container-box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.65) inset, 0 24px 60px -40px rgba(15, 23, 42, 0.9);
+  --container-box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.65) inset, 0 14px 30px -24px rgba(15, 23, 42, 0.9);
   --input-background: rgba(255,255,255,0.05);
 
   --scrollbar-background: #102331;
@@ -163,7 +163,7 @@ body {
   padding: 8px;
   border-radius: 10px;
   /*border: 6px solid var(--outline);*/
-  box-shadow: var( --container-box-shadow);
+  /*box-shadow: var( --container-box-shadow);*/
   background: rgba(from var(--container-background) r g b / var(--container-opacity));
   text-align: center;
   display: flex;

@@ -1,10 +1,15 @@
 
 #dev-utils-widget {
 
+  --input-area-height: 117.5px;
+
   .encode-container {
     font-size: 0.8rem;
     height: 100%;
     width: 100%;
+    padding-right: calc(var(--action-bar-padding) - 8px);
+    padding-left: 6px;
+    padding-bottom: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -52,17 +57,31 @@
       gap: 5px;
       position: relative;
 
-      .action-bar {
-        top: 0;
-        right: -28px
-      }
-
       & > * {
         flex: 1;
+      }
+
+      .action-bar {
+        top: 0;
+        right: -27px
       }
     }
 
     .decoded-container {
+      .file-error-message {
+        background: #cc0000;
+        color: white;
+        padding: 3px 7px;
+        font-size: 0.6rem;
+        line-height: 1.2em;
+        border-radius: 3px;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 3;
+        display: none;
+      }
+
       .drag-zone {
         /*border: 1px dashed var(--border);*/
         border-radius: 5px;
@@ -162,7 +181,9 @@
       .decoded-text-editable {
         display: none;
       }
-      textarea {
+      .decoded-jwt-header-editable {
+        height: 50px;
+        max-height: 50px;
         display: none;
       }
     }
@@ -174,33 +195,9 @@
       }
     }
 
-    .decoded-text-editable,
-    textarea {
-      width: 100%;
-      height: 100%;
-      resize: none;
-      outline: none;
-      padding: 6px 10px;
-      margin: 0;
-      text-align: left;
-      /*font-family: monospace;*/
-      font-family: var(--font-family);
-      border-radius: 5px;
-      border: 0;
-      color: var(--text-primary);
-      background: var(--input-background);
-      font-size: 0.65rem;
-    }
-
-    .decoded-text-editable {
-      pre {
-        margin: 0;
-        padding: 0;
-      }
-    }
 
     &.encode-type-JWT,
-    &.encode-type-url {
+    &.encode-type-URL {
       .decoded-container {
         .action-bar {
           .download-button {
@@ -216,17 +213,47 @@
         .decoded-text-editable {
           display: block;
         }
-        textarea {
+      }
+
+      .input-area {
+        &:before {
+          content: attr(aria-placeholder-url)
+        }
+      }
+    }
+
+    &.encode-type-JWT {
+      .decoded-container {
+        .action-bar {
+          top: 55px;
+        }
+        .decoded-jwt-header-editable {
           display: block;
         }
       }
-
       .encoded-container {
-        textarea[name="encoded-text-output"] {
-          display: block;
+        flex: unset;
+        .encoded-text-editable {
+          height: 90px;
+          min-height: 90px;
+          max-height: 90px;
         }
-        textarea[name="encoded-file-text-output"] {
-          display: none;
+      }
+      .signature-container {
+        display: block;
+      }
+      .action-bar {
+        &.clear-all {
+          right: -6px;
+          top: auto;
+          margin-top: 0;
+          bottom: 88px;
+          transform: none;
+        }
+      }
+      .input-area {
+        &:before {
+          content: attr(aria-placeholder-jwt)
         }
       }
     }
@@ -253,12 +280,9 @@
         }
       }
 
-      .encoded-container {
-        textarea[name="encoded-text-output"] {
-          display: none;
-        }
-        textarea[name="encoded-file-text-output"] {
-          display: block;
+      .input-area {
+        &:before {
+          content: attr(aria-placeholder-file)
         }
       }
     }
@@ -271,10 +295,124 @@
       }
     }
 
-    .action-bar.clear-all {
-      margin-top: 19px;
-      top: 50%;
-      transform: translateY(-50%);
+    &.file-error {
+      .decoded-container {
+        .file-error-message {
+          display: block;
+        }
+      }
+    }
+
+    .action-bar {
+      .download-button {
+        svg {
+          width: 0.75rem;
+        }
+      }
+      &.clear-all {
+        right: -6px;
+        margin-top: 19px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+
+    .signature-container {
+      position: absolute;
+      right: calc(var(--action-bar-padding) - 8px);
+      bottom: 90px;
+      display: none;
+
+      .signature-button {
+        position: absolute;
+        top: 0;
+        right: 0;
+        transform: translateY(-100%);
+        padding: 0 5px 3px;
+        font-size: 0.65rem;
+        color: var(--accent);
+        text-decoration: underline;
+        cursor: pointer;
+        &:hover {
+          text-decoration: none;
+        }
+      }
+
+      .signature-modal {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 300px;
+        background: var(--main-background);
+        border: 1px solid var(--border);
+        border-radius: 5px;
+        padding: 8px;
+        display: flex;
+        flex-direction: column;
+        justify-content: stretch;
+        gap: 3px;
+        box-shadow: var(--container-box-shadow);
+        z-index: 10;
+        display: none;
+
+        label {
+          font-size: 0.7rem;
+          text-align: left;
+        }
+        input {
+          font-size: 0.7rem;
+          padding: 4px 6px;
+          outline: none;
+        }
+      }
+
+      &.open {
+        .signature-modal {
+          display: flex;
+        }
+      }
+    }
+
+    .input-area {
+      width: 100%;
+      height: 100%;
+      max-height: var(--input-area-height);
+      resize: none;
+      outline: none;
+      padding: 3px 8px;
+      margin: 0;
+      text-align: left;
+      font-family: var(--font-family);
+      border-radius: 5px;
+      border: 0;
+      color: var(--text-primary);
+      background: var(--input-background);
+      font-size: 0.65rem;
+      overflow: auto;
+
+      &:before {
+        content: attr(aria-placeholder);
+        color: var(--text-muted);
+        position: absolute;
+        pointer-events: none;
+      }
+
+      &:focus, &:active, &.has-text {
+        &:before {
+          content: none;
+        }
+      }
+      &.has-error {
+        &:before {
+          content: attr(aria-errormessage);
+          color: #c00;
+        }
+      }
+    }
+
+    pre {
+      margin: 0;
+      padding: 0;
     }
 
   }

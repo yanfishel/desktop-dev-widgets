@@ -121,9 +121,9 @@ class NotesController {
     if(!this.#input.value) return
     try {
       await navigator.clipboard.writeText(this.#input.value);
-      this.#toast.success('Copied to clipboard!')
+      this.#toast.success({message:'Copied to clipboard!'})
     } catch (err) {
-      this.#toast.error('Failed to copy!')
+      this.#toast.error({message:'Failed to copy!'})
       console.error('Failed to copy: ', err);
     }
   }

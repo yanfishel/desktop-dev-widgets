@@ -38,6 +38,7 @@
       font-size: 0.75rem;
       line-height: 1.35em;
       text-align: start;
+      word-break: break-all;
       overflow: auto;
       opacity: 1;
 

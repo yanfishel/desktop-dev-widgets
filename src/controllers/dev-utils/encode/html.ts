@@ -1,10 +1,8 @@
 import {copyIconHover, copyIconRegular, downloadIcon, downloadIconHover, downloadIconRegular, dropIcon, trashIconHover, trashIconRegular} from "../../../assets";
 
 export const encodeTabHtml = `
-  <div class="container" style="padding-left:0;padding-bottom:0">
+  <div class="container encode-container">
     
-    <div class="encode-container">
-      
       <div class="control-bar">
       
         <div class="title">Decoded</div>
@@ -13,7 +11,7 @@ export const encodeTabHtml = `
           <select name="encode-type">
             <optgroup label="Text">
               <option value="JWT">JSON Web Token (JWT)</option>
-              <option value="url">URL</option>
+              <option value="URL">URL</option>
             </optgroup>
             <optgroup label="File">
               <option value="base64">Base64</option>
@@ -31,16 +29,17 @@ export const encodeTabHtml = `
           <div title="Download file" class="circle-button download-button">
             ${ downloadIcon }
           </div>
-          <div title="Copy" class="circle-button copy-button">
+          <div title="Copy" data-copy="decoded-text" class="circle-button copy-button">
             ${ copyIconRegular }
             ${ copyIconHover }
           </div>
-          <div title="Clear" class="circle-button danger-button clear-button">
+          <div title="Clear" data-clear="decoded-text" class="circle-button danger-button clear-button">
             ${ trashIconRegular }
             ${ trashIconHover }
           </div>
         </div>
         
+        <div class="file-error-message">File decode error</div>
         <div class="decoded-file-container"></div>
         
         <div class="drag-zone">
@@ -48,8 +47,19 @@ export const encodeTabHtml = `
           <input type="file" id="file-input" style="display: none;">
         </div>
         
-<!--        <textarea name="decoded-text-input" placeholder="Decoded text here"></textarea>-->
-        <div class="decoded-text-editable" contenteditable="true"></div>
+        <div class="input-area decoded-jwt-header-editable" 
+              spellcheck="false" 
+              contenteditable="true" 
+              aria-placeholder-jwt="- JWT header" 
+              aria-errormessage="JWT Token Invalid">
+        </div>
+        <div class="input-area decoded-text-editable language-json" 
+              spellcheck="false" 
+              contenteditable="true" 
+              aria-placeholder-jwt="- JWT claim" 
+              aria-placeholder-url="- URL" 
+              aria-errormessage="JWT Token Invalid">
+        </div>
         
       </div>
       
@@ -59,28 +69,42 @@ export const encodeTabHtml = `
       
         <!--// Action Bar-->
         <div class="action-bar">
-          <div title="Copy" class="circle-button copy-button">
+          <div title="Copy" data-copy="encoded-text" class="circle-button copy-button">
             ${ copyIconRegular }
             ${ copyIconHover }
           </div>
-          <div title="Clear" class="circle-button danger-button clear-button">
+          <div title="Clear" data-clear="encoded-text" class="circle-button danger-button clear-button">
             ${ trashIconRegular }
             ${ trashIconHover }
           </div>
         </div>
         
-        <textarea name="encoded-text-output" placeholder="Encoded text here"></textarea>
-        <textarea name="encoded-file-text-output" placeholder="Encoded text here"></textarea>
+        <div class="input-area encoded-text-editable" 
+            spellcheck="false" contenteditable="true" 
+            aria-placeholder-jwt="- JWT Token" 
+            aria-placeholder-url="- Encoded URL" 
+            aria-placeholder-file="- Encoded File" 
+            aria-errormessage="Invalid JSON">
+        </div>
+        
+<!--        <div class="input-area encoded-file-text-editable" spellcheck="false" contenteditable="true"></div>-->
+        
+      </div>
+      
+      <div class="signature-container">
+        <div class="signature-button">Signature</div>
+        <div class="signature-modal">
+          <label>Sekret key</label>
+          <input type="text" name="signature-secret" />
+        </div>
       </div>
       
       <!--// - Cear All Action Bar -->
       <div class="action-bar clear-all">
-        <div title="Clear All" class="circle-button danger-button clear-button">
+        <div title="Clear All" data-clear="all" class="circle-button danger-button clear-button">
           ${ trashIconRegular }
           ${ trashIconHover }
         </div>
       </div>
-      
-    </div>
    
   </div>`
