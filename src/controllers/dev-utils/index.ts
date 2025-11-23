@@ -5,6 +5,7 @@ import rubberDuckTabController from "./rubber-duck";
 import {devUtilsHtml, settingsMenuDevUtilsHtml} from "./html";
 
 import "./style.css"
+import colorController from "./color";
 
 class DevUtils {
   static instance: DevUtils | null = null
@@ -30,10 +31,11 @@ class DevUtils {
     const tabsContent:HTMLElement = elem.querySelector('.content')
     encodeTabController.build(tabsContent)
     dateTimeTabController.build(tabsContent)
+    colorController.build(tabsContent)
     rubberDuckTabController.build(tabsContent)
 
     // TABS CONTROL
-    const activeTab = getStorageItem('dev-utils-active-tab') ?? 'encodes'
+    const activeTab = getStorageItem('dev-utils-active-tab') ?? 'encode'
     dateTimeTabController.toggleActive(settings.devUtils.active && activeTab === 'datetime')
     const tabControl = elem.querySelectorAll('input[name="tab-control"]')
     tabControl.forEach((tab:HTMLInputElement, idx) =>{

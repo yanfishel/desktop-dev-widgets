@@ -41,7 +41,7 @@ export function createMainWindow() {
     minHeight: APP_WIDTH.LARGE,
     minWidth: appSettings.width || APP_WIDTH.LARGE,
     center: false,
-    type:'desktop',
+    //type:'desktop',
     webPreferences: {
       contextIsolation: true,
       nodeIntegration: true,

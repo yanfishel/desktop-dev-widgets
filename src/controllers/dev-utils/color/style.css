@@ -1,0 +1,37 @@
+
+#dev-utils-widget {
+  .color-container {
+    padding: 10px 0 6px;
+
+    input[type="color"] {
+      width: 100px;
+      height: 40px;
+      appearance: none;
+      -webkit-appearance: none;
+      background: none;
+      border: 0;
+      cursor: pointer;
+      padding: 0;
+      outline: none;
+
+      &:focus{
+        outline: none;
+      }
+
+      &::-webkit-color-swatch-wrapper {
+        padding: 0;
+      }
+
+      &::-webkit-color-swatch{
+        border: 0;
+      }
+    }
+
+    table {
+      margin: 10px auto;
+      td {
+        padding: 1px 5px;
+      }
+    }
+  }
+}
