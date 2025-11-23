@@ -217,7 +217,7 @@
 
       .input-area {
         &:before {
-          content: attr(aria-placeholder-url)
+          content: attr(data-placeholder-url)
         }
       }
     }
@@ -253,7 +253,7 @@
       }
       .input-area {
         &:before {
-          content: attr(aria-placeholder-jwt)
+          content: attr(data-placeholder-jwt)
         }
       }
     }
@@ -282,7 +282,7 @@
 
       .input-area {
         &:before {
-          content: attr(aria-placeholder-file)
+          content: attr(data-placeholder-file)
         }
       }
     }
@@ -391,7 +391,7 @@
       overflow: auto;
 
       &:before {
-        content: attr(aria-placeholder);
+        content: attr(data-placeholder);
         color: var(--text-muted);
         position: absolute;
         pointer-events: none;
@@ -404,7 +404,7 @@
       }
       &.has-error {
         &:before {
-          content: attr(aria-errormessage);
+          content: attr(data-errormessage);
           color: #c00;
         }
       }

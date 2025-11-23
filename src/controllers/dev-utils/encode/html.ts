@@ -1,4 +1,4 @@
-import {copyIconHover, copyIconRegular, downloadIcon, downloadIconHover, downloadIconRegular, dropIcon, trashIconHover, trashIconRegular} from "../../../assets";
+import {copyIconHover, copyIconRegular, downloadIcon, dropIcon, trashIconHover, trashIconRegular} from "../../../assets";
 
 export const encodeTabHtml = `
   <div class="container encode-container">
@@ -50,15 +50,15 @@ export const encodeTabHtml = `
         <div class="input-area decoded-jwt-header-editable" 
               spellcheck="false" 
               contenteditable="true" 
-              aria-placeholder-jwt="- JWT header" 
-              aria-errormessage="JWT Token Invalid">
+              data-placeholder-jwt="- JWT header" 
+              data-errormessage="JWT Header Token Invalid">
         </div>
         <div class="input-area decoded-text-editable language-json" 
               spellcheck="false" 
               contenteditable="true" 
-              aria-placeholder-jwt="- JWT claim" 
-              aria-placeholder-url="- URL" 
-              aria-errormessage="JWT Token Invalid">
+              data-placeholder-jwt="- JWT claim" 
+              data-placeholder-url="- URL" 
+              data-errormessage="JWT Token Invalid">
         </div>
         
       </div>
@@ -81,10 +81,10 @@ export const encodeTabHtml = `
         
         <div class="input-area encoded-text-editable" 
             spellcheck="false" contenteditable="true" 
-            aria-placeholder-jwt="- JWT Token" 
-            aria-placeholder-url="- Encoded URL" 
-            aria-placeholder-file="- Encoded File" 
-            aria-errormessage="Invalid JSON">
+            data-placeholder-jwt="- JWT Token" 
+            data-placeholder-url="- Encoded URL" 
+            data-placeholder-file="- Encoded File" 
+            data-errormessage="Invalid JSON">
         </div>
         
 <!--        <div class="input-area encoded-file-text-editable" spellcheck="false" contenteditable="true"></div>-->
