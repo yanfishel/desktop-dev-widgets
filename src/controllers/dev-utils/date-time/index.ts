@@ -122,18 +122,10 @@ class DateTimeTabController {
   private start(){
     this.#started = true
     this.update()
-    /*if (this.#interval) {
-      clearInterval(this.#interval)
-    }
-    this.#interval = setInterval(()=>this.update(), 1000)*/
   }
 
   private stop() {
     this.#started = false
-    /*if (this.#interval) {
-      clearInterval(this.#interval)
-      this.#interval = null
-    }*/
   }
 
   public toggleActive(active = false) {
