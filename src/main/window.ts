@@ -1,13 +1,13 @@
-import {BrowserWindow, screen, powerMonitor } from "electron";
+import {BrowserWindow, screen, powerMonitor, session, desktopCapturer } from "electron";
 import * as path from "node:path";
 import is from 'electron-is'
 import { fsSize, getStaticData, getDynamicData, currentLoad, mem } from 'systeminformation'
 
-import {APP_WIDTH} from "../../constans";
-import {config} from "../../config";
-import {IpcChannels} from "../../ipc/channels";
-import {openDevToolsWithShortcut, showNotification} from "./app";
-import {getAppSettings, setAppSettings} from "./app-settings";
+import {APP_WIDTH} from "../constans";
+import {config} from "../config";
+import {IpcChannels} from "../ipc/channels";
+import {openDevToolsWithShortcut, showNotification} from "./common";
+import {getAppSettings, setAppSettings} from "./settings";
 import {destroyTray, registerTray} from "./tray";
 
 
@@ -67,6 +67,18 @@ export function createMainWindow() {
   // Hide the traffic light buttons (minimize, maximize, close)
   is.macOS() && mainWindow.setWindowButtonVisibility(false)
 
+  session.defaultSession.setDisplayMediaRequestHandler((request, callback) => {
+    desktopCapturer.getSources({ types: ['screen'] }).then((sources) => {
+      console.log(sources);
+      // Grant access to the first screen found.
+      callback({ video: sources[0], audio: 'loopback' })
+    })
+    // If true, use the system picker if available.
+    // Note: this is currently experimental. If the system picker
+    // is available, it will be used and the media request handler
+    // will not be invoked.
+  }, { useSystemPicker: true })
+
   // Load the main window content
   if (MAIN_WINDOW_WEBPACK_ENTRY) {
     // If a dev server URL is provided, load it
@@ -119,7 +131,7 @@ export function createMainWindow() {
     mainWindow.webContents.send(IpcChannels.POWER_MONITOR_EVENT, 'resume')
   });
 
-  info()
+  //info()
 
   // Open the DevTools for debugging
   // mainWindow.webContents.openDevTools();
@@ -127,11 +139,11 @@ export function createMainWindow() {
 }
 
 
-async function info() {
+/*async function info() {
   const info = await currentLoad()
   const memory = await mem()
   console.log(info, memory)
-}
+}*/
 
 export function resizeMainWindow(size:TWidgetsSize) {
 
@@ -167,3 +179,4 @@ export function resizeMainWindow(size:TWidgetsSize) {
   registerTray()
 
 }
+

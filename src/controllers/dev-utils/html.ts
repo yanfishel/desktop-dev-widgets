@@ -1,4 +1,4 @@
-import {dateTimeTabIcon, duckTabIcon, encodeIcon} from "../../assets";
+import {colorIcon, dateTimeTabIcon, duckTabIcon, encodeIcon} from "../../assets";
 
 
 export const devUtilsHtml = `
@@ -18,7 +18,7 @@ export const devUtilsHtml = `
           <label for="tab2" role="button">${ dateTimeTabIcon } Date&amp;Time</label>
         </li>
         <li title="Color">
-          <label for="tab3" role="button" class="home-tab">Color</label>
+          <label for="tab3" role="button" class="home-tab">${ colorIcon } Color</label>
         </li>
         <li title="Rubber Duck">
           <label for="tab4" role="button" class="home-tab">${ duckTabIcon }</label>

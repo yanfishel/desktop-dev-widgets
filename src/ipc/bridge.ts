@@ -13,6 +13,8 @@ contextBridge.exposeInMainWorld('electronAPI', {
   openExternal: (path: string) =>
     ipcRenderer.invoke(IpcChannels.OPEN_EXTERNAL, path),
 
+  clickedPixel:()=> ipcRenderer.invoke(IpcChannels.CLICKED_PIXEL),
+
 
   onWidgetsResize: (callback:any) =>
     ipcRenderer.on(IpcChannels.WIDGET_SIZE, callback),

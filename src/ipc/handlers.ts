@@ -1,7 +1,7 @@
 import { ipcMain, shell, dialog } from 'electron'
-import {IpcChannels} from "./channels";
-import { resizeMainWindow } from "../utils/electron";
 
+import {IpcChannels} from "./channels";
+import { resizeMainWindow } from "../main/window";
 
 
 ipcMain.handle(IpcChannels.WIDGET_SIZE, (event, size:TWidgetsSize) => resizeMainWindow(size))

@@ -1,37 +1,213 @@
 
 #dev-utils-widget {
   .color-container {
-    padding: 10px 0 6px;
+    padding: 12px 5px 6px;
 
-    input[type="color"] {
-      width: 100px;
-      height: 40px;
-      appearance: none;
-      -webkit-appearance: none;
-      background: none;
-      border: 0;
-      cursor: pointer;
-      padding: 0;
-      outline: none;
+    input {
+      font-size: 0.7rem;
+      padding: 3px 6px;
+    }
 
-      &:focus{
-        outline: none;
+    .color-input-container {
+      width: 100%;
+      display: flex;
+      gap: 15px;
+      align-items: flex-start;
+      justify-content: center;
+      font-size: 0.8rem;
+
+      .color-input {
+        flex:1;
+        height: 64px;
+        max-width: 64px;
+        position: relative;
+
+        .color-preview {
+          width: 100%;
+          height: 64px;
+          outline: 1px solid rgb( from var(--text-primary) r g b / 0.15);
+          outline-offset: 3px;
+          margin: 3px;
+          box-shadow: inset 0 0 3px rgba(0,0,0,0.25);
+          display: flex;
+          flex-direction: column;
+          align-items: stretch;
+          justify-content: center;
+          border-radius: 4px;
+          overflow: hidden;
+          cursor: pointer;
+          background: url("/public/images/transparent-bg.jpg");
+          background-size: 200px;
+          & > div {
+            width: 100%;
+            flex:1;
+          }
+        }
+
+        input[type="color"] {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          opacity: 0;
+          width: 0;
+          height: 0;
+          appearance: none;
+          -webkit-appearance: none;
+          background: none;
+          border: 0;
+          cursor: pointer;
+          padding: 0;
+          outline: none;
+        }
       }
 
-      &::-webkit-color-swatch-wrapper {
-        padding: 0;
+      .color-form {
+        max-width: 190px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+
+        .color-form-row {
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          width: 100%;
+          gap: 2px;
+        }
       }
 
-      &::-webkit-color-swatch{
-        border: 0;
+      label {
+        font-size: 0.6rem;
+        font-weight: bold;
+        padding-left: 3px;
+      }
+      input {
+        max-width: 80px;
+      }
+      input[type="number"] {
+        width: 100%;
+        min-width: 20px;
+        max-width: 35px;
+        &::-webkit-inner-spin-button,
+        &::-webkit-outer-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
       }
     }
 
-    table {
-      margin: 10px auto;
+    table.color-result {
+      margin: 0 auto;
       td {
-        padding: 1px 5px;
+        padding: 1px 3px 0;
+        &:first-child {
+          width: 240px;
+        }
+
+        input {
+          padding: 0;
+          background: transparent;
+          text-align: right;
+          font-family: monospace;
+          letter-spacing: 0.5px;
+          font-size: 0.725rem;
+          font-weight: 600;
+          line-height: 1.2em;
+          display:block;
+        }
       }
     }
+
+    .copy-button {
+      display: flex;
+      vertical-align: middle;
+      width: 20px;
+      height: 20px;
+      svg {
+        width: 0.75rem;
+      }
+    }
+
+    .color-alpha-slider {
+      width: 190px;
+      padding: 0;
+      margin: 3px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: url("/public/images/transparent-bg.jpg");
+      background-size: 200px;
+      height: 12px;
+      border: 1px solid rgb(from var(--text-primary) r g b / 0.05);
+      border-radius: 3px;
+
+      input[type=range] {
+        --selected-color: #000;
+        width: 190px;
+        max-width: unset;
+        margin: 0;
+        padding: 0;
+        background-color: transparent;
+        -webkit-appearance: none;
+
+        &::-webkit-slider-runnable-track {
+          background: linear-gradient(90deg, transparent, var(--selected-color));
+          box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.15);
+          border-radius: 3px;
+          width: 100%;
+          height: 12px;
+          cursor: pointer;
+        }
+
+        &::-webkit-slider-thumb {
+          margin-top: -3px;
+          width: 6px;
+          height: 18px;
+          background: rgba(0, 0, 0, 0.85);
+          outline: 1px solid rgba(255, 255, 255, 0.65);
+          outline-offset: -2px;
+          border-radius: 2px;
+          cursor: pointer;
+          -webkit-appearance: none;
+          box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.15), -1px -1px 2px rgba(255, 255, 255, 0.15);
+        }
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+
+    .color-error {
+      width: 100%;
+      height: 0;
+      margin: 12px 0 5px 0;
+      border-top: 1px solid rgb( from var(--text-primary) r g b / 0.15);
+      position: relative;
+      p {
+        position: absolute;
+        top: 15px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 0.7rem;
+        background: rgba(204,0,0,0.85);
+        color: #ffffff;
+        margin: 0;
+        padding: 2px 5px;
+        border-radius: 3px;
+        display: none;
+      }
+      &.show {
+        p {
+          display: block;
+        }
+
+        & + table.color-result {
+          display: none;
+        }
+      }
+    }
+
   }
 }

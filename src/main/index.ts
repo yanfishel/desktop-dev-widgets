@@ -1,8 +1,8 @@
-import { app, BrowserWindow } from 'electron';
-import {createMainWindow} from "./utils/electron"
-import {registerTray} from "./utils/electron/tray";
+import {app, BrowserWindow } from 'electron';
 
-import './ipc/handlers'
+import {createMainWindow} from "./window"
+import {registerTray} from "./tray";
+import '../ipc/handlers'
 
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -22,6 +22,7 @@ app.whenReady().then(() => {
       createMainWindow();
     }
   });
+
 });
 
 // Quit when all windows are closed, except on macOS. There, it's common

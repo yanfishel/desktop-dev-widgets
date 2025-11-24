@@ -34,6 +34,7 @@ interface Window {
   electronAPI: {
     setWidgetsSize: (size: string) => void
     openExternal: (url: string) => Promise<void>
+
     onWidgetsResize: (callback: (_event: any, size: TWidgetsSize) => void) => void
     onPowerMonitorEvent: (callback: (_event: any, name:string ) => void) => void
   }

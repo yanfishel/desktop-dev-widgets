@@ -5,6 +5,8 @@ export enum IpcChannels {
 
   OPEN_EXTERNAL = 'open-external', // Channel for opening external links
 
+  CLICKED_PIXEL = 'clicked-pixel',
+
   /*WINDOW_ACTION = 'window-action', // Channel for window actions
   GET_APP_VERSION = 'get-app-version', // Channel for getting app version
 

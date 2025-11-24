@@ -103,10 +103,22 @@ class EncodeTabController {
     this.#signatureSecret.value = signatureSecret
     this.#signatureSecret.addEventListener('change', (e:any)=> setStorageItem('dev-utils-signature-secret', e.target.value))
 
+    // Paste plain text from clipboard to contenteditable div
+    elem.addEventListener("paste", function(e) {
+      e.preventDefault();
+      // Get the plain text content from the clipboard
+      let content = '';
+      if (e.clipboardData) {
+        content = e.clipboardData.getData('text/plain');
+      }
+      document.execCommand('insertText', false, content);
+    });
+
     this.#toast = new Toast(this.#container)
 
     container.appendChild(elem)
   }
+
 
   private toggleEncodeType(e:any){
     [...this.fileEncodeTypes, ...this.textEncodeTypes].forEach(type => this.#container.classList.remove(`encode-type-${type}`))
