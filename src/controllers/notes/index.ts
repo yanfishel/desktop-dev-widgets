@@ -1,6 +1,6 @@
-import {NOTES_PLACEHOLDER} from "../../constans";
-import Toast from "../../shared/toast";
-import {getWidgetsSettings, getStorageItem, setStorageItem, setWidgetsSetting} from "../../utils";
+import { STORAGE_KEYS } from "@constants";
+import Toast from "@controllers/toast";
+import { getStorageItem, setStorageItem, getWidgetsSettings, setWidgetsSetting} from "@utils";
 import {notesWidgetHtml, settingsMenuNotesHtml} from "./html";
 
 import "./style.css"
@@ -9,6 +9,9 @@ import "./style.css"
 class NotesController {
   static instance: NotesController | null = null
 
+  placeholder = 'TYPE YOUR NOTES HERE'
+
+  #id: string
   #toast: Toast
   #input: HTMLTextAreaElement
   #view: HTMLElement
@@ -26,9 +29,9 @@ class NotesController {
 
   public build(container: HTMLElement) {
     const settings = getWidgetsSettings()
-
+    this.#id = settings.notes.id
     const elem = document.createElement('div')
-    elem.id = 'notes-widget'
+    elem.id = this.#id
     elem.innerHTML = notesWidgetHtml
     elem.style.order = settings.notes.order+''
     elem.style.display = settings.notes.active ? 'block' : 'none'
@@ -38,8 +41,8 @@ class NotesController {
     this.#buttonCopy = elem.querySelector('.copy-button')
     this.#buttonClear = elem.querySelector('.clear-button')
 
-    const notes = getStorageItem('dev-widgets-notes')
-    this.updateNotes(notes !== null ? notes : NOTES_PLACEHOLDER)
+    const notes = getStorageItem(STORAGE_KEYS.WIDGET_NOTES_NOTES)
+    this.updateNotes(notes !== null ? notes : this.placeholder)
 
     this.#toast = new Toast(elem)
 
@@ -58,7 +61,7 @@ class NotesController {
     checkbox.checked = settings.notes.active
 
     checkbox.addEventListener('change', (e:any)=> {
-      document.getElementById('notes-widget').style.display = e.target.checked ? 'block' : 'none'
+      document.getElementById(settings.notes.id).style.display = e.target.checked ? 'block' : 'none'
       setWidgetsSetting('notes', {...settings.notes, active: e.target.checked })
     })
     return element
@@ -100,7 +103,7 @@ class NotesController {
   private updateNotes(notes:string){
     if(notes === '') {
       this.#view.innerHTML = ''
-      setStorageItem('dev-widgets-notes', '')
+      setStorageItem(STORAGE_KEYS.WIDGET_NOTES_NOTES, '')
       return
     }
     const filteredValue = notes.split('\n').filter(note=>note!=='')
@@ -114,14 +117,14 @@ class NotesController {
     this.#view.appendChild(list)
     const stringValue = filteredValue.join('\n')
     this.#input.value = stringValue
-    setStorageItem('dev-widgets-notes', stringValue)
+    setStorageItem(STORAGE_KEYS.WIDGET_NOTES_NOTES, stringValue)
   }
 
   private async copyNotesToClipboard() {
     if(!this.#input.value) return
     try {
       await navigator.clipboard.writeText(this.#input.value);
-      this.#toast.success({message:'Copied to clipboard!'})
+      this.#toast.success({message:'Copied!'})
     } catch (err) {
       this.#toast.error({message:'Failed to copy!'})
       console.error('Failed to copy: ', err);

@@ -10,17 +10,22 @@ contextBridge.exposeInMainWorld('electronAPI', {
   setWidgetsSize: (size: string) =>
     ipcRenderer.invoke(IpcChannels.WIDGET_SIZE, size),
 
+  setLockPosition: (locked: boolean) => ipcRenderer.invoke(IpcChannels.LOCK_POSITION, locked),
+
   openExternal: (path: string) =>
     ipcRenderer.invoke(IpcChannels.OPEN_EXTERNAL, path),
 
   getDiskUsage: () => ipcRenderer.invoke(IpcChannels.GET_DISK_USAGE),
   getSystemInfo: () => ipcRenderer.invoke(IpcChannels.GET_SYSTEM_INFO),
-
+  getPublicIP: () => ipcRenderer.invoke(IpcChannels.GET_PUBLIC_IP),
   getNetworkStatsInfo: () => ipcRenderer.invoke(IpcChannels.GET_NETWORK_STATS_INFO),
 
 
   onWidgetsResize: (callback:any) =>
     ipcRenderer.on(IpcChannels.WIDGET_SIZE, callback),
+
+  onLockPosition: (callback:any) =>
+    ipcRenderer.on(IpcChannels.LOCK_POSITION, callback),
 
   onPowerMonitorEvent: (callback:any) =>
     ipcRenderer.on(IpcChannels.POWER_MONITOR_EVENT, callback),

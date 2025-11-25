@@ -1,7 +1,8 @@
 import { ColorTranslator } from 'colortranslator'
 
-import {debounce, getStorageItem, setStorageItem} from "../../../utils"
-import Toast from "../../../shared/toast";
+import {STORAGE_KEYS} from "@constants";
+import {debounce, getStorageItem, setStorageItem} from "@utils"
+import Toast from "@controllers/toast";
 import {colorTabHtml} from "./html"
 import './style.css'
 
@@ -96,7 +97,7 @@ class ColorController {
     const copyButtons = elem.querySelectorAll('.copy-button')
     copyButtons.forEach(button => button.addEventListener('click', (e)=>this.copyToClipboard(e)))
 
-    const storedColor = getStorageItem('dev-utils-color-picker-color')
+    const storedColor = getStorageItem(STORAGE_KEYS.WIDGET_DEVUTILS_COLOR)
     this.#Color = this.getColorInstance(storedColor ?? '#38bdf8')
 
     this.#colorInput.value = this.#Color.HEX
@@ -162,7 +163,7 @@ class ColorController {
     this.#hsla.value = this.#Color.HSLA
     this.#hwb.value = this.#Color.HWB
     this.#hwba.value = this.#Color.HWBA
-    setStorageItem('dev-utils-color-picker-color', this.#Color.HEXA)
+    setStorageItem(STORAGE_KEYS.WIDGET_DEVUTILS_COLOR, this.#Color.HEXA)
   }
 
   private resetColorResults(){

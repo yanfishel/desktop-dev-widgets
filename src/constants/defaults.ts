@@ -10,6 +10,7 @@ export const APP_SETTINGS_DEFAULT = {
   height: APP_WIDTH.LARGE,
   x: 0,
   y: 0,
+  locked: false,
   alwaysOnTop: false
 }
 
@@ -18,25 +19,31 @@ export const WIDGETS_SETTINGS_DEFAULT:IWidgetsSettings = {
   size: 'large',
   locked: false,
   weather: {
+    id: 'widget-weather',
     active: true
   },
   dailyWeather: {
+    id: 'widget-daily-weather',
     active: true,
     order: 1
   },
   webSearch: {
+    id: 'widget-web-search',
     active: true,
     order: 2
   },
   systemInfo: {
+    id: 'widget-system-info',
     active: true,
     order: 3
   },
   devUtils: {
+    id: 'widget-dev-utils',
     active: true,
     order: 4
   },
   notes: {
+    id: 'widget-notes',
     active: true,
     order: 5
   },
@@ -44,8 +51,3 @@ export const WIDGETS_SETTINGS_DEFAULT:IWidgetsSettings = {
   location: { name:'', lat: 0, lon: 0 }
 }
 
-export const NOTES_PLACEHOLDER = 'TYPE YOUR NOTES HERE'
-
-export const IMAGES_MIME = ['image/jpeg', 'image/png', 'image/apng', 'image/gif', 'image/bmp', 'image/webp', 'svg+xml']
-
-export const SETTINGS_STORE_KEY = 'dev-widgets-settings'

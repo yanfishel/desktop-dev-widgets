@@ -1,5 +1,5 @@
-import { WEATHER_DATA } from "../../constans";
-import {WEATHER_ICONS} from "../../assets";
+import { WEATHER_DATA } from "@constants";
+import {dragItemIcon, WEATHER_ICONS} from "@assets";
 
 export const dayWeatherHtml = `
 <div class="container">
@@ -96,6 +96,7 @@ export const settingsMenuWeatherHtml = `
 </div>`
 
 export const settingsMenuDailyWeatherHtml = `
+  <div class="menu-item-handle">${ dragItemIcon }</div>
   <label for="daily-weather-active">Daily Weather</label>
   <div class="switch-container">
     <input type="checkbox" id="daily-weather-active" name="daily-weather-active" role="switch">

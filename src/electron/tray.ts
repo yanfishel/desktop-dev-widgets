@@ -1,9 +1,10 @@
 import { app, Menu, nativeImage, screen, Tray } from 'electron'
 import is from 'electron-is'
-import {config} from "../config";
-import {APP_WIDTH} from "../constans";
-import {getAppSettings} from "./settings";
-import {resizeMainWindow} from "./window";
+
+import {config} from "@config";
+import {APP_WIDTH} from "@constants";
+import {getAppSettings} from "./app-settings";
+import {lockMainWindowPosition, resizeMainWindow} from "./main-window";
 
 
 
@@ -12,12 +13,18 @@ const checkSize = () => {
   return appSettings.width === APP_WIDTH.SMALL ? 'small' : appSettings.width === APP_WIDTH.MEDIUM ? 'medium' : 'large'
 }
 
+const checkLocked = () => {
+  const appSettings = getAppSettings()
+  return appSettings.locked
+}
+
 let tray:Tray
 
 /**
  * Registers the tray icon and sets up the tray functionality.
  */
 export const registerTray = () => {
+
   // Get the pixel ratio based on the platform
   const pixelRatio = is.windows()
     ? screen.getPrimaryDisplay().scaleFactor || 1
@@ -36,14 +43,17 @@ export const registerTray = () => {
   const contextMenu = Menu.buildFromTemplate([
     { type: 'header', label: config.applicationName },
     { type: 'separator' },
-    /*{ label: 'Open', click: () => createMainWindow() },
-    { label: 'Show All', click: () => windowManager.showAllWindows() },*/
-    { label: 'Widgets size', submenu: [
-        { label: 'Small', type: 'radio', checked: checkSize() === 'small', click: () => resizeMainWindow('small') },
-        { label: 'Medium', type: 'radio', checked: checkSize() === 'medium', click: () => resizeMainWindow('medium') },
-        { label: 'Large', type: 'radio', checked: checkSize() === 'large', click: () => resizeMainWindow('large') }
-      ]
-    },
+    { label: 'Options', submenu: [
+        { label: 'Lock position', type:'checkbox', checked: checkLocked(),  click: (menuItem) => {
+          lockMainWindowPosition(menuItem.checked)
+        } },
+        { label: 'Size', submenu: [
+            { label: 'Small', type: 'radio', checked: checkSize() === 'small', click: () => resizeMainWindow('small') },
+            { label: 'Medium', type: 'radio', checked: checkSize() === 'medium', click: () => resizeMainWindow('medium') },
+            { label: 'Large', type: 'radio', checked: checkSize() === 'large', click: () => resizeMainWindow('large') }
+          ]
+        }
+    ]},
     { type: 'separator' },
     { label: 'Quit', click: () => app.quit() },
   ])

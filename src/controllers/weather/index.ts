@@ -1,7 +1,7 @@
-import {getStorageItem, getWidgetsSettings, setStorageItem, setWidgetsSetting} from "../../utils";
-import {WEATHER_DATA} from "../../constans";
-import Toast from "../../shared/toast";
-import {WEATHER_ICONS} from "../../assets";
+import {getStorageItem, setStorageItem, getWidgetsSettings, setWidgetsSetting} from "@utils";
+import {STORAGE_KEYS, WEATHER_DATA} from "@constants";
+import {WEATHER_ICONS} from "@assets";
+import Toast from "@controllers/toast";
 import {dailyWeatherHtml, dayWeatherHtml, settingsMenuDailyWeatherHtml, settingsMenuWeatherHtml, weeklyWeatherDay} from "./html";
 
 import "./style.css"
@@ -14,7 +14,8 @@ class WeatherController {
 
   #globalTimeinput: HTMLInputElement
   #toast: Toast
-
+  #id: string
+  #dailyId: string
   #date: HTMLElement
   #country: HTMLElement
   #temp: HTMLElement
@@ -32,9 +33,9 @@ class WeatherController {
 
   public async build(container: HTMLElement) {
     const settings = getWidgetsSettings()
-
+    this.#id = settings.weather.id
     const elem = document.createElement('div')
-    elem.id = 'weather-widget'
+    elem.id = this.#id
     elem.style.display = settings.weather.active ? 'block' : 'none'
     elem.innerHTML = dayWeatherHtml
 
@@ -56,9 +57,9 @@ class WeatherController {
 
   public buildDaily(container: HTMLElement){
     const settings = getWidgetsSettings()
-
+    this.#dailyId = settings.dailyWeather.id
     const elem = document.createElement('div')
-    elem.id = 'daily-weather-widget'
+    elem.id = this.#dailyId
     elem.style.order = settings.dailyWeather?.order?.toString() ?? undefined
     elem.style.display = settings.dailyWeather.active ? 'block' : 'none'
     elem.innerHTML = dailyWeatherHtml
@@ -81,7 +82,7 @@ class WeatherController {
     const weatherCheckbox:HTMLInputElement = element.querySelector('input[name="weather-active"]')
     weatherCheckbox.checked = settings.weather.active
     weatherCheckbox.addEventListener('change', (e:any)=> {
-      setWidgetsSetting('weather', {active: e.target.checked})
+      setWidgetsSetting('weather', {...settings.weather, active: e.target.checked})
       this.toggleWeather(e.target.checked)
     })
 
@@ -100,9 +101,9 @@ class WeatherController {
     const geoManualCity:HTMLInputElement = element.querySelector('input[name="city"]')
     geoManualCity.value = settings.location?.name ?? ''
     const geoManualLat:HTMLInputElement = element.querySelector('input[name="lat"]')
-    geoManualLat.value = settings.location?.lat+'' ?? ''
+    geoManualLat.value = settings.location?.lat.toString() ?? ''
     const geoManualLon:HTMLInputElement = element.querySelector('input[name="lon"]')
-    geoManualLon.value = settings.location?.lon+'' ?? ''
+    geoManualLon.value = settings.location?.lon.toString() ?? ''
 
     geoManualCity?.addEventListener('change', (e:any)=> {
       setWidgetsSetting('location', {name: e.target.value, lat: geoManualLat.value, lon: geoManualLon.value})
@@ -147,7 +148,7 @@ class WeatherController {
       return settings.location
     }
 
-    const location = getStorageItem('dev-widgets-geo-location')
+    const location = getStorageItem(STORAGE_KEYS.WIDGET_WEATHER_LOCATION)
     if(location){
       const parsed = JSON.parse(location)
       if(parsed.timestamp + this.#dataLifetime > new Date().getTime()){
@@ -161,7 +162,7 @@ class WeatherController {
           ...location,
           timestamp: new Date().getTime()
         }
-        setStorageItem('dev-widgets-geo-location', JSON.stringify(data))
+        setStorageItem(STORAGE_KEYS.WIDGET_WEATHER_LOCATION, JSON.stringify(data))
         return data
       }
     } catch (error) {
@@ -185,7 +186,7 @@ class WeatherController {
       lat: 31.75871290706921,
       lon: 35.20813346146496
     }*/
-    const forecast = getStorageItem('dev-widgets-weather-forecast')
+    const forecast = getStorageItem(STORAGE_KEYS.WIDGET_WEATHER_FORECAST)
     if(forecast){
       const data = JSON.parse(forecast)
       if( data.timestamp + this.#dataLifetime > new Date().getTime() && data.lat === location.lat && data.lon === location.lon ){
@@ -207,7 +208,7 @@ class WeatherController {
         lat: location.lat,
         lon: location.lon
       }
-      setStorageItem('dev-widgets-weather-forecast', JSON.stringify(data))
+      setStorageItem(STORAGE_KEYS.WIDGET_WEATHER_FORECAST, JSON.stringify(data))
       return data
     } catch (error) {
       if(this.#toast) {
@@ -260,14 +261,14 @@ class WeatherController {
   }
 
   private async updateWeatherDaily() {
-    const parent = document.getElementById('daily-weather-widget')
+    const settings = getWidgetsSettings()
+    const parent = document.getElementById(settings.dailyWeather.id)
     if(!parent) return
     if(this.#toast){
       await this.#toast.hide()
     }
     parent.querySelector('.container').innerHTML = ''
 
-    const settings = getWidgetsSettings()
     if(!settings.dailyWeather.active) return
 
     const weatherData = await this.getWeatherData()
@@ -319,14 +320,16 @@ class WeatherController {
   }
 
   public toggleWeather(show = true) {
-    document.getElementById('weather-widget').style.display = show ? 'block' : 'none'
+    const settings = getWidgetsSettings()
+    document.getElementById(settings.weather.id).style.display = show ? 'block' : 'none'
     if(show) {
       this.updateWeather()
     }
   }
 
   public toggleDailyWeather(show = true) {
-    document.getElementById('daily-weather-widget').style.display = show ? 'block' : 'none'
+    const settings = getWidgetsSettings()
+    document.getElementById(settings.dailyWeather.id).style.display = show ? 'block' : 'none'
     if(show) {
       this.updateWeatherDaily()
     }

@@ -1,8 +1,7 @@
 import {app, BrowserWindow } from 'electron';
 
-import {createMainWindow} from "./window"
-import {registerTray} from "./tray";
-import '../ipc/handlers'
+import { createMainWindow, registerTray } from "@electron"
+import '@ipc/handlers'
 
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.

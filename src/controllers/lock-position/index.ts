@@ -1,8 +1,10 @@
-import {getWidgetsSettings, setWidgetsSetting} from "../../utils/widgets-settings";
+import {getWidgetsSettings, setWidgetsSetting} from "@utils";
 import {settingsMenuLockPositionHtml} from "./html";
 
 class LockPositionController {
   static instance: LockPositionController | null = null
+
+  #lockCheckbox: HTMLInputElement
 
   static getInstance() {
     if (!LockPositionController.instance) {
@@ -29,15 +31,23 @@ class LockPositionController {
     element.classList.add('settings-menu-item')
     element.innerHTML = settingsMenuLockPositionHtml
 
-    const lockCheckbox:HTMLInputElement = element.querySelector('input[type="checkbox"]')
-    lockCheckbox.checked = settings.locked
+    this.#lockCheckbox = element.querySelector('input[type="checkbox"]')
+    this.#lockCheckbox.checked = settings.locked
 
-    lockCheckbox.addEventListener('change', (e:any)=> {
-      document.getElementById('drag-icon').style.display = e.target.checked ? 'none' : 'block'
-      setWidgetsSetting('locked', e.target.checked)
+    this.#lockCheckbox.addEventListener('change', (e:any)=> {
+      const locked = e.target.checked
+      window.electronAPI.setLockPosition(locked)
+      document.getElementById('drag-icon').style.display = locked ? 'none' : 'block'
+      setWidgetsSetting('locked', locked)
     })
 
     return element
+  }
+
+  public toggleLockPosition(locked = true){
+    document.getElementById('drag-icon').style.display = locked ? 'none' : 'block'
+    this.#lockCheckbox.checked = locked
+    setWidgetsSetting('locked', locked)
   }
 
 

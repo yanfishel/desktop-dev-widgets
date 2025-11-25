@@ -1,13 +1,13 @@
-import {BrowserWindow, screen, powerMonitor, session, desktopCapturer } from "electron";
+import {BrowserWindow, screen, powerMonitor } from "electron";
 import * as path from "node:path";
 import is from 'electron-is'
 
 
-import {APP_WIDTH} from "../constans";
-import {config} from "../config";
-import {IpcChannels} from "../ipc/channels";
-import {openDevToolsWithShortcut, showNotification} from "./common";
-import {getAppSettings, setAppSettings} from "./settings";
+import {APP_WIDTH} from "@constants";
+import {config} from "@config";
+import {IpcChannels} from "@ipc/channels";
+import {openDevToolsWithShortcut, showNotification} from "./utils";
+import {getAppSettings, setAppSettings} from "./app-settings";
 import {destroyTray, registerTray} from "./tray";
 
 
@@ -66,18 +66,6 @@ export function createMainWindow() {
 
   // Hide the traffic light buttons (minimize, maximize, close)
   is.macOS() && mainWindow.setWindowButtonVisibility(false)
-
-  session.defaultSession.setDisplayMediaRequestHandler((request, callback) => {
-    desktopCapturer.getSources({ types: ['screen'] }).then((sources) => {
-      console.log(sources);
-      // Grant access to the first screen found.
-      callback({ video: sources[0], audio: 'loopback' })
-    })
-    // If true, use the system picker if available.
-    // Note: this is currently experimental. If the system picker
-    // is available, it will be used and the media request handler
-    // will not be invoked.
-  }, { useSystemPicker: true })
 
   // Load the main window content
   if (MAIN_WINDOW_WEBPACK_ENTRY) {
@@ -170,5 +158,24 @@ export function resizeMainWindow(size:TWidgetsSize) {
 
   registerTray()
 
+}
+
+export function lockMainWindowPosition(locked:boolean) {
+  let mainWindow:BrowserWindow | null = null
+
+  BrowserWindow.getAllWindows().forEach(win => {
+    if (win.title === config.applicationName) mainWindow = win;
+  })
+
+  if(!mainWindow) return
+
+  destroyTray()
+
+  mainWindow.webContents.send(IpcChannels.LOCK_POSITION, locked)
+  const appSettings = getAppSettings()
+  const settings = { ...appSettings, locked }
+  setAppSettings(settings)
+
+  registerTray()
 }
 

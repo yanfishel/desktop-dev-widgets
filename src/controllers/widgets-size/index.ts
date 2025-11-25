@@ -1,4 +1,4 @@
-import {getWidgetsSettings, setWidgetsSetting} from "../../utils";
+import {getWidgetsSettings, setWidgetsSetting} from "@utils";
 import {settingsMenuHtml} from "./html";
 
 

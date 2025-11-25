@@ -1,7 +1,9 @@
-import {lightOffIcon, lightOnIcon} from "../../../assets";
-import {getStorageItem, removeStorageItem, setStorageItem} from "../../../utils";
+import {STORAGE_KEYS} from "@constants";
+import {lightOffIcon, lightOnIcon} from "@assets";
+import {getStorageItem, removeStorageItem, setStorageItem} from "@utils";
 import {rubberDuckTabHtml} from "./html";
 import './style.css'
+
 
 class RubberDuckTabController {
   static instance: RubberDuckTabController | null = null
@@ -52,7 +54,7 @@ class RubberDuckTabController {
     this.#duckFilterButton = elem.querySelector('#filter-button')
     this.#duckFilterButton.addEventListener('click', ()=> this.filterToggle())
 
-    const duckFilter = getStorageItem('dev-utils-duck-filter')
+    const duckFilter = getStorageItem(STORAGE_KEYS.WIDGET_DEVUTILS_RUBBER_DUCK_ON)
     if(duckFilter) {
       this.#duckImage.classList.add('image-on')
       this.#duckFilterButton.innerHTML = lightOffIcon
@@ -66,10 +68,10 @@ class RubberDuckTabController {
     this.#isOn = !this.#isOn
     if(this.#isOn) {
       this.#duckImage.classList.add('image-on')
-      setStorageItem('dev-utils-duck-filter', '1')
+      setStorageItem(STORAGE_KEYS.WIDGET_DEVUTILS_RUBBER_DUCK_ON, '1')
     } else {
       this.#duckImage.classList.remove('image-on')
-      removeStorageItem('dev-utils-duck-filter')
+      removeStorageItem(STORAGE_KEYS.WIDGET_DEVUTILS_RUBBER_DUCK_ON)
     }
     this.#duckFilterButton.innerHTML = !this.#isOn ? lightOnIcon : lightOffIcon
   }

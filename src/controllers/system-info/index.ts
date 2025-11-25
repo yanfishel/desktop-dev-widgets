@@ -1,19 +1,25 @@
-
-import {formatBytes, formatBytesMetric, getWidgetsSettings} from "../../utils";
-import {diskUsageItemHtml, systemInfoHtml} from "./html";
-import "./style.css"
 import {Systeminformation} from "systeminformation";
-import {ethernetIcon, wifiIcon} from "../../assets";
+
+import {ethernetIcon, wifiIcon} from "@assets";
+import {getWidgetsSettings, setWidgetsSetting, formatBytesMetric, networkChartMaxValue} from "@utils";
+import {diskUsageItemHtml, settingsMenuSysInfoHtml, systemInfoHtml} from "./html";
+import "./style.css"
 
 
 class SystemInfo {
   static instance: SystemInfo | null = null
 
+  chartstep = 15
+  updateInterval = 3_000
+
+  #id: string
+  #globalTimeinput: HTMLInputElement
   #started = false
-  #cpuPercents: number[] = [0,0,0,0,0,0,0,0,0,0,0]
-  #ramPercents: number[] = [0,0,0,0,0,0,0,0,0,0,0]
-  #rxSec: number[] = [0,0,0,0,0,0,0,0,0,0,0]
-  #txSec: number[] = [0,0,0,0,0,0,0,0,0,0,0]
+  #processing = false
+  #cpuPercents: number[] = new Array(this.chartstep).fill(0) // [0,0,0,0,0,0,0,0,0,0,0]
+  #ramPercents: number[] = new Array(this.chartstep).fill(0)
+  #rxSec: number[] = new Array(this.chartstep).fill(0)
+  #txSec: number[] = new Array(this.chartstep).fill(0)
 
   #cpuStatus: HTMLElement
   #cpuChart: HTMLElement
@@ -22,6 +28,8 @@ class SystemInfo {
   #ramChart: HTMLElement
   #ramPercent: HTMLElement
 
+  #publicIP = ''
+  #networkIface = ''
   #netIfaceInfo: HTMLElement
   #netChartsLabel: HTMLElement
   #netTransferChart: HTMLElement
@@ -39,12 +47,14 @@ class SystemInfo {
 
   build(container: HTMLElement){
     const settings = getWidgetsSettings()
-
+    this.#id = settings.systemInfo.id
     const elem = document.createElement('div')
-    elem.id = 'system-info-widget'
+    elem.id = this.#id
     elem.style.order = settings.systemInfo.order+''
     elem.style.display = settings.systemInfo.active ? 'block' : 'none'
     elem.innerHTML = systemInfoHtml
+
+    this.#globalTimeinput = document.getElementById('global-time') as HTMLInputElement
 
     this.#cpuStatus = elem.querySelector('#cpu-status')
     this.#cpuChart = elem.querySelector('#cpu-chart')
@@ -62,115 +72,164 @@ class SystemInfo {
 
     this.start()
 
-    this.getDiskUsage()
-
     container.appendChild(elem)
   }
 
-  private start(){
+  public settingsMenuElement() {
+    const settings = getWidgetsSettings()
+
+    const element = document.createElement('div')
+    element.classList.add('settings-menu-item')
+    element.innerHTML = settingsMenuSysInfoHtml
+    const checkbox:HTMLInputElement = element.querySelector('input[name="systeminfo-active"]')
+    checkbox.checked = settings.systemInfo.active
+
+    checkbox.addEventListener('change', (e:any)=> {
+      document.getElementById(settings.systemInfo.id).style.display = e.target.checked ? 'block' : 'none'
+      this.toggleActive(e.target.checked)
+      setWidgetsSetting('systemInfo', {...settings.systemInfo, active: e.target.checked })
+    })
+    return element
+  }
+
+  public start(){
     this.#started = true
+    this.getDiskUsage()
     this.update()
   }
 
-  private stop() {
+  public stop() {
     this.#started = false
   }
 
-  private update(){
-    this.getCpuUsage()
-    this.getNetworkUsage()
+  public toggleActive(active = true) {
+    if(active) {
+      this.start()
+    }
+    else this.stop()
+  }
+
+  private async update(){
+    const settings = getWidgetsSettings()
+    if(this.#processing || !settings.systemInfo.active) {
+      return
+    }
+    this.#processing = true
+    await Promise.all([
+      this.getCpuRamStat(),
+      this.getNetworkStat()
+    ])
+    // Update Disk Usage every minute
+    const time = this.#globalTimeinput.value.split(':')
+    const seconds = parseInt(time[2])
+    if(seconds === 0){
+      await this.getDiskUsage()
+    }
+    this.#processing = false
     if(this.#started) {
-      setTimeout(()=>this.update(), 3_000)
+      setTimeout(()=>this.update(), this.updateInterval)
     }
   }
 
-  private async getNetworkUsage(){
+  private async getPublicIP(){
+    const result = await window.electronAPI.getPublicIP()
+    if(result) {
+      this.#publicIP = result
+    }
+  }
+
+  private async getNetworkStat(){
+    if(!this.#publicIP) await this.getPublicIP()
     const result = await window.electronAPI.getNetworkStatsInfo()
-    let rx_sec = 0, tx_sec = 0
-    if(result.stats) {
-      result.stats.forEach(item => {
-        rx_sec += +(item.rx_sec * 8 / 1000).toFixed(2)
-        tx_sec += +(item.tx_sec * 8 / 1000).toFixed(2)
-      })
-      
-      this.#rxSec.push(rx_sec)
-      this.#txSec.push(tx_sec)
-      if(this.#rxSec.length > 11) this.#rxSec.shift()
-      if(this.#txSec.length > 11) this.#txSec.shift()
+    if(result.stats && result.iface) {
+      const down = result.stats.every(item=>item.operstate === 'down')
+      if(down || this.#networkIface !== result.iface.iface) {
+        this.#publicIP = ''
+      }
+      this.#networkIface = result.iface.iface
+      this.updateNetworkStat(result)
     }
-    if(result.iface) {
-      this.#netIfaceInfo.classList.remove('state-up', 'state-down')
-      let html = ``
-      html += `<p><span>${ result.iface.iface }</span>${ result.iface.type === 'wireless' ? wifiIcon : ethernetIcon }</p>`
-      html += `<p>${ result.iface.ip4 }</p>`
-      this.#netIfaceInfo.innerHTML = html
-      this.#netIfaceInfo.classList.add(`state-${result.iface.operstate}`)
-    }
-    this.upddateNetworkUsage()
   }
 
-  private upddateNetworkUsage(){
-    const steps = [500, 1_000, 10_000, 50_000, 100_000, 250_000, 500_000, 1_000_000]
-    const stepsLabels = ['500Kbps', '1Mbps', '10Mbps', '50Mbps', '100Mbps', '250Mbps', '500Mbps', '1Gbps']
-    let index = 0
-    let maxValue = steps[0]
-    let maxLabel = stepsLabels[0]
-    const max_speed = this.#rxSec.reduce((prev, curr) => Math.max(prev, curr), 0)
-    for (let i = 1; i < steps.length; i++) {
-      if(max_speed < steps[i] && max_speed > steps[i-1]){
-        maxValue = steps[i]
-        maxLabel = stepsLabels[i]
-        index = i
-      }
-    }
-    if(maxValue > max_speed/2 && index < steps.length - 1) {
-      maxValue = steps[index+1]
-    }
+  private updateNetworkStat({stats, iface}: {stats: Systeminformation.NetworkStatsData[], iface: Systeminformation.NetworkInterfacesData }){
+    let rx_sec = 0, tx_sec = 0
+    stats.forEach(item => {
+      rx_sec += +(item.rx_sec * 8 / 1000).toFixed(2)
+      tx_sec += +(item.tx_sec * 8 / 1000).toFixed(2)
+    })
+    this.#rxSec.push(rx_sec)
+    this.#txSec.push(tx_sec)
+    if(this.#rxSec.length > this.chartstep) this.#rxSec.shift()
+    if(this.#txSec.length > this.chartstep) this.#txSec.shift()
+
+    this.#netIfaceInfo.classList.remove('state-up', 'state-down')
+    let html = ``
+    html += `<p><span>${ iface.iface }</span>${ iface.type === 'wireless' ? wifiIcon : ethernetIcon }</p>`
+    html += this.#publicIP ? `<p>${ this.#publicIP }</p>` : ''
+    html += `<p>${ iface.ip4 }</p>`
+    this.#netIfaceInfo.innerHTML = html
+    this.#netIfaceInfo.classList.add(`state-${iface.operstate}`)
+
+    //Update Charts
+    this.upddateNetworkChart()
+  }
+
+  private upddateNetworkChart(){
+    const { maxValue, maxLabel } = networkChartMaxValue(this.#rxSec, this.#txSec)
 
     this.#netChartsLabel.innerHTML = maxLabel
     
-    const transferPolygon = `polygon(0 100%, ${ this.#rxSec.map((sec, i)=> `${i*10}% ${ (100 - sec / maxValue *100).toFixed(2) }%`).join(', ') }, 100% 100%)`
+    const transferPolygon = `polygon(0 100%, ${ this.#txSec.map((sec, i)=> `${i*(100/(this.chartstep-1))}% ${ (100 - sec / maxValue *100).toFixed(2) }%`).join(', ') }, 100% 100%)`
     this.#netTransferChart.style.clipPath = transferPolygon
-    const receivePolygon = `polygon(0 100%, ${ this.#txSec.map((sec, i)=> `${i*10}% ${ (100 - sec / maxValue *100).toFixed(2) }%`).join(', ') }, 100% 100%)`
+    const receivePolygon = `polygon(0 100%, ${ this.#rxSec.map((sec, i)=> `${i*(100/(this.chartstep-1))}% ${ (100 - sec / maxValue *100).toFixed(2) }%`).join(', ') }, 100% 100%)`
     this.#netReceiveChart.style.clipPath = receivePolygon
   }
 
-  private async getCpuUsage(){
+  private async getCpuRamStat(){
     const result = await window.electronAPI.getSystemInfo()
-    if(result.info) {
-      const cpuPercent = result.info.currentLoad.toFixed(2)
-      this.#cpuStatus.innerHTML = `${result.info.cpus.length} cores`
-      //this.#cpuStatus.innerHTML = `${cpuPercent}%`
-      this.#cpuPercent.innerHTML = `${cpuPercent}%`
-      this.#cpuPercents.push(cpuPercent)
-      if(this.#cpuPercents.length > 11) this.#cpuPercents.shift()
+    if(result.info && result.memory) {
+      this.updateCpuRamStatus(result)
     }
-    if(result.memory) {
-      const ramTotal = formatBytesMetric(result.memory.total)
-      const ramUsed = formatBytesMetric(result.memory.used)
-      const ramPercent = +(result.memory.used / result.memory.total * 100).toFixed(2)
-      this.#ramStatus.innerHTML = `${ramTotal}`
-      //this.#ramStatus.innerHTML = `${ramUsed} / ${ramTotal} (${ramPercent}%)`
-      this.#ramPercent.innerHTML = `${ramPercent}%`
-      this.#ramPercents.push(ramPercent)
-      if(this.#ramPercents.length > 11) this.#ramPercents.shift()
-    }
-    this.updateCpuUsage()
   }
 
-  private updateCpuUsage(){
-    const cpuPolygon = `polygon(0 100%, ${ this.#cpuPercents.map((perc, i)=> `${i*10}% ${100-perc}%`).join(', ') }, 100% 100%)`
+  private updateCpuRamStatus({info, memory}: {info: Systeminformation.CurrentLoadData, memory: Systeminformation.MemData }){
+    const cpuPercent = info.currentLoad.toFixed(1)
+    this.#cpuStatus.innerHTML = `${info.cpus.length} cores`
+    this.#cpuPercent.innerHTML = `${cpuPercent}%`
+    this.#cpuPercents.push(+cpuPercent)
+    if(this.#cpuPercents.length > this.chartstep) this.#cpuPercents.shift()
+
+    const ramTotal = formatBytesMetric(memory.total, 1)
+    const ramUsed = formatBytesMetric(memory.used)
+    const ramPercent = +(memory.used / memory.total * 100).toFixed(1)
+    this.#ramStatus.innerHTML = `${ramTotal}`
+    this.#ramPercent.innerHTML = `${ramPercent}%`
+    this.#ramPercents.push(ramPercent)
+    if(this.#ramPercents.length > this.chartstep) this.#ramPercents.shift()
+
+    // Update Charts
+    this.updateCpuRamChart()
+  }
+
+  private updateCpuRamChart(){
+    const cpuPolygon = `polygon(0 100%, ${ this.#cpuPercents.map((perc, i)=> `${i* (100/(this.chartstep-1))}% ${100-perc}%`).join(', ') }, 100% 100%)`
     this.#cpuChart.style.clipPath = cpuPolygon
-    const ramPolygon = `polygon(0 100%, ${ this.#ramPercents.map((perc, i)=> `${i*10}% ${100-perc}%`).join(', ') }, 100% 100%)`
+    const ramPolygon = `polygon(0 100%, ${ this.#ramPercents.map((perc, i)=> `${i* (100/(this.chartstep-1))}% ${100-perc}%`).join(', ') }, 100% 100%)`
     this.#ramChart.style.clipPath = ramPolygon
   }
 
   private async getDiskUsage(){
+    const settings = getWidgetsSettings()
+    if(!settings.systemInfo.active) return
     const diskUsage = await window.electronAPI.getDiskUsage()
     this.updateDiskUsage(diskUsage)
   }
 
   private updateDiskUsage(data:Systeminformation.FsSizeData[]){
+    if(!data) {
+      this.#diskUsageContainer.innerHTML = '<p class="error">No data available</p>'
+      return
+    }
     let html = ''
     data.forEach(item => {
       html += diskUsageItemHtml(item)

@@ -78,8 +78,8 @@
 }
 ::-webkit-scrollbar, *::-webkit-scrollbar {
   border-radius: 20px;
-  width: 8px;
-  height: 8px;
+  width: 4px;
+  height: 4px;
   background-color: var(--scrollbar-background);
 }
 ::-webkit-scrollbar-thumb, *::-webkit-scrollbar-thumb {
@@ -107,6 +107,7 @@ body {
   font-family: var(--font-family);
   color: var(--text-primary);
   font-size: 16px;
+  overflow: hidden;
 }
 
 #top-container {
@@ -133,7 +134,7 @@ body {
 }
 
 #drag-icon {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 10px;
   cursor: grab;
@@ -148,6 +149,13 @@ body {
   }
 }
 
+
+.content-container-wrapper {
+  width: 100%;
+  flex: 1;
+  /*height: calc(100% - var(--top-container-height));*/
+  overflow-y: auto;
+}
 #content-container {
   width: 100%;
   display: flex;
@@ -155,7 +163,6 @@ body {
   align-items: center;
   padding: 0 2px;
   gap: var(--widgets-distance);
-  flex-grow: 1;
 }
 
 .container {

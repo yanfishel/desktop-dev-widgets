@@ -1,13 +1,15 @@
-import {getStorageItem, getWidgetsSettings, setStorageItem, setWidgetsSetting} from "../../utils";
+import {SEARCH_ENGINES, STORAGE_KEYS} from "@constants";
+import {getStorageItem, setStorageItem, getWidgetsSettings, setWidgetsSetting} from "@utils";
 import {settingsMenuWebSearchHtml, webSearchHtml} from "./html";
 
 import './style.css'
-import {SEARCH_ENGINES} from "../../constans";
+
 
 
 class WebSearch {
   static instance: WebSearch | null = null
 
+  #id: string
   #searchInput: HTMLInputElement
   #searchIngineSelect: HTMLSelectElement
   #searchIngineIcon: HTMLImageElement
@@ -22,10 +24,9 @@ class WebSearch {
 
   public build(container: HTMLElement){
     const settings = getWidgetsSettings()
-    const storedEngine = getStorageItem('dev-widgets-web-search-engine')
-
+    this.#id = settings.webSearch.id
     const elem = document.createElement('div')
-    elem.id = 'web-search-widget'
+    elem.id = this.#id
     elem.innerHTML = webSearchHtml
     elem.style.order = settings.webSearch.order.toString()
     elem.style.display = settings.webSearch.active ? 'block' : 'none'
@@ -34,6 +35,7 @@ class WebSearch {
     this.#searchIngineSelect = elem.querySelector('select[name="web-search-engine"]')
     this.#searchIngineIcon = elem.querySelector('.search-engine-icon')
 
+    const storedEngine = getStorageItem(STORAGE_KEYS.WIDGET_SEARCH_ENGINE)
     if(storedEngine) {
       const engine = SEARCH_ENGINES.find(engine => engine.name === storedEngine)
       if(engine) {
@@ -46,7 +48,7 @@ class WebSearch {
       const engine = SEARCH_ENGINES.find(engine => engine.name === e.target.value)
       if(engine) {
         this.#searchIngineIcon.src = engine.icon
-        setStorageItem('dev-widgets-web-search-engine', engine.name)
+        setStorageItem(STORAGE_KEYS.WIDGET_SEARCH_ENGINE, engine.name)
       }
     })
 
@@ -69,7 +71,7 @@ class WebSearch {
     const checkBox:HTMLInputElement = element.querySelector('input[type="checkbox"]')
     checkBox.checked = settings.webSearch.active
     checkBox.addEventListener('change', (e:any)=> {
-      document.getElementById('web-search-widget').style.display = e.target.checked ? 'block' : 'none'
+      document.getElementById(settings.webSearch.id).style.display = e.target.checked ? 'block' : 'none'
       setWidgetsSetting('webSearch', {...settings.webSearch, active: e.target.checked })
     })
 

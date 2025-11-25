@@ -1,4 +1,4 @@
-import {colorIcon, dateTimeIcon, duckIcon, encodeIcon} from "../../assets";
+import {colorIcon, dateTimeIcon, dragItemIcon, duckIcon, encodeIcon} from "@assets";
 
 
 export const devUtilsHtml = `
@@ -35,6 +35,7 @@ export const devUtilsHtml = `
 
 
 export const settingsMenuDevUtilsHtml = `
+  <div class="menu-item-handle">${ dragItemIcon }</div>
   <label for="dev-utils">Dev Utils</label>
   <div class="switch-container">
     <input type="checkbox" id="dev-utils" name="dev-utils" role="switch">

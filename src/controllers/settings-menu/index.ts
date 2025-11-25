@@ -1,13 +1,16 @@
-import lockPositionController from "../lock-position";
-import sizeController from "../widgets-size";
-import themeController from "../theme";
-import weatherController from "../weather";
-import {settingsContainerHtml} from "./html";
+import Sortable from 'sortablejs';
 
+import lockPositionController from "@controllers/lock-position";
+import sizeController from "@controllers/widgets-size";
+import themeController from "@controllers/theme";
+import weatherController from "@controllers/weather";
+import webSearchController from "@controllers/web-search";
+import notesController from "@controllers/notes";
+import devUtilsController from "@controllers/dev-utils";
+import systemInfoController from "@controllers/system-info";
+
+import {settingsContainerHtml} from "./html";
 import "./style.css"
-import webSearchController from "../web-search";
-import notesController from "../notes";
-import devUtilsController from "../dev-utils";
 
 
 class SettingsMenuController {
@@ -67,6 +70,9 @@ class SettingsMenuController {
     // Web Search Item
     const itemRowSearch = webSearchController.settingsMenuElement()
     sortable.appendChild( itemRowSearch )
+    // Systeminformation Item
+    const itemRowSisteminfo = systemInfoController.settingsMenuElement()
+    sortable.appendChild( itemRowSisteminfo )
     // Dev Utils Item
     const itemRowDevUtils = devUtilsController.settingsMenuElement()
     sortable.appendChild( itemRowDevUtils )
@@ -74,10 +80,20 @@ class SettingsMenuController {
     const itemRowNotes = notesController.settingsMenuElement()
     sortable.appendChild( itemRowNotes )
 
+
     this.#settingsMenu.appendChild( sortable )
     // ./ End Sortable Settings Items
 
     container.appendChild( this.#settingsContainer )
+
+    Sortable.create(sortable, {
+      direction: 'vertical',
+      handle: '.menu-item-handle',
+      ghostClass: 'menu-item-ghost',
+      onEnd: (evt:any) => {
+        console.log(evt, evt.oldIndex, evt.newIndex);
+      }
+    })
   }
 
   private listeners() {

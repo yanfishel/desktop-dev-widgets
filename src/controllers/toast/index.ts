@@ -1,5 +1,5 @@
-import {wait} from "../../utils";
-import {closeIcon} from "../../assets";
+import {wait} from "@utils";
+import {closeIcon} from "@assets";
 
 import './style.css'
 

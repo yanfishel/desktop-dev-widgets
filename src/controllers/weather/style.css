@@ -1,5 +1,5 @@
 
-#weather-widget {
+#widget-weather {
   width: calc(100% - 4px);
   height: 45px;
   position: absolute;
@@ -82,7 +82,7 @@
 }
 
 /* -- DAILY WEATHER - */
-#daily-weather-widget {
+#widget-daily-weather {
   width: 100%;
   overflow: hidden;
   position: relative;

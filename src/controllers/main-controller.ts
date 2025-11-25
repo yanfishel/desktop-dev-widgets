@@ -71,7 +71,8 @@ class MainController {
 
   onResume() {
     weatherController.updateAll()
-    devUtilsController.update()
+    devUtilsController.toggleActive()
+    systemInfoController.toggleActive()
   }
 
   electronAPI(){
@@ -84,6 +85,10 @@ class MainController {
       if(name === 'resume') {
         this.onResume()
       }
+    })
+
+    window.electronAPI.onLockPosition((_event, locked) => {
+      lockPositionController.toggleLockPosition(locked)
     })
   }
 

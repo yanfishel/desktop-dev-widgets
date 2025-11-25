@@ -1,5 +1,5 @@
-import {SEARCH_ENGINES} from "../../constans";
-import {searchIcon} from "../../assets";
+import {SEARCH_ENGINES} from "@constants";
+import {dragItemIcon, searchIcon} from "@assets";
 
 export const webSearchHtml = `<div class="container">
   <div class="web-search-container">
@@ -18,6 +18,7 @@ export const webSearchHtml = `<div class="container">
 </div>`
 
 export const settingsMenuWebSearchHtml = `
+  <div class="menu-item-handle">${ dragItemIcon }</div>
   <label for="web-search-avtive">Web search</label>
   <div class="switch-container">
     <input type="checkbox" id="web-search-avtive" name="web-search-avtive" role="switch">

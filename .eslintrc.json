@@ -10,7 +10,26 @@
     "plugin:@typescript-eslint/recommended",
     "plugin:import/recommended",
     "plugin:import/electron",
-    "plugin:import/typescript"
+    "plugin:import/typescript",
+    "plugin:import/resolver"
   ],
-  "parser": "@typescript-eslint/parser"
+  "parser": "@typescript-eslint/parser",
+  "settings": {
+    "import/resolver": {
+       "alias": {
+         "map": [
+           ["@assets/*", "./src/assets/*"],
+           ["@config/*", "./src/config/*"],
+           ["@constants/*", "./src/constants/*"],
+           ["@controllers/*", "./src/controllers/*"],
+           ["@electron/*", "./src/electron/*"],
+           ["@ipc/*", "./src/ipc/*"],
+           ["@types/*", "./src/types/*"],
+           ["@utils/*", "./src/utils/*"],
+           ["*", "./node_modules/*"]
+         ],
+         "extensions": [".ts", ".js", ".tsx"]
+       }
+     }
+  }
 }

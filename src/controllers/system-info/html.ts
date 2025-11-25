@@ -1,5 +1,7 @@
 import {Systeminformation} from "systeminformation";
-import { formatBytesMetric } from "../../utils";
+
+import { formatBytesMetric } from "@utils";
+import {dragItemIcon} from "@assets";
 
 export const systemInfoHtml = `
   <div class="container">
@@ -54,8 +56,6 @@ export const systemInfoHtml = `
   </div>
 `
 
-
-
 export const diskUsageItemHtml = (fsData:Systeminformation.FsSizeData) => {
   const treshold = 85
   let usedWidth = `${ fsData.use }%`
@@ -68,7 +68,7 @@ export const diskUsageItemHtml = (fsData:Systeminformation.FsSizeData) => {
 
   return `
 <div class="disk-usage-item">
-   <div class="disk-name">${ fsData.mount } <span>${ formatBytesMetric( fsData.size ) }</span></div>
+   <div class="disk-name">${ fsData.mount } <span>${ formatBytesMetric( fsData.size, 1 ) }</span></div>
    <div class="disk-percent">${ fsData.use }%</div>
    <div class="disk-used-progress">
      <div class="disk-used-bar" style="width:${ usedWidth }"></div>
@@ -76,3 +76,10 @@ export const diskUsageItemHtml = (fsData:Systeminformation.FsSizeData) => {
   </div>
 </div>`
 }
+
+export const settingsMenuSysInfoHtml = `
+  <div class="menu-item-handle">${ dragItemIcon }</div>
+  <label for="systeminfo-active">System Info</label>
+  <div class="switch-container">
+    <input type="checkbox" id="systeminfo-active" name="systeminfo-active" role="switch">
+  </div>`
