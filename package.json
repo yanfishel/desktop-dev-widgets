@@ -1,8 +1,8 @@
 {
-  "name": "Developer Widgets",
-  "productName": "DeveloperWidgets",
+  "name": "developer-widgets",
+  "productName": "Developer Widgets",
   "version": "1.0.0",
-  "description": "Developer Widgets",
+  "description": "Desktop Developer Widgets",
   "main": ".webpack/main",
   "scripts": {
     "start": "electron-forge start",
@@ -43,7 +43,6 @@
   },
   "dependencies": {
     "@date-fns/tz": "^1.4.1",
-    "@maptalks/electron-color-picker": "^0.3.2",
     "base32-encode": "^2.0.0",
     "colortranslator": "^5.0.0",
     "date-fns": "^4.1.0",
@@ -52,7 +51,6 @@
     "electron-squirrel-startup": "^1.0.1",
     "highlight.js": "^11.11.1",
     "jose": "^6.1.2",
-    "recordrtc": "^5.6.2",
     "systeminformation": "^5.27.11"
   }
 }

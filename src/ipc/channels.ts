@@ -1,11 +1,12 @@
 // IPC channels
 export enum IpcChannels {
-  WIDGET_SIZE = 'widget-size', // Set widget size
+  WIDGET_SIZE = 'widget-size',
   POWER_MONITOR_EVENT = 'power-monitor-event',
 
-  OPEN_EXTERNAL = 'open-external', // Channel for opening external links
-
-  CLICKED_PIXEL = 'clicked-pixel',
+  OPEN_EXTERNAL = 'open-external',
+  GET_DISK_USAGE = 'get-disk-usage',
+  GET_SYSTEM_INFO = 'get-system-info',
+  GET_NETWORK_STATS_INFO = 'get-network-stats-info',
 
   /*WINDOW_ACTION = 'window-action', // Channel for window actions
   GET_APP_VERSION = 'get-app-version', // Channel for getting app version

@@ -1,4 +1,4 @@
-
+// types.d.ts
 interface IAppSettings {
   width: number
   height: number
@@ -24,6 +24,7 @@ interface IWidgetsSettings {
   weather: { active: boolean }
   dailyWeather: TWidget
   webSearch: TWidget
+  systemInfo: TWidget
   devUtils: TWidget
   notes: TWidget
   autoGeoPosition: boolean
@@ -34,6 +35,10 @@ interface Window {
   electronAPI: {
     setWidgetsSize: (size: string) => void
     openExternal: (url: string) => Promise<void>
+
+    getDiskUsage: () => Promise< Systeminformation.FsSizeData[] >
+    getSystemInfo: () => Promise< { info:Systeminformation.CurrentLoadData, memory:Systeminformation.MemData } >
+    getNetworkStatsInfo: () => Promise<{ stats:Systeminformation.NetworkStatsData[], iface:Systeminformation.NetworkInterfacesData } >
 
     onWidgetsResize: (callback: (_event: any, size: TWidgetsSize) => void) => void
     onPowerMonitorEvent: (callback: (_event: any, name:string ) => void) => void

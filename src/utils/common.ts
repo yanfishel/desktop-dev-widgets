@@ -26,23 +26,21 @@ export const formatBytes = (bytes: number, decimals = 2) => {
   return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`
 }
 
-export const base64urlEncode = (obj:object) => {
-  const jsonString = JSON.stringify(obj);
-  const base64 = btoa(jsonString);
-  return base64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
-}
+export const formatBytesMetric = (bytes:number, decimals = 2) => {
+  if (!+bytes) return '0 B'
 
-export const stripslashes = (str:string) => {
-  return (str + '').replace(/\\(.?)/g, function (s, n1) {
-    switch (n1) {
-      case '\\':
-        return '\\'
-      case '0':
-        return '\u0000'
-      case '':
-        return ''
-      default:
-        return n1
-    }
-  })
+  const base = 1024; // Base for conversion between units
+  const dm = decimals < 0 ? 0 : decimals; // Ensure decimals is not negative
+
+  const units = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+
+  // Calculate the appropriate unit index
+  const unitIndex = Math.floor(Math.log(bytes) / Math.log(base));
+
+  // Ensure the unit index doesn't exceed the available units
+  const safeUnitIndex = Math.min(unitIndex, units.length - 1);
+
+  const formattedSize = (bytes / Math.pow(base, safeUnitIndex)).toFixed(dm);
+
+  return `${parseFloat(formattedSize)} ${units[safeUnitIndex]}`;
 }

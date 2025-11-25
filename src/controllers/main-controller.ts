@@ -7,6 +7,7 @@ import analogClockController from "./analog-clock";
 import notesController from "./notes";
 import webSearchController from "./web-search";
 import devUtilsController from "./dev-utils";
+import systemInfoController from "./system-info";
 
 class MainController {
   static instance: MainController | null = null
@@ -51,6 +52,10 @@ class MainController {
     // Web Search
     webSearchController.build(this.#contentContainer)
 
+    // System Info
+    systemInfoController.build(this.#contentContainer)
+
+    // Dev Utils
     devUtilsController.build(this.#contentContainer)
 
     // Notes

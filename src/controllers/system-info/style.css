@@ -1,0 +1,228 @@
+
+#system-info-widget {
+  --system-widget-height: 140px;
+  --chart-width: 100px;
+
+  width: 100%;
+
+  .container {
+    height: var(--system-widget-height);
+    width: 100%;
+    padding-inline: 13px;
+    padding-bottom: 12px;
+    font-size: 0.75rem;
+
+    .system-info-container {
+      height: 100%;
+      max-height: 100%;
+      font-size: 0.7rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+
+      .cpu-ram-status,
+      .network-status {
+        width: var(--chart-width);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        padding: 0;
+        gap: 5px;
+
+        .title {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 5px;
+          margin-bottom: 2px;
+
+          div {
+            font-size: 0.65rem;
+            font-weight: normal;
+            opacity: .75;
+          }
+        }
+
+        .chart-container {
+          width: 100%;
+          height: 40px;
+          border: 1px solid rgb(from var(--text-primary) r g b / 0.075);
+          background-color: rgb(from var(--main-color-invert) r g b / 0.05);
+          background-image: linear-gradient(to bottom, rgb(from var(--text-primary) r g b / .05) 1px, transparent 1px),
+                            linear-gradient(to right, rgb(from var(--text-primary) r g b / .05) 1px, transparent 1px);
+          background-size: 100% 10px, 10px 100%;
+          background-position: right bottom, right bottom;
+          position: relative;
+
+          .chart {
+            width: 100%;
+            height: 100%;
+            background: rgb(from var(--accent) r g b / 0.45);
+            clip-path: polygon(0 100%, 0% 100%, 10% 100%, 20% 100%, 30% 100%, 40% 100%, 50% 100%, 60% 100%, 70% 100%, 80% 100%, 90% 100%, 100% 100%, 100% 100%);
+            transition: none;
+          }
+
+          .percent {
+            position: absolute;
+            top: 1px;
+            left: 4px;
+            font-size: 0.65rem;
+            font-weight: 500;
+            letter-spacing: 0.25px;
+            z-index: 1;
+            opacity: .85;
+          }
+        }
+      }
+
+      .network-status {
+        height: 100%;
+        gap: 0;
+
+        .iface-info {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 2px;
+          font-size: 0.65rem;
+          margin-top: 2px;
+          p {
+            width: 100%;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 2px;
+            margin: 0;
+            padding: 0;
+            span {
+              width: calc(var(--chart-width) - 18px);
+              max-width: calc(var(--chart-width) - 18px);
+              text-align: left;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+            svg {
+              width: 14px;
+              height: 14px;
+            }
+          }
+          &.state-up {
+            p svg {
+              color: #00c302;
+            }
+          }
+          &.state-down {
+            p svg {
+              color: #c00;
+            }
+          }
+        }
+
+        .chart-container {
+          height: 30px;
+
+          #data-charts-label {
+            position: absolute;
+            top: -1px;
+            right: 1px;
+            font-size: 0.525rem;
+            letter-spacing: 0.25px;
+            font-weight: 500;
+            opacity: .55;
+          }
+
+          #chart-transfered {
+            background: rgb(from var(--text-primary) r g b / 0.15);
+          }
+
+          .up, .down {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 0;
+            height: 0;
+            border: 6px solid transparent;
+            /*filter: drop-shadow(0 1px 1px rgb(from var(--text-primary) r g b / 0.55));*/
+          }
+          .up {
+            top: -3px;
+            border-bottom: 7px solid rgb(from var(--text-primary) r g b / 0.35);
+          }
+          .down {
+            border-top: 7px solid rgb(from var(--accent) r g b / 0.55);
+          }
+        }
+      }
+
+      .system-disks-status {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 2px;
+        font-size: 0.7rem;
+        text-align: left;
+        height: calc(var(--system-widget-height) - 16px);
+        max-height: var(--system-widget-height);
+
+        #disk-usage {
+          flex: 1;
+          max-height: calc(var(--system-widget-height) - 32px);
+          overflow-y: auto;
+          display: flex;
+          flex-direction: column;
+          gap: 2px;
+
+          .disk-usage-item {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            font-size: 0.65rem;
+            gap: 0;
+            position: relative;
+
+            .disk-name {
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              font-weight: 500;
+              span {
+                font-weight: normal;
+              }
+            }
+
+            .disk-percent {
+              position: absolute;
+              top: 4px;
+              left: 16px;
+              font-size: 0.5rem;
+              display: none;
+            }
+
+            .disk-used-progress {
+              height: 4px;
+              background: var(--input-background);
+              display: flex;
+              align-items: center;
+              .disk-used-bar {
+                height: 100%;
+                background: rgb(from var(--accent) r g b / 0.55);
+              }
+              .disk-used-bar-error {
+                height: 100%;
+                background: rgba(204,0,0,0.55);
+              }
+            }
+          }
+        }
+      }
+
+    }
+  }
+
+
+
+
+}

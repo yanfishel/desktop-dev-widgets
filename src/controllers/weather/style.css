@@ -187,7 +187,7 @@
 
 /* -- SMALL SIZE -- */
 .widgets-size-small {
-  #daily-weather-widget .container .day:first-child {
+  #daily-weather-widget .container .day:last-child {
     display: none;
   }
 }

@@ -13,7 +13,10 @@ contextBridge.exposeInMainWorld('electronAPI', {
   openExternal: (path: string) =>
     ipcRenderer.invoke(IpcChannels.OPEN_EXTERNAL, path),
 
-  clickedPixel:()=> ipcRenderer.invoke(IpcChannels.CLICKED_PIXEL),
+  getDiskUsage: () => ipcRenderer.invoke(IpcChannels.GET_DISK_USAGE),
+  getSystemInfo: () => ipcRenderer.invoke(IpcChannels.GET_SYSTEM_INFO),
+
+  getNetworkStatsInfo: () => ipcRenderer.invoke(IpcChannels.GET_NETWORK_STATS_INFO),
 
 
   onWidgetsResize: (callback:any) =>

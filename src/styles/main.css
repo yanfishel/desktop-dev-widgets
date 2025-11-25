@@ -20,6 +20,8 @@
   --radial-background-1: radial-gradient(circle, rgba(212, 179, 255, 0.25), rgba(189, 147, 249, 0.133));
   --radial-background-2: radial-gradient(circle, rgba(255, 153, 214, 0.19), rgba(255, 121, 198, 0.082));
 
+  --border: rgb( from var(--text-primary) r g b / 0.15);
+  --border-radius: 6px;
   --scrollbar-background: #F7F7F9;
   --scrollbar-thumb: rgba(0,0,0,0.25);
 
@@ -29,7 +31,6 @@
   --widgets-distance: .85rem;
   --action-bar-padding: 30px;
 
-  --border: rgb( from var(--text-primary) r g b / 0.15);
 
   --font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
@@ -161,8 +162,7 @@ body {
   position: relative;
   width: 100%;
   padding: 8px;
-  border-radius: 10px;
-  /*border: 6px solid var(--outline);*/
+  border-radius: var(--border-radius);
   /*box-shadow: var( --container-box-shadow);*/
   background: rgba(from var(--container-background) r g b / var(--container-opacity));
   text-align: center;

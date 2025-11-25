@@ -304,11 +304,6 @@
     }
 
     .action-bar {
-      .download-button {
-        svg {
-          width: 0.75rem;
-        }
-      }
       &.clear-all {
         right: -6px;
         margin-top: 19px;

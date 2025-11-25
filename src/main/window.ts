@@ -1,7 +1,7 @@
 import {BrowserWindow, screen, powerMonitor, session, desktopCapturer } from "electron";
 import * as path from "node:path";
 import is from 'electron-is'
-import { fsSize, getStaticData, getDynamicData, currentLoad, mem } from 'systeminformation'
+
 
 import {APP_WIDTH} from "../constans";
 import {config} from "../config";
@@ -131,19 +131,11 @@ export function createMainWindow() {
     mainWindow.webContents.send(IpcChannels.POWER_MONITOR_EVENT, 'resume')
   });
 
-  //info()
-
   // Open the DevTools for debugging
   // mainWindow.webContents.openDevTools();
   openDevToolsWithShortcut(mainWindow)
 }
 
-
-/*async function info() {
-  const info = await currentLoad()
-  const memory = await mem()
-  console.log(info, memory)
-}*/
 
 export function resizeMainWindow(size:TWidgetsSize) {
 

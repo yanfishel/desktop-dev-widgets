@@ -1,4 +1,4 @@
-import {colorIcon, dateTimeTabIcon, duckTabIcon, encodeIcon} from "../../assets";
+import {colorIcon, dateTimeIcon, duckIcon, encodeIcon} from "../../assets";
 
 
 export const devUtilsHtml = `
@@ -11,17 +11,17 @@ export const devUtilsHtml = `
       <input type="radio" id="tab3" name="tab-control" data-tab="color">
       <input type="radio" id="tab4" name="tab-control" data-tab="duck">  
       <ul>
-        <li title="Encode">
-          <label for="tab1" role="button">${ encodeIcon } Encode</label>
+        <li title="Encode / Decode">
+          <label for="tab1" role="button">${ encodeIcon } <span>Encode</span></label>
         </li>
         <li title="Date & Time">
-          <label for="tab2" role="button">${ dateTimeTabIcon } Date&amp;Time</label>
+          <label for="tab2" role="button">${ dateTimeIcon } <span>Time</span></label>
         </li>
         <li title="Color">
-          <label for="tab3" role="button" class="home-tab">${ colorIcon } Color</label>
+          <label for="tab3" role="button" class="home-tab">${ colorIcon } <span>Color</span></label>
         </li>
         <li title="Rubber Duck">
-          <label for="tab4" role="button" class="home-tab">${ duckTabIcon }</label>
+          <label for="tab4" role="button" class="home-tab">${ duckIcon }</label>
         </li>
       </ul>
       

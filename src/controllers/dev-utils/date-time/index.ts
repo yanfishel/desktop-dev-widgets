@@ -15,7 +15,6 @@ type TInputField = {
 class DateTimeTabController {
   static instance: DateTimeTabController | null = null
 
-  #interval: NodeJS.Timeout | null = null
   #toast: Toast
   #started = false
 

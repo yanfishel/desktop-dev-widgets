@@ -28,13 +28,17 @@ export const WIDGETS_SETTINGS_DEFAULT:IWidgetsSettings = {
     active: true,
     order: 2
   },
-  devUtils: {
+  systemInfo: {
     active: true,
     order: 3
   },
-  notes: {
+  devUtils: {
     active: true,
     order: 4
+  },
+  notes: {
+    active: true,
+    order: 5
   },
   autoGeoPosition: true,
   location: { name:'', lat: 0, lon: 0 }
