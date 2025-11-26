@@ -48,7 +48,7 @@ export async function createMainWindow() {
       nodeIntegration: true,
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY, // Path to preload script
     },
-    //transparent: true,
+    transparent: true,
     autoHideMenuBar: true, // Hide the menu bar
     titleBarStyle: 'hidden', // Hide the title bar
     fullscreenable: false, // Disable fullscreen

@@ -1,6 +1,6 @@
 import {app, BrowserWindow } from 'electron';
 
-import { createMainWindow, registerTray } from "./electron-utils"
+import { createMainWindow, registerTray } from "./electron"
 import './ipc/handlers'
 
 
