@@ -1,4 +1,4 @@
-import {copyIconHover, copyIconRegular, downloadIcon, dropIcon, trashIconHover, trashIconRegular} from "@assets";
+import {copyIconHover, copyIconRegular, downloadIcon, dropIcon, trashIconHover, trashIconRegular} from "../../../assets";
 
 export const encodeTabHtml = `
   <div class="container encode-container">

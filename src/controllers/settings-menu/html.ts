@@ -1,4 +1,4 @@
-import {closeIcon, settingsIconHover, settingsIconRegular} from "@assets";
+import {closeIcon, settingsIconHover, settingsIconRegular} from "../../assets";
 
 export const settingsContainerHtml = `
   <div class="circle-button settings-menu-open">

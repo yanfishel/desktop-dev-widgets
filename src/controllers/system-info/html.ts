@@ -1,7 +1,7 @@
 import {Systeminformation} from "systeminformation";
 
-import { formatBytesMetric } from "@utils";
-import {dragItemIcon} from "@assets";
+import { formatBytesMetric } from "../../utils";
+import {dragItemIcon} from "../../assets";
 
 export const systemInfoHtml = `
   <div class="container">

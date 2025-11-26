@@ -1,4 +1,4 @@
-import {closeIcon, helpIconHover, helpIconRegular, lightOnIcon} from "@assets";
+import {closeIcon, helpIconHover, helpIconRegular, lightOnIcon} from "../../../assets";
 
 export const rubberDuckTabHtml = `
   <div class="rubber-duck-container">

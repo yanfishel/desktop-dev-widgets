@@ -2,8 +2,8 @@ import * as jose from 'jose'
 import hljs from "highlight.js";
 import "highlight.js/styles/a11y-light.css";
 
-import {debounce, filetoBase32, fileToBase64, formatBytes, getStorageItem, htmlFilePreview, setStorageItem} from "@utils";
-import Toast from "@controllers/toast";
+import {debounce, filetoBase32, fileToBase64, formatBytes, getStorageItem, htmlFilePreview, setStorageItem} from "../../../utils";
+import Toast from "../../../controllers/toast";
 import { encodeTabHtml} from "./html";
 import './style.css'
 

@@ -1,5 +1,5 @@
-import {STORAGE_KEYS} from "@constants";
-import {getStorageItem, setStorageItem, getWidgetsSettings, setWidgetsWidgetSetting} from "@utils";
+import {STORAGE_KEYS} from "../../constants";
+import {getStorageItem, setStorageItem, getWidgetsSettings, setWidgetsWidgetSetting} from "../../utils";
 import dateTimeTabController from "./date-time";
 import encodeTabController from "./encode";
 import colorController from "./color";

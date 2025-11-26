@@ -1,8 +1,8 @@
 import { ColorTranslator } from 'colortranslator'
 
-import {STORAGE_KEYS} from "@constants";
-import {debounce, getStorageItem, setStorageItem} from "@utils"
-import Toast from "@controllers/toast";
+import {STORAGE_KEYS} from "../../../constants";
+import {debounce, getStorageItem, setStorageItem} from "../../../utils"
+import Toast from "../../../controllers/toast";
 import {colorTabHtml} from "./html"
 import './style.css'
 

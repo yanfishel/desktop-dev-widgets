@@ -1,4 +1,4 @@
-import {copyIconHover, copyIconRegular} from "@assets";
+import {copyIconHover, copyIconRegular} from "../../../assets";
 
 export const colorTabHtml = `
   <div class="color-container">

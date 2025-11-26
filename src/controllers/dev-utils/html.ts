@@ -1,4 +1,4 @@
-import {colorIcon, dateTimeIcon, dragItemIcon, duckIcon, encodeIcon} from "@assets";
+import {colorIcon, dateTimeIcon, dragItemIcon, duckIcon, encodeIcon} from "../../assets";
 
 
 export const devUtilsHtml = `

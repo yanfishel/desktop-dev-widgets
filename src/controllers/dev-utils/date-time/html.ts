@@ -1,5 +1,5 @@
-import {DATE_FORMAT_STANDARTS} from "@constants";
-import {copyIconHover, copyIconRegular} from "@assets";
+import {DATE_FORMAT_STANDARTS} from "../../../constants";
+import {copyIconHover, copyIconRegular} from "../../../assets";
 
 
 export const dateTimeTabHtml = `

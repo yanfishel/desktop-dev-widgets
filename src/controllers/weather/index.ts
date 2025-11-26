@@ -1,7 +1,7 @@
-import {getStorageItem, setStorageItem, getWidgetsSettings, setWidgetsSetting, setWidgetsWidgetSetting} from "@utils";
-import {STORAGE_KEYS, WEATHER_DATA} from "@constants";
-import {WEATHER_ICONS} from "@assets";
-import Toast from "@controllers/toast";
+import {getStorageItem, setStorageItem, getWidgetsSettings, setWidgetsSetting, setWidgetsWidgetSetting} from "../../utils";
+import {STORAGE_KEYS, WEATHER_DATA} from "../../constants";
+import {WEATHER_ICONS} from "../../assets";
+import Toast from "../../controllers/toast";
 import {dailyWeatherHtml, dayWeatherHtml, settingsMenuDailyWeatherHtml, settingsMenuWeatherHtml, weeklyWeatherDay} from "./html";
 
 import "./style.css"

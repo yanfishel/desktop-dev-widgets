@@ -1,4 +1,4 @@
-import {NETWORK_SPEED_LABELS, NETWORK_SPEED_STEPS} from "@constants";
+import {NETWORK_SPEED_LABELS, NETWORK_SPEED_STEPS} from "../constants";
 
 export const networkChartMaxValue = (rxSec:number[], txSec:number[]) => {
   let index = 0

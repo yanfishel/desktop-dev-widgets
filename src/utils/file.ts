@@ -1,7 +1,7 @@
 import base32Encode from "base32-encode";
 
-import {documentIcon} from "@assets";
-import {IMAGES_MIME} from "@constants";
+import {documentIcon} from "../assets";
+import {IMAGES_MIME} from "../constants";
 
 
 export const fileToBase64 = async (file:File) => {

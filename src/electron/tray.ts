@@ -1,8 +1,8 @@
 import { app, Menu, nativeImage, screen, Tray } from 'electron'
 import is from 'electron-is'
 
-import {config} from "@config";
-import {APP_WIDTH} from "@constants";
+import {config} from "../config";
+import {APP_WIDTH} from "../constants";
 import {getAppSettings} from "./app-settings";
 import {lockMainWindowPosition, resizeMainWindow} from "./main-window";
 

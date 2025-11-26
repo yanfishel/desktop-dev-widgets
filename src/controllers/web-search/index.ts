@@ -1,5 +1,5 @@
-import {SEARCH_ENGINES, STORAGE_KEYS} from "@constants";
-import {getStorageItem, setStorageItem, getWidgetsSettings, setWidgetsWidgetSetting} from "@utils";
+import {SEARCH_ENGINES, STORAGE_KEYS} from "../../constants";
+import {getStorageItem, setStorageItem, getWidgetsSettings, setWidgetsWidgetSetting} from "../../utils";
 import {settingsMenuWebSearchHtml, webSearchHtml} from "./html";
 
 import './style.css'

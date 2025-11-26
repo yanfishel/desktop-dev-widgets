@@ -2,10 +2,9 @@ import {BrowserWindow, screen, powerMonitor } from "electron";
 import * as path from "node:path";
 import is from 'electron-is'
 
-
-import {APP_WIDTH} from "@constants";
-import {config} from "@config";
-import {IpcChannels} from "@ipc/channels";
+import {APP_WIDTH} from "../constants";
+import {config} from "../config";
+import {IpcChannels} from "../ipc/channels";
 import {openDevToolsWithShortcut, showNotification} from "./utils";
 import {getAppSettings, setAppSettings} from "./app-settings";
 import {destroyTray, registerTray} from "./tray";

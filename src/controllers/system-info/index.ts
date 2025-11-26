@@ -1,7 +1,7 @@
 import {Systeminformation} from "systeminformation";
 
-import {ethernetIcon, wifiIcon} from "@assets";
-import {getWidgetsSettings, formatBytesMetric, networkChartMaxValue, setWidgetsWidgetSetting} from "@utils";
+import {ethernetIcon, wifiIcon} from "../../assets";
+import {getWidgetsSettings, formatBytesMetric, networkChartMaxValue, setWidgetsWidgetSetting} from "../../utils";
 import {diskUsageItemHtml, settingsMenuSysInfoHtml, systemInfoHtml} from "./html";
 import "./style.css"
 
@@ -225,7 +225,7 @@ class SystemInfo {
     this.updateDiskUsage(diskUsage)
   }
 
-  private updateDiskUsage(data:Systeminformation.FsSizeData[]){
+  private updateDiskUsage(data:any[]){
     if(!data) {
       this.#diskUsageContainer.innerHTML = '<p class="error">No data available</p>'
       return

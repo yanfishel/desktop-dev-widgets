@@ -1,6 +1,6 @@
-import { STORAGE_KEYS } from "@constants";
-import Toast from "@controllers/toast";
-import {getStorageItem, setStorageItem, getWidgetsSettings, setWidgetsWidgetSetting} from "@utils";
+import { STORAGE_KEYS } from "../../constants";
+import Toast from "../../controllers/toast";
+import {getStorageItem, setStorageItem, getWidgetsSettings, setWidgetsWidgetSetting} from "../../utils";
 import {notesWidgetHtml, settingsMenuNotesHtml} from "./html";
 
 import "./style.css"

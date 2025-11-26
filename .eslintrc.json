@@ -10,20 +10,7 @@
     "plugin:@typescript-eslint/recommended",
     "plugin:import/recommended",
     "plugin:import/electron",
-    "plugin:import/typescript",
-    "plugin:import/resolver"
+    "plugin:import/typescript"
   ],
-  "parser": "@typescript-eslint/parser",
-  "settings": {
-    "import/resolver": {
-       "alias": {
-         "map": [
-
-           ["@/*", "./src/*"],
-           ["*", "./node_modules/*"]
-         ],
-         "extensions": [".ts", ".js", ".tsx"]
-       }
-     }
-  }
+  "parser": "@typescript-eslint/parser"
 }

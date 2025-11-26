@@ -1,5 +1,5 @@
-import {SEARCH_ENGINES} from "@constants";
-import {dragItemIcon, searchIcon} from "@assets";
+import {SEARCH_ENGINES} from "../../constants";
+import {dragItemIcon, searchIcon} from "../../assets";
 
 export const webSearchHtml = `<div class="container">
   <div class="web-search-container">

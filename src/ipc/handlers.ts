@@ -1,7 +1,7 @@
 import { ipcMain, shell, dialog } from 'electron'
 import { fsSize, currentLoad, mem, networkStats, networkInterfaces } from 'systeminformation'
 
-import {lockMainWindowPosition, resizeMainWindow} from "@electron";
+import {lockMainWindowPosition, resizeMainWindow} from "../electron";
 import {IpcChannels} from "./channels";
 
 
@@ -18,6 +18,7 @@ ipcMain.handle(IpcChannels.OPEN_EXTERNAL, async (_event, url: string) => {
     dialog.showErrorBox('Error opening external link', `${error}`)
   }
 })
+
 
 ipcMain.handle(IpcChannels.GET_SYSTEM_INFO, async () => {
 

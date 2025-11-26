@@ -1,5 +1,5 @@
-import { WEATHER_DATA } from "@constants";
-import {dragItemIcon, WEATHER_ICONS} from "@assets";
+import { WEATHER_DATA } from "../../constants";
+import {dragItemIcon, WEATHER_ICONS} from "../../assets";
 
 export const dayWeatherHtml = `
 <div class="container">

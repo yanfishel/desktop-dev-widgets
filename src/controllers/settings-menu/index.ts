@@ -1,14 +1,14 @@
 import Sortable from 'sortablejs';
 
-import {getWidgetsSettings, setWidgetsSetting} from "@utils";
-import lockPositionController from "@controllers/lock-position";
-import sizeController from "@controllers/widgets-size";
-import themeController from "@controllers/theme";
-import weatherController from "@controllers/weather";
-import webSearchController from "@controllers/web-search";
-import notesController from "@controllers/notes";
-import devUtilsController from "@controllers/dev-utils";
-import systemInfoController from "@controllers/system-info";
+import {getWidgetsSettings, setWidgetsSetting} from "../../utils";
+import lockPositionController from "../../controllers/lock-position";
+import sizeController from "../../controllers/widgets-size";
+import themeController from "../../controllers/theme";
+import weatherController from "../../controllers/weather";
+import webSearchController from "../../controllers/web-search";
+import notesController from "../../controllers/notes";
+import devUtilsController from "../../controllers/dev-utils";
+import systemInfoController from "../../controllers/system-info";
 
 import {settingsContainerHtml} from "./html";
 import "./style.css"

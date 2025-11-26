@@ -1,8 +1,8 @@
 import { format } from "date-fns";
 import { TZDate } from "@date-fns/tz";
 
-import Toast from "@controllers/toast";
-import {DATE_FORMAT_STANDARTS} from "@constants";
+import Toast from "../../../controllers/toast";
+import {DATE_FORMAT_STANDARTS} from "../../../constants";
 import {dateTimeTabHtml } from "./html";
 import './style.css'
 

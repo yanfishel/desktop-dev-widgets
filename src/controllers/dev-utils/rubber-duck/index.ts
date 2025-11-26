@@ -1,6 +1,6 @@
-import {STORAGE_KEYS} from "@constants";
-import {lightOffIcon, lightOnIcon} from "@assets";
-import {getStorageItem, removeStorageItem, setStorageItem} from "@utils";
+import {STORAGE_KEYS} from "../../../constants";
+import {lightOffIcon, lightOnIcon} from "../../../assets";
+import {getStorageItem, removeStorageItem, setStorageItem} from "../../../utils";
 import {rubberDuckTabHtml} from "./html";
 import './style.css'
 

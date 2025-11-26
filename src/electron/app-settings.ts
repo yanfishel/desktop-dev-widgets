@@ -6,8 +6,8 @@ import {
   readFileSync,
   writeFileSync,
 } from 'node:fs'
-import {config} from "@config";
-import {APP_SETTINGS_DEFAULT, APP_WIDTH } from "@constants";
+import {config} from "../config";
+import {APP_SETTINGS_DEFAULT, APP_WIDTH } from "../constants";
 
 
 
