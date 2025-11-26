@@ -66,9 +66,12 @@ export const diskUsageItemHtml = (fsData:any) => {
     errorWidth = `${ fsData.use - treshold }%`
   }
 
+  const diskName = fsData.mount.split('/')
+  const diskLetter = diskName[diskName.length - 1]
+
   return `
 <div class="disk-usage-item">
-   <div class="disk-name">${ fsData.mount } <span>${ formatBytesMetric( fsData.size, 1 ) }</span></div>
+   <div class="disk-name">${ diskLetter }${ diskLetter === '' ? '/' : ''} <span>${ formatBytesMetric( fsData.size, 1 ) }</span></div>
    <div class="disk-percent">${ fsData.use }%</div>
    <div class="disk-used-progress">
      <div class="disk-used-bar" style="width:${ usedWidth }"></div>
