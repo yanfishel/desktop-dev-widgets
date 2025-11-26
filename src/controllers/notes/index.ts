@@ -1,6 +1,6 @@
 import { STORAGE_KEYS } from "@constants";
 import Toast from "@controllers/toast";
-import { getStorageItem, setStorageItem, getWidgetsSettings, setWidgetsSetting} from "@utils";
+import {getStorageItem, setStorageItem, getWidgetsSettings, setWidgetsWidgetSetting} from "@utils";
 import {notesWidgetHtml, settingsMenuNotesHtml} from "./html";
 
 import "./style.css"
@@ -29,12 +29,12 @@ class NotesController {
 
   public build(container: HTMLElement) {
     const settings = getWidgetsSettings()
-    this.#id = settings.notes.id
+    this.#id = settings.widgets.notes.id
     const elem = document.createElement('div')
     elem.id = this.#id
     elem.innerHTML = notesWidgetHtml
-    elem.style.order = settings.notes.order+''
-    elem.style.display = settings.notes.active ? 'block' : 'none'
+    elem.style.order = settings.widgets.notes.order+''
+    elem.style.display = settings.widgets.notes.active ? 'block' : 'none'
 
     this.#input = elem.querySelector('textarea')
     this.#view = elem.querySelector('.notes-view')
@@ -58,11 +58,11 @@ class NotesController {
     element.classList.add('settings-menu-item')
     element.innerHTML = settingsMenuNotesHtml
     const checkbox:HTMLInputElement = element.querySelector('input[name="notes-active"]')
-    checkbox.checked = settings.notes.active
+    checkbox.checked = settings.widgets.notes.active
 
     checkbox.addEventListener('change', (e:any)=> {
-      document.getElementById(settings.notes.id).style.display = e.target.checked ? 'block' : 'none'
-      setWidgetsSetting('notes', {...settings.notes, active: e.target.checked })
+      document.getElementById(settings.widgets.notes.id).style.display = e.target.checked ? 'block' : 'none'
+      setWidgetsWidgetSetting('notes', {...settings.widgets.notes, active: e.target.checked })
     })
     return element
   }

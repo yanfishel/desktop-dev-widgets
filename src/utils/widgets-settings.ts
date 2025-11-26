@@ -27,3 +27,16 @@ export const setWidgetsSetting = (key: keyof IWidgetsSettings, value: any):IWidg
   setWidgetsSettings(settings)
   return settings
 }
+
+export const setWidgetsWidgetSetting = (key: string, value: any) => {
+  const current = getWidgetsSettings()
+  const settings = {
+    ...current,
+    widgets: {
+      ...current.widgets,
+      [key]: value
+    }
+  }
+  setWidgetsSettings(settings)
+  return settings
+}

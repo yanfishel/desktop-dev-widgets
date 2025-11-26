@@ -1,5 +1,6 @@
 import Sortable from 'sortablejs';
 
+import {getWidgetsSettings, setWidgetsSetting} from "@utils";
 import lockPositionController from "@controllers/lock-position";
 import sizeController from "@controllers/widgets-size";
 import themeController from "@controllers/theme";
@@ -20,6 +21,7 @@ class SettingsMenuController {
   #openButton: HTMLElement
   #closeButton: HTMLElement
   #settingsMenu: HTMLElement
+  #sortable: Sortable
 
   static getInstance() {
     if (!SettingsMenuController.instance) {
@@ -40,6 +42,8 @@ class SettingsMenuController {
     this.#settingsMenu = this.#settingsContainer.querySelector('.settings-menu')
 
     this.listeners()
+
+    const settings = getWidgetsSettings()
 
     // Collect Menu items
     // Lock Position Item
@@ -66,18 +70,32 @@ class SettingsMenuController {
 
     // Weather Daily Item
     const itemRowWeatherDaily = weatherController.settingsMenuElementDaily()
+    itemRowWeatherDaily.dataset.widget = settings.widgets.dailyWeather.id
+    itemRowWeatherDaily.style.order = settings.widgets.dailyWeather.order.toString()
     sortable.appendChild( itemRowWeatherDaily )
+
     // Web Search Item
     const itemRowSearch = webSearchController.settingsMenuElement()
+    itemRowSearch.dataset.widget = settings.widgets.webSearch.id
+    itemRowSearch.style.order = settings.widgets.webSearch.order.toString()
     sortable.appendChild( itemRowSearch )
+
     // Systeminformation Item
     const itemRowSisteminfo = systemInfoController.settingsMenuElement()
+    itemRowSisteminfo.dataset.widget = settings.widgets.systemInfo.id
+    itemRowSisteminfo.style.order = settings.widgets.systemInfo.order.toString()
     sortable.appendChild( itemRowSisteminfo )
+
     // Dev Utils Item
     const itemRowDevUtils = devUtilsController.settingsMenuElement()
+    itemRowDevUtils.dataset.widget = settings.widgets.devUtils.id
+    itemRowDevUtils.style.order = settings.widgets.devUtils.order.toString()
     sortable.appendChild( itemRowDevUtils )
+
     // Item Notes
     const itemRowNotes = notesController.settingsMenuElement()
+    itemRowNotes.dataset.widget = settings.widgets.notes.id
+    itemRowNotes.style.order = settings.widgets.notes.order.toString()
     sortable.appendChild( itemRowNotes )
 
 
@@ -86,14 +104,34 @@ class SettingsMenuController {
 
     container.appendChild( this.#settingsContainer )
 
-    Sortable.create(sortable, {
+    // Sort element && init Draggeble Sorting
+    this.#sortable = Sortable.create(sortable, {
       direction: 'vertical',
       handle: '.menu-item-handle',
       ghostClass: 'menu-item-ghost',
+      dataIdAttr: 'data-widget',
       onEnd: (evt:any) => {
-        console.log(evt, evt.oldIndex, evt.newIndex);
+        const sorted = this.#sortable.toArray()
+        const settings = getWidgetsSettings()
+        sorted.forEach((id, index) => {
+          Object.keys(settings.widgets).forEach((key: keyof TWidgets) => {
+            if(settings.widgets[key].id === id) {
+              settings.widgets[key].order = index + 1
+              document.getElementById(id).style.order = (index + 1).toString()
+            }
+          })
+        })
+        setWidgetsSetting('widgets', settings.widgets)
       }
     })
+    const sortedArray:any[] = []
+    Object.keys(settings.widgets).forEach((key:keyof TWidgets) => {
+      sortedArray[ settings.widgets[key].order-1 ] = settings.widgets[key].id
+    })
+
+
+    this.#sortable.sort(sortedArray);
+
   }
 
   private listeners() {

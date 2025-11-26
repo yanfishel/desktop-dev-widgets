@@ -1,4 +1,4 @@
-import {getStorageItem, setStorageItem, getWidgetsSettings, setWidgetsSetting} from "@utils";
+import {getStorageItem, setStorageItem, getWidgetsSettings, setWidgetsSetting, setWidgetsWidgetSetting} from "@utils";
 import {STORAGE_KEYS, WEATHER_DATA} from "@constants";
 import {WEATHER_ICONS} from "@assets";
 import Toast from "@controllers/toast";
@@ -57,11 +57,11 @@ class WeatherController {
 
   public buildDaily(container: HTMLElement){
     const settings = getWidgetsSettings()
-    this.#dailyId = settings.dailyWeather.id
+    this.#dailyId = settings.widgets.dailyWeather.id
     const elem = document.createElement('div')
     elem.id = this.#dailyId
-    elem.style.order = settings.dailyWeather?.order?.toString() ?? undefined
-    elem.style.display = settings.dailyWeather.active ? 'block' : 'none'
+    elem.style.order = settings.widgets.dailyWeather?.order?.toString() ?? undefined
+    elem.style.display = settings.widgets.dailyWeather.active ? 'block' : 'none'
     elem.innerHTML = dailyWeatherHtml
 
     container.appendChild(elem)
@@ -132,10 +132,10 @@ class WeatherController {
 
     // Daily weather visible Checkbox
     const dailyWeatherCheckbox:HTMLInputElement = element.querySelector('input[name="daily-weather-active"]')
-    dailyWeatherCheckbox.checked = settings.dailyWeather.active
+    dailyWeatherCheckbox.checked = settings.widgets.dailyWeather.active
 
     dailyWeatherCheckbox.addEventListener('change', (e:any)=> {
-      setWidgetsSetting('dailyWeather', {...settings.dailyWeather, active: e.target.checked })
+      setWidgetsWidgetSetting('dailyWeather', {...settings.widgets.dailyWeather, active: e.target.checked })
       this.toggleDailyWeather(e.target.checked)
     })
 
@@ -262,14 +262,14 @@ class WeatherController {
 
   private async updateWeatherDaily() {
     const settings = getWidgetsSettings()
-    const parent = document.getElementById(settings.dailyWeather.id)
+    const parent = document.getElementById(settings.widgets.dailyWeather.id)
     if(!parent) return
     if(this.#toast){
       await this.#toast.hide()
     }
     parent.querySelector('.container').innerHTML = ''
 
-    if(!settings.dailyWeather.active) return
+    if(!settings.widgets.dailyWeather.active) return
 
     const weatherData = await this.getWeatherData()
     if(!weatherData || !weatherData.daily) {
@@ -329,7 +329,7 @@ class WeatherController {
 
   public toggleDailyWeather(show = true) {
     const settings = getWidgetsSettings()
-    document.getElementById(settings.dailyWeather.id).style.display = show ? 'block' : 'none'
+    document.getElementById(settings.widgets.dailyWeather.id).style.display = show ? 'block' : 'none'
     if(show) {
       this.updateWeatherDaily()
     }

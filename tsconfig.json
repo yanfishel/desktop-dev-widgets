@@ -12,15 +12,7 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "paths": {
-      "@*": ["src/*"],
-      "@assets/*": ["./src/assets/*"],
-       "@config/*": ["./src/config/*"],
-       "@constants/*": [ "./src/constants/*"],
-       "@controllers/*": [ "./src/controllers/*"],
-       "@electron/*": [ "./src/electron/*"],
-       "@ipc/*": [ "./src/ipc/*"],
-       "@types/*": [ "./src/types/*"],
-       "@utils/*": [ "./src/utils/*"],
+      "@*": ["./src/*"],
       "*": ["node_modules/*"]
     }
   },

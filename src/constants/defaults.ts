@@ -22,32 +22,34 @@ export const WIDGETS_SETTINGS_DEFAULT:IWidgetsSettings = {
     id: 'widget-weather',
     active: true
   },
-  dailyWeather: {
-    id: 'widget-daily-weather',
-    active: true,
-    order: 1
-  },
-  webSearch: {
-    id: 'widget-web-search',
-    active: true,
-    order: 2
-  },
-  systemInfo: {
-    id: 'widget-system-info',
-    active: true,
-    order: 3
-  },
-  devUtils: {
-    id: 'widget-dev-utils',
-    active: true,
-    order: 4
-  },
-  notes: {
-    id: 'widget-notes',
-    active: true,
-    order: 5
-  },
   autoGeoPosition: true,
-  location: { name:'', lat: 0, lon: 0 }
+  location: { name:'', lat: 0, lon: 0 },
+  widgets: {
+    dailyWeather: {
+      id: 'widget-daily-weather',
+      active: true,
+      order: 1
+    },
+    webSearch: {
+      id: 'widget-web-search',
+      active: true,
+      order: 2
+    },
+    systemInfo: {
+      id: 'widget-system-info',
+      active: true,
+      order: 3
+    },
+    devUtils: {
+      id: 'widget-dev-utils',
+      active: true,
+      order: 4
+    },
+    notes: {
+      id: 'widget-notes',
+      active: true,
+      order: 5
+    }
+  }
 }
 

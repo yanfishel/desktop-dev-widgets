@@ -1,7 +1,7 @@
 import {Systeminformation} from "systeminformation";
 
 import {ethernetIcon, wifiIcon} from "@assets";
-import {getWidgetsSettings, setWidgetsSetting, formatBytesMetric, networkChartMaxValue} from "@utils";
+import {getWidgetsSettings, formatBytesMetric, networkChartMaxValue, setWidgetsWidgetSetting} from "@utils";
 import {diskUsageItemHtml, settingsMenuSysInfoHtml, systemInfoHtml} from "./html";
 import "./style.css"
 
@@ -47,11 +47,11 @@ class SystemInfo {
 
   build(container: HTMLElement){
     const settings = getWidgetsSettings()
-    this.#id = settings.systemInfo.id
+    this.#id = settings.widgets.systemInfo.id
     const elem = document.createElement('div')
     elem.id = this.#id
-    elem.style.order = settings.systemInfo.order+''
-    elem.style.display = settings.systemInfo.active ? 'block' : 'none'
+    elem.style.order = settings.widgets.systemInfo.order+''
+    elem.style.display = settings.widgets.systemInfo.active ? 'block' : 'none'
     elem.innerHTML = systemInfoHtml
 
     this.#globalTimeinput = document.getElementById('global-time') as HTMLInputElement
@@ -82,12 +82,12 @@ class SystemInfo {
     element.classList.add('settings-menu-item')
     element.innerHTML = settingsMenuSysInfoHtml
     const checkbox:HTMLInputElement = element.querySelector('input[name="systeminfo-active"]')
-    checkbox.checked = settings.systemInfo.active
+    checkbox.checked = settings.widgets.systemInfo.active
 
     checkbox.addEventListener('change', (e:any)=> {
-      document.getElementById(settings.systemInfo.id).style.display = e.target.checked ? 'block' : 'none'
+      document.getElementById(settings.widgets.systemInfo.id).style.display = e.target.checked ? 'block' : 'none'
       this.toggleActive(e.target.checked)
-      setWidgetsSetting('systemInfo', {...settings.systemInfo, active: e.target.checked })
+      setWidgetsWidgetSetting('systemInfo', {...settings.widgets.systemInfo, active: e.target.checked })
     })
     return element
   }
@@ -111,7 +111,7 @@ class SystemInfo {
 
   private async update(){
     const settings = getWidgetsSettings()
-    if(this.#processing || !settings.systemInfo.active) {
+    if(this.#processing || !settings.widgets.systemInfo.active) {
       return
     }
     this.#processing = true
@@ -220,7 +220,7 @@ class SystemInfo {
 
   private async getDiskUsage(){
     const settings = getWidgetsSettings()
-    if(!settings.systemInfo.active) return
+    if(!settings.widgets.systemInfo.active) return
     const diskUsage = await window.electronAPI.getDiskUsage()
     this.updateDiskUsage(diskUsage)
   }

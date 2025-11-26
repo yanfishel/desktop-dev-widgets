@@ -18,6 +18,14 @@ type TWidget = {
   order: number
 }
 
+type TWidgets = {
+  dailyWeather: TWidget
+  webSearch: TWidget
+  systemInfo: TWidget
+  devUtils: TWidget
+  notes: TWidget
+}
+
 type TOrder = { [key: string]: number }
 
 
@@ -26,13 +34,9 @@ interface IWidgetsSettings {
   size: TWidgetsSize
   locked: boolean,
   weather: { id:string, active: boolean }
-  dailyWeather: TWidget
-  webSearch: TWidget
-  systemInfo: TWidget
-  devUtils: TWidget
-  notes: TWidget
   autoGeoPosition: boolean
   location: { name: string, lat: number, lon: number } | null
+  widgets: TWidgets
 }
 
 interface Window {

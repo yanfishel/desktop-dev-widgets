@@ -46,6 +46,10 @@
       /*border-bottom: 1px solid rgb(from var(--text-primary) r g b / 10%);*/
     }
 
+    .sortable-container {
+
+    }
+
     /* -- MENU Item - */
     .settings-menu-item {
       width: 100%;
@@ -134,8 +138,10 @@
       }
 
       &.menu-item-ghost {
-        opacity: 0.95;
+        opacity: 0.35;
       }
     }
+
+
   }
 }

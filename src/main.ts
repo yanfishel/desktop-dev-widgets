@@ -1,10 +1,11 @@
 import {app, BrowserWindow } from 'electron';
 
-import { createMainWindow, registerTray } from "@electron"
-import '@ipc/handlers'
+import { createMainWindow, registerTray } from "./electron"
+import './ipc/handlers'
 
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 if (require('electron-squirrel-startup')) {
   app.quit();
 }

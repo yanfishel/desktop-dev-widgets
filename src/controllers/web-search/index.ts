@@ -1,5 +1,5 @@
 import {SEARCH_ENGINES, STORAGE_KEYS} from "@constants";
-import {getStorageItem, setStorageItem, getWidgetsSettings, setWidgetsSetting} from "@utils";
+import {getStorageItem, setStorageItem, getWidgetsSettings, setWidgetsWidgetSetting} from "@utils";
 import {settingsMenuWebSearchHtml, webSearchHtml} from "./html";
 
 import './style.css'
@@ -24,12 +24,12 @@ class WebSearch {
 
   public build(container: HTMLElement){
     const settings = getWidgetsSettings()
-    this.#id = settings.webSearch.id
+    this.#id = settings.widgets.webSearch.id
     const elem = document.createElement('div')
     elem.id = this.#id
     elem.innerHTML = webSearchHtml
-    elem.style.order = settings.webSearch.order.toString()
-    elem.style.display = settings.webSearch.active ? 'block' : 'none'
+    elem.style.order = settings.widgets.webSearch.order.toString()
+    elem.style.display = settings.widgets.webSearch.active ? 'block' : 'none'
 
     this.#searchInput = elem.querySelector('input[name="web-search-input"]')
     this.#searchIngineSelect = elem.querySelector('select[name="web-search-engine"]')
@@ -69,10 +69,10 @@ class WebSearch {
     element.innerHTML = settingsMenuWebSearchHtml
 
     const checkBox:HTMLInputElement = element.querySelector('input[type="checkbox"]')
-    checkBox.checked = settings.webSearch.active
+    checkBox.checked = settings.widgets.webSearch.active
     checkBox.addEventListener('change', (e:any)=> {
-      document.getElementById(settings.webSearch.id).style.display = e.target.checked ? 'block' : 'none'
-      setWidgetsSetting('webSearch', {...settings.webSearch, active: e.target.checked })
+      document.getElementById(settings.widgets.webSearch.id).style.display = e.target.checked ? 'block' : 'none'
+      setWidgetsWidgetSetting('webSearch', {...settings.widgets.webSearch, active: e.target.checked })
     })
 
     return element

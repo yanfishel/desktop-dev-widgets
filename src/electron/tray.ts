@@ -55,6 +55,10 @@ export const registerTray = () => {
         }
     ]},
     { type: 'separator' },
+    { label: 'About', click: () => {
+        console.log('tyt');
+    }},
+    { type: 'separator' },
     { label: 'Quit', click: () => app.quit() },
   ])
 

@@ -1,5 +1,5 @@
 import {STORAGE_KEYS} from "@constants";
-import {getStorageItem, setStorageItem, getWidgetsSettings, setWidgetsSetting} from "@utils";
+import {getStorageItem, setStorageItem, getWidgetsSettings, setWidgetsWidgetSetting} from "@utils";
 import dateTimeTabController from "./date-time";
 import encodeTabController from "./encode";
 import colorController from "./color";
@@ -23,11 +23,11 @@ class DevUtils {
 
   public build(container: HTMLElement){
     const settings = getWidgetsSettings()
-    this.#id = settings.devUtils.id
+    this.#id = settings.widgets.devUtils.id
     const elem = document.createElement('div')
     elem.id = this.#id
-    elem.style.order = settings.devUtils.order+''
-    elem.style.display = settings.devUtils.active ? 'block' : 'none'
+    elem.style.order = settings.widgets.devUtils.order+''
+    elem.style.display = settings.widgets.devUtils.active ? 'block' : 'none'
 
     elem.innerHTML = devUtilsHtml
     
@@ -39,7 +39,7 @@ class DevUtils {
 
     // TABS CONTROL
     const activeTab = getStorageItem(STORAGE_KEYS.WIDGET_DEV_UTILS_TAB) ?? 'encode'
-    dateTimeTabController.toggleActive(settings.devUtils.active && activeTab === 'datetime')
+    dateTimeTabController.toggleActive(settings.widgets.devUtils.active && activeTab === 'datetime')
     const tabControl = elem.querySelectorAll('input[name="tab-control"]')
     tabControl.forEach((tab:HTMLInputElement, idx) =>{
       if(activeTab) tab.checked = activeTab === tab.dataset.tab
@@ -63,12 +63,12 @@ class DevUtils {
     element.innerHTML = settingsMenuDevUtilsHtml
 
     const checkBox:HTMLInputElement = element.querySelector('input[type="checkbox"]')
-    checkBox.checked = settings.devUtils.active
+    checkBox.checked = settings.widgets.devUtils.active
 
     checkBox.addEventListener('change', (e:any)=> {
-      document.getElementById(settings.devUtils.id).style.display = e.target.checked ? 'block' : 'none'
+      document.getElementById(settings.widgets.devUtils.id).style.display = e.target.checked ? 'block' : 'none'
       dateTimeTabController.toggleActive(e.target.checked)
-      setWidgetsSetting('devUtils', {...settings.devUtils, active:e.target.checked})
+      setWidgetsWidgetSetting('devUtils', {...settings.widgets.devUtils, active:e.target.checked})
     })
 
     return element
@@ -77,7 +77,7 @@ class DevUtils {
   public toggleActive(){
     const settings = getWidgetsSettings()
     const activeTab = getStorageItem(STORAGE_KEYS.WIDGET_DEV_UTILS_TAB) ?? 'encode'
-    dateTimeTabController.toggleActive(settings.devUtils.active && activeTab === 'datetime')
+    dateTimeTabController.toggleActive(settings.widgets.devUtils.active && activeTab === 'datetime')
   }
 
 }
