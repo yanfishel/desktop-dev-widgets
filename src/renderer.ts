@@ -7,11 +7,11 @@ import mainController from "./controllers/main-controller";
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  mainController.init()
+    mainController.init()
 
-  mainController.buildWidgets()
+    mainController.buildWidgets()
 
-  mainController.electronAPI()
+    mainController.electronAPI()
 
 })
 

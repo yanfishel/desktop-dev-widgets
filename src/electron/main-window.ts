@@ -22,7 +22,7 @@ let mainWindow: BrowserWindow | null = null
  * the local dev server URL or built HTML file depending on environment.
  * Also opens the DevTools for development.
  */
-export function createMainWindow() {
+export async function createMainWindow() {
   if (mainWindow !== null) {
     mainWindow.show()
     return
@@ -66,17 +66,18 @@ export function createMainWindow() {
   // Hide the traffic light buttons (minimize, maximize, close)
   is.macOS() && mainWindow.setWindowButtonVisibility(false)
 
+
   // Load the main window content
   if (MAIN_WINDOW_WEBPACK_ENTRY) {
     // If a dev server URL is provided, load it
     mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY)
+
   } else {
     // Otherwise, load the index.html from the file system
     mainWindow.loadFile(
       path.join(__dirname, `../renderer/${MAIN_WINDOW_WEBPACK_NAME}/index.html`),
     )
   }
-
 
   mainWindow.on('closed', () => {
     mainWindow = null
