@@ -1,8 +1,8 @@
 {
-  "name": "developer_widgets",
-  "productName": "Developer Widgets",
+  "name": "widgets",
+  "productName": "widgets",
   "version": "1.0.0",
-  "description": "Desktop Developer Widgets",
+  "description": "My Electron application description",
   "main": ".webpack/main",
   "scripts": {
     "start": "electron-forge start",
