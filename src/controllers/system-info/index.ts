@@ -1,4 +1,4 @@
-import {Systeminformation} from "systeminformation";
+//import {Systeminformation} from "systeminformation";
 
 import {ethernetIcon, wifiIcon} from "../../assets";
 import {getWidgetsSettings, formatBytesMetric, networkChartMaxValue, setWidgetsWidgetSetting} from "../../utils";
@@ -151,7 +151,7 @@ class SystemInfo {
     }
   }
 
-  private updateNetworkStat({stats, iface}: {stats: Systeminformation.NetworkStatsData[], iface: Systeminformation.NetworkInterfacesData }){
+  private updateNetworkStat({stats, iface}: {stats:any[], iface:any }){
     let rx_sec = 0, tx_sec = 0
     stats.forEach(item => {
       rx_sec += +(item.rx_sec * 8 / 1000).toFixed(2)
@@ -192,7 +192,7 @@ class SystemInfo {
     }
   }
 
-  private updateCpuRamStatus({info, memory}: {info: Systeminformation.CurrentLoadData, memory: Systeminformation.MemData }){
+  private updateCpuRamStatus({info, memory}: {info:any, memory:any }){
     const cpuPercent = info.currentLoad.toFixed(1)
     this.#cpuStatus.innerHTML = `${info.cpus.length} cores`
     this.#cpuPercent.innerHTML = `${cpuPercent}%`

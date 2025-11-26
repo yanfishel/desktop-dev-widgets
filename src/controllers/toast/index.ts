@@ -1,4 +1,4 @@
-import {wait} from "../../utils";
+import {sleep} from "../../utils";
 import {closeIcon} from "../../assets";
 
 import './style.css'
@@ -66,7 +66,7 @@ class Toast {
 
   public async hide() {
     this.#toastElement.classList.add('hidden');
-    await wait(0.25)
+    await sleep(0.25)
     this.removeCloseButton()
     this.#toastElement.innerHTML = ''
     this.#toastElement.classList.remove('success', 'error', 'warning', 'info', 'loading');

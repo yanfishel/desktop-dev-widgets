@@ -1,6 +1,6 @@
 import {app, BrowserWindow } from 'electron';
 
-import { createMainWindow, registerTray } from "./electron"
+import { createMainWindow, registerTray } from "./electron-utils"
 import './ipc/handlers'
 
 
@@ -13,6 +13,7 @@ if (require('electron-squirrel-startup')) {
 app.whenReady().then(() => {
 
   createMainWindow()
+
   registerTray();
 
   app.on('activate', () => {

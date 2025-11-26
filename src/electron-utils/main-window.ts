@@ -10,11 +10,13 @@ import {getAppSettings, setAppSettings} from "./app-settings";
 import {destroyTray, registerTray} from "./tray";
 
 
+
 declare const MAIN_WINDOW_WEBPACK_NAME: string;
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
 
 let mainWindow: BrowserWindow | null = null
+
 
 /**
  * Creates the main browser window.
@@ -46,7 +48,7 @@ export async function createMainWindow() {
       nodeIntegration: true,
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY, // Path to preload script
     },
-    transparent: true,
+    //transparent: true,
     autoHideMenuBar: true, // Hide the menu bar
     titleBarStyle: 'hidden', // Hide the title bar
     fullscreenable: false, // Disable fullscreen
@@ -65,7 +67,6 @@ export async function createMainWindow() {
 
   // Hide the traffic light buttons (minimize, maximize, close)
   is.macOS() && mainWindow.setWindowButtonVisibility(false)
-
 
   // Load the main window content
   if (MAIN_WINDOW_WEBPACK_ENTRY) {

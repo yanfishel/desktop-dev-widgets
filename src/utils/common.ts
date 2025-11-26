@@ -1,6 +1,6 @@
 
 // Wait function
-export const wait = (s: number) => new Promise(resolve => setTimeout(resolve, s * 1000));
+export const sleep = (s: number) => new Promise(resolve => setTimeout(resolve, s * 1000));
 
 // Debounce function
 export const debounce = <T extends (...args: any[]) => void>(

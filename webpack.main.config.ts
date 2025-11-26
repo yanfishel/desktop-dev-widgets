@@ -15,6 +15,9 @@ export const mainConfig: Configuration = {
   },
   plugins,
   resolve: {
+    fallback: {
+      'osx-temperature-sensor': false,
+    },
     extensions: ['.js', '.ts', '.jsx', '.tsx', '.css', '.json'],
-  },
+  }
 };

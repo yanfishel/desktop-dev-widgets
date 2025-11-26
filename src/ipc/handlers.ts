@@ -1,7 +1,7 @@
 import { ipcMain, shell, dialog } from 'electron'
 import { fsSize, currentLoad, mem, networkStats, networkInterfaces } from 'systeminformation'
 
-import {lockMainWindowPosition, resizeMainWindow} from "../electron";
+import {lockMainWindowPosition, resizeMainWindow} from "../electron-utils";
 import {IpcChannels} from "./channels";
 
 
