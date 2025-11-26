@@ -1,4 +1,4 @@
-//import Sortable from 'sortablejs';
+import Sortable from 'sortablejs';
 
 import {getWidgetsSettings, setWidgetsSetting} from "../../utils";
 import lockPositionController from "../../controllers/lock-position";
@@ -21,7 +21,7 @@ class SettingsMenuController {
   #openButton: HTMLElement
   #closeButton: HTMLElement
   #settingsMenu: HTMLElement
-  //#sortable: Sortable
+  #sortable: Sortable
 
   static getInstance() {
     if (!SettingsMenuController.instance) {
@@ -105,7 +105,7 @@ class SettingsMenuController {
     container.appendChild( this.#settingsContainer )
 
     // Sort element && init Draggeble Sorting
-    /*this.#sortable = Sortable.create(sortable, {
+    this.#sortable = Sortable.create(sortable, {
       direction: 'vertical',
       handle: '.menu-item-handle',
       ghostClass: 'menu-item-ghost',
@@ -129,7 +129,7 @@ class SettingsMenuController {
       sortedArray[ settings.widgets[key].order-1 ] = settings.widgets[key].id
     })
 
-    this.#sortable.sort(sortedArray);*/
+    this.#sortable.sort(sortedArray);
 
   }
 
