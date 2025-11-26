@@ -2,7 +2,7 @@ import {getStorageItem, getWidgetsSettings, setStorageItem, setWidgetsSetting} f
 import {settingsMenuWebSearchHtml, webSearchHtml} from "./html";
 
 import './style.css'
-import {SEARCH_ENGINES} from "../../constans";
+import {SEARCH_ENGINES} from "../../constants";
 
 
 class WebSearch {

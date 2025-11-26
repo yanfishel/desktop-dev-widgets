@@ -1,5 +1,5 @@
 import {getStorageItem, setStorageItem} from "./storage";
-import {SETTINGS_STORE_KEY, WIDGETS_SETTINGS_DEFAULT} from "../constans";
+import {SETTINGS_STORE_KEY, WIDGETS_SETTINGS_DEFAULT} from "../constants";
 
 let localSettings:IWidgetsSettings
 

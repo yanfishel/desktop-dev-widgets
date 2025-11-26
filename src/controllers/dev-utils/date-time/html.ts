@@ -1,4 +1,4 @@
-import {DATE_FORMAT_STANDARTS} from "../../../constans";
+import {DATE_FORMAT_STANDARTS} from "../../../constants";
 import {copyIconHover, copyIconRegular} from "../../../assets";
 
 

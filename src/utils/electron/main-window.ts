@@ -3,7 +3,7 @@ import * as path from "node:path";
 import is from 'electron-is'
 import { fsSize, getStaticData, getDynamicData, currentLoad, mem } from 'systeminformation'
 
-import {APP_WIDTH} from "../../constans";
+import {APP_WIDTH} from "../../constants";
 import {config} from "../../config";
 import {IpcChannels} from "../../ipc/channels";
 import {openDevToolsWithShortcut, showNotification} from "./app";

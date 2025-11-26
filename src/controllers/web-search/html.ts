@@ -1,4 +1,4 @@
-import {SEARCH_ENGINES} from "../../constans";
+import {SEARCH_ENGINES} from "../../constants";
 import {searchIcon} from "../../assets";
 
 export const webSearchHtml = `<div class="container">

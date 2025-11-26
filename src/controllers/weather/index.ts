@@ -1,6 +1,6 @@
 import {getStorageItem, getWidgetsSettings, setStorageItem, setWidgetsSetting} from "../../utils";
-import {WEATHER_DATA} from "../../constans";
-import Toast from "../../shared/toast";
+import {WEATHER_DATA} from "../../constants";
+import Toast from "../toast";
 import {WEATHER_ICONS} from "../../assets";
 import {dailyWeatherHtml, dayWeatherHtml, settingsMenuDailyWeatherHtml, settingsMenuWeatherHtml, weeklyWeatherDay} from "./html";
 

@@ -1,5 +1,5 @@
-import {NOTES_PLACEHOLDER} from "../../constans";
-import Toast from "../../shared/toast";
+import {NOTES_PLACEHOLDER} from "../../constants";
+import Toast from "../toast";
 import {getWidgetsSettings, getStorageItem, setStorageItem, setWidgetsSetting} from "../../utils";
 import {notesWidgetHtml, settingsMenuNotesHtml} from "./html";
 

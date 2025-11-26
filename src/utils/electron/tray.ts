@@ -2,7 +2,7 @@ import { app, Menu, nativeImage, screen, Tray } from 'electron'
 import is from 'electron-is'
 import {config} from "../../config";
 import {getAppSettings} from "./app-settings";
-import {APP_WIDTH} from "../../constans";
+import {APP_WIDTH} from "../../constants";
 import {resizeMainWindow} from "./main-window";
 import NativeImage = Electron.NativeImage;
 

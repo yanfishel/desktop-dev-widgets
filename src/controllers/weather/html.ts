@@ -1,4 +1,4 @@
-import { WEATHER_DATA } from "../../constans";
+import { WEATHER_DATA } from "../../constants";
 import {WEATHER_ICONS} from "../../assets";
 
 export const dayWeatherHtml = `
