@@ -7,8 +7,7 @@
 
   width: var(--analog-clock-size);
   aspect-ratio: 1;
-  background: #fff url('/public/images/clock-bg.avif') center center;
-  background-size: 400px;
+  background: #fff url('/public/images/clockface.jpg') center center;
   border: calc(var(--analog-clock-size) * .04) solid #000;
   border-radius: 50%;
   box-shadow:
@@ -159,17 +158,13 @@
 }
 
 
+/* -- DARK THEME - */
 .theme-dark #analog-clock {
   --analog-clock-main-color:  #ccc;
   --analog-clock-second-color: #ebebeb;
   border: calc(var(--analog-clock-size) * .04) solid #333;
-  background:
-    linear-gradient(180deg, rgba(7, 17, 62, 0.85) 0%, rgba(5, 14, 57, 0.6) 100%),
-    radial-gradient(
-      120px 80px at 0% 0%,
-      rgba(56, 189, 248, 0.12),
-      transparent 30%
-    );
+  background: url('/public/images/clockface-dark.jpg') center center;
+  background-size: var(--analog-clock-size);
 }
 .theme-dark #analog-clock:before {
   border-color: #6e6e6e;
@@ -183,4 +178,3 @@
 .theme-dark #analog-clock .logo svg {
   filter: unset;
 }
-/* -- ./ END ANALOG CLOCK - */
