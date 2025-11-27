@@ -27,11 +27,6 @@ export const systemInfoHtml = `
     
     </div>
     
-    <div class="system-disks-status">
-      <div class="title">HDD</div>
-      <div id="disk-usage"></div>
-    </div>
-    
     <div class="network-status">
       <div class="title">Network</div>
       
@@ -46,11 +41,13 @@ export const systemInfoHtml = `
       <div title="Transfered bytes/sec" class="chart-container">
         <div class="up"></div>
         <div id="chart-transfered" class="chart"></div>
-      </div>
-      
-      
+      </div>            
     </div>
-    
+        
+    <div class="system-disks-status">
+      <div class="title">HDD</div>
+      <div id="disk-usage"></div>
+    </div>
     
   </div>
   </div>
@@ -82,7 +79,7 @@ export const diskUsageItemHtml = (fsData:Systeminformation.FsSizeData) => {
 
 export const settingsMenuSysInfoHtml = `
   <div class="menu-item-handle">${ dragItemIcon }</div>
-  <label for="systeminfo-active">System Info</label>
+  <label for="systeminfo-active">System Monitor</label>
   <div class="switch-container">
     <input type="checkbox" id="systeminfo-active" name="systeminfo-active" role="switch">
   </div>`

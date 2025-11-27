@@ -1,12 +1,24 @@
 ## Desktop Dev Widgets
 
+#### Vanilla Javascript. No frameworks. Minimum dependences
+
 Desktop Dev Widgets is a cross‑platform Electron application that provides small, always‑on‑top desktop widgets tailored for developers. It includes widgets such as an analog clock, weather, notes, system information, web search, and various dev utilities (encoding/decoding, date/time helpers, color tools, and a playful rubber‑duck assistant). A tray icon lets you quickly toggle options like size and lock position, open the About window, or quit the app.
+
+### Screenshots
+![Screenshot](https://raw.githubusercontent.com/yfishel/desktop-dev-widgets/main/screenshots/screenshot-1.png)
 
 #### Stack
 - Language: TypeScript
 - Runtime: Electron 39 (main/renderer processes)
 - Build tooling: Electron Forge 7 with Webpack
 - Package manager: npm (package-lock.json present)
+
+#### Libruaries used:
+- [Systeminformation](https://github.com/sebhildebrandt/systeminformation)
+- [Date-fns](https://date-fns.org/)
+- [Jose](https://github.com/panva/jose)
+- [Highlight.js](https://highlightjs.org/)
+- [Sortable.js](https://github.com/SortableJS/Sortable)
 
 ---
 
