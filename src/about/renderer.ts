@@ -10,19 +10,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
   window.electronAPI.getAppInfo().then(({packageJson, versions}) => {
 
-    console.log(packageJson, versions);
-
     if(packageJson){
       nameEl.innerHTML = `${packageJson.productName ?? ''} <span>${packageJson.version ?? '0'}</span>`
       descriptionEl.textContent = packageJson.description ?? ''
       if( packageJson.homepage ) {
-        homepageEl.innerHTML = `<a href='${packageJson.homepage}'>Homepage</a>`
+        homepageEl.innerHTML = `<a href='#' data-href="${packageJson.homepage}">Homepage</a>`
       }
       if( packageJson.author && (packageJson.author.name || packageJson.author.email)) {
         author.innerHTML = `${packageJson.author?.name && packageJson.author?.email ? `Author: <a href='mailto:${packageJson.author.email}'>@${packageJson.author.name}</a>` : ''}`
       }
       if(packageJson.bugs?.url) {
-        bugsEl.innerHTML = `<a href='${packageJson.bugs.url}'>Report a bug</a>`
+        bugsEl.innerHTML = `<a href='#' data-href="${packageJson.bugs.url}">Report a bug</a>`
       }
     }
 
@@ -38,6 +36,13 @@ document.addEventListener('DOMContentLoaded', () => {
         versionsTable.appendChild(tr);
       }
     }
+
+    document.querySelectorAll('a[data-href]').forEach((link:HTMLElement) => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.electronAPI.openExternal(link.dataset.href);
+      })
+    })
 
   })
   

@@ -60,7 +60,6 @@ class TrayController {
             ]
           }
       ]},
-      { type: 'separator' },
       { label: 'About', click: () => winController.createAbout() },
       { type: 'separator' },
       { label: 'Quit', click: () => app.quit() },
