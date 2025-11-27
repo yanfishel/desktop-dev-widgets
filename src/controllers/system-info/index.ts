@@ -1,4 +1,4 @@
-//import {Systeminformation} from "systeminformation";
+import {Systeminformation} from "systeminformation";
 
 import {ethernetIcon, wifiIcon} from "../../assets";
 import {getWidgetsSettings, formatBytesMetric, networkChartMaxValue, setWidgetsWidgetSetting} from "../../utils";
@@ -192,7 +192,7 @@ class SystemInfo {
     }
   }
 
-  private updateCpuRamStatus({info, memory}: {info:any, memory:any }){
+  private updateCpuRamStatus({info, memory}: {info:Systeminformation.CurrentLoadData, memory:Systeminformation.MemData }){
     const cpuPercent = info.currentLoad.toFixed(1)
     this.#cpuStatus.innerHTML = `${info.cpus.length} cores`
     this.#cpuPercent.innerHTML = `${cpuPercent}%`
@@ -225,7 +225,7 @@ class SystemInfo {
     this.updateDiskUsage(diskUsage)
   }
 
-  private updateDiskUsage(data:any[]){
+  private updateDiskUsage(data:Systeminformation.FsSizeData[] ){
     if(!data) {
       this.#diskUsageContainer.innerHTML = '<p class="error">No data available</p>'
       return

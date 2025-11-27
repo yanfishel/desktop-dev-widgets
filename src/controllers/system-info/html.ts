@@ -1,4 +1,4 @@
-//import {Systeminformation} from "systeminformation";
+import {Systeminformation} from "systeminformation";
 
 import { formatBytesMetric } from "../../utils";
 import {dragItemIcon} from "../../assets";
@@ -56,7 +56,7 @@ export const systemInfoHtml = `
   </div>
 `
 
-export const diskUsageItemHtml = (fsData:any) => {
+export const diskUsageItemHtml = (fsData:Systeminformation.FsSizeData) => {
   const treshold = 85
   let usedWidth = `${ fsData.use }%`
   let errorWidth = `0%`
