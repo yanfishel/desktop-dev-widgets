@@ -4,7 +4,9 @@ export enum IpcChannels {
   POWER_MONITOR_EVENT = 'power-monitor-event',
   LOCK_POSITION = 'lock-position',
 
+  GET_APP_INFO = 'get-app-info',
   OPEN_EXTERNAL = 'open-external',
+  OPEN_ABOUT_WINDOW = 'open-about-window',
   GET_DISK_USAGE = 'get-disk-usage',
   GET_SYSTEM_INFO = 'get-system-info',
   GET_NETWORK_STATS_INFO = 'get-network-stats-info',

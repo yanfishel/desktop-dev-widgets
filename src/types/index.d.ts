@@ -26,8 +26,13 @@ type TWidgets = {
   notes: TWidget
 }
 
-type TOrder = { [key: string]: number }
+interface IAppInfo {
+    productName?: string;
+    description?: string;
+    homepage?: string;
+    license?: string | LicenseEntry;
 
+}
 
 interface IWidgetsSettings {
   theme: TTheme
@@ -44,7 +49,8 @@ interface Window {
     setWidgetsSize: (size: string) => void
     setLockPosition: (locked: boolean) => void
     openExternal: (url: string) => Promise<void>
-
+    openAboutWinow: () => Promise<void>
+    getAppInfo: () => Promise<any>
     getDiskUsage: () => Promise< Systeminformation.FsSizeData[] >
     getSystemInfo: () => Promise< { info:Systeminformation.CurrentLoadData, memory:Systeminformation.MemData } >
     getPublicIP: () => Promise<string>

@@ -3,7 +3,7 @@ import * as path from "node:path";
 import { homedir } from "os";
 
 export const config = {
-  applicationName: 'Desktop D Widgets',
+  applicationName: app.name || app.getName() || 'Desktop Widgets',
 
   appSettingsDir: path.join(app.getPath('documents'), 'desktop-widgets'),
   appSettingsPath: path.join( app.getPath('documents'), 'desktop-widgets', 'app-settings.json'),

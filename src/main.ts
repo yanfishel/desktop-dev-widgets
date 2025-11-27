@@ -1,26 +1,23 @@
 import {app, BrowserWindow } from 'electron';
 
-import { createMainWindow, registerTray } from "./electron"
+import winController from "./electron/windows";
 import './ipc/handlers'
 
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
-// eslint-disable-next-line @typescript-eslint/no-require-imports
 if (require('electron-squirrel-startup')) {
   app.quit();
 }
 
 app.whenReady().then(() => {
 
-  createMainWindow()
-
-  registerTray();
+  winController.createMain()
 
   app.on('activate', () => {
     // On OS X it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
     if (BrowserWindow.getAllWindows().length === 0) {
-      createMainWindow();
+      winController.createMain()
     }
   });
 

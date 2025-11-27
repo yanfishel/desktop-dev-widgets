@@ -10,6 +10,7 @@ export const mainConfig: Configuration = {
    */
   entry: './src/main.ts',
   // Put your normal webpack config below here
+  name: 'main_window',
   module: {
     rules,
   },

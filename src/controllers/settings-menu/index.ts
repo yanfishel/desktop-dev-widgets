@@ -10,7 +10,7 @@ import notesController from "../../controllers/notes";
 import devUtilsController from "../../controllers/dev-utils";
 import systemInfoController from "../../controllers/system-info";
 
-import {settingsContainerHtml} from "./html";
+import {settingsContainerHtml, settingsFooterHtml, settingsMenuFooterHtml} from "./html";
 import "./style.css"
 
 
@@ -22,6 +22,7 @@ class SettingsMenuController {
   #closeButton: HTMLElement
   #settingsMenu: HTMLElement
   #sortable: Sortable
+  #menuFooter: HTMLElement
 
   static getInstance() {
     if (!SettingsMenuController.instance) {
@@ -102,6 +103,14 @@ class SettingsMenuController {
     this.#settingsMenu.appendChild( sortable )
     // ./ End Sortable Settings Items
 
+    // Footer
+    this.#menuFooter = document.createElement('div')
+    this.#menuFooter.classList.add('settings-menu-footer')
+    this.#menuFooter.innerHTML = settingsFooterHtml
+    const link = this.#menuFooter.querySelector('a')
+    link.addEventListener('click', () => window.electronAPI.openAboutWinow())
+    this.#settingsMenu.appendChild( this.#menuFooter )
+
     container.appendChild( this.#settingsContainer )
 
     // Sort element && init Draggeble Sorting
@@ -131,6 +140,7 @@ class SettingsMenuController {
 
     this.#sortable.sort(sortedArray);
 
+    //this.getAppInfo()
   }
 
   private listeners() {
@@ -154,6 +164,16 @@ class SettingsMenuController {
 
   }
 
+  private async getAppInfo(){
+    const {packageJson, versions} = await window.electronAPI.getAppInfo()
+    console.log(packageJson);
+    if(!packageJson) return
+
+    const html = settingsMenuFooterHtml(packageJson)
+
+    this.#menuFooter.innerHTML = html
+
+  }
 
 }
 

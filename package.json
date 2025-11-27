@@ -1,8 +1,9 @@
 {
   "name": "desktop-dev-widgets",
   "productName": "Desktop Dev Widgets",
-  "version": "1.0.0",
-  "description": "Desktop widgets for developer use",
+  "version": "0.1.0",
+  "description": "Desktop widgets for developer",
+  "homepage": "https://github.com/yfishel/desktop-dev-widgets#readme",
   "main": ".webpack/main",
   "scripts": {
     "start": "electron-forge start",
@@ -11,9 +12,16 @@
     "publish": "electron-forge publish",
     "lint": "eslint --ext .ts,.tsx ."
   },
-  "keywords": [],
+  "keywords": ["widget", "desktop", "electron"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yfishel/desktop-dev-widgets.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yfishel/desktop-dev-widgets/issues"
+  },
   "author": {
-    "name": "Yan Fishel",
+    "name": "YFishel",
     "email": "yfishel@gmail.com"
   },
   "license": "MIT",
