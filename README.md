@@ -7,70 +7,72 @@ Desktop Dev Widgets is a cross‑platform Electron application that provides sma
 
 ## Screenshots
 ### Dark and Light mode
-<img src="/screenshots/dark.jpg" alt="dark" width="180"/> 
-<img src="/screenshots/light.jpg" alt="light" width="180"/>
+
+|  <img src="/screenshots/dark.jpg" alt="dark" width="180"/>  | <img src="/screenshots/light.jpg" alt="light" width="180"/>  |
+|---|---|
+
+
+
 
 Dark and light modes that follow your OS system settings or chosen in settings.
 
 ### Clock and Weather
-<img src="/screenshots/w-clock.jpg" alt="clock" width="360"/>
-<img src="/screenshots/w-clock-light.jpg" alt="clock" width="360"/>
+|<img src="/screenshots/w-clock.jpg" alt="clock" width="360"/>| <img src="/screenshots/w-clock-light.jpg" alt="clock" width="360"/>|
+|---|---|
 
 **1.** Drag to change widgets position. **2.** Open Settings menu.
 
 ### Daily Weather forecast
-<img src="/screenshots/w-weather.jpg" alt="forecast" width="360"/>
-<img src="/screenshots/w-weather-light.jpg" alt="forecast" width="360"/>
+|<img src="/screenshots/w-weather.jpg" alt="forecast" width="360"/>|<img src="/screenshots/w-weather-light.jpg" alt="forecast" width="360"/>|
+|---|---|
 
 ### Search in the Web
-<img src="/screenshots/w-search.jpg" alt="search" width="360"/>
-<img src="/screenshots/w-search-light.jpg" alt="search" width="360"/>
+|<img src="/screenshots/w-search.jpg" alt="search" width="360"/>|<img src="/screenshots/w-search-light.jpg" alt="search" width="360"/>|
+|---|---|
 
 Avaliable search engines: Google, Bing, Perplexity, DuckDuckGo.
 
 ### System Monitor
-<img src="/screenshots/w-system.jpg" alt="sysinfo" width="360"/>
-<img src="/screenshots/w-system-light.jpg" alt="sysinfo" width="360"/>
-
+|<img src="/screenshots/w-system.jpg" alt="sysinfo" width="360"/>|<img src="/screenshots/w-system-light.jpg" alt="sysinfo" width="360"/>|
+|---|---|
 
 ## Developer Utilities
 ### Encode / decode JWT
-<img src="/screenshots/w-dev-encode-jwt.jpg" alt="jwt" width="360"/>
-<img src="/screenshots/w-dev-jwt-light.jpg" alt="jwt" width="360"/>
+|<img src="/screenshots/w-dev-encode-jwt.jpg" alt="jwt" width="360"/>|<img src="/screenshots/w-dev-jwt-light.jpg" alt="jwt" width="360"/>|
+|---|---|
 
 ### Encode / decode Base64
-<img src="/screenshots/w-dev-encode-base64.jpg" alt="base64" width="360"/>
-<img src="/screenshots/w-dev-base64-light.jpg" alt="base64" width="360"/>
+|<img src="/screenshots/w-dev-encode-base64.jpg" alt="base64" width="360"/>|<img src="/screenshots/w-dev-base64-light.jpg" alt="base64" width="360"/>|
+|---|---|
 
 ### Date / Time manipulation
-<img src="/screenshots/w-dev-datetime.jpg" alt="date & time" width="360"/>
-<img src="/screenshots/w-dev-datetime-light.jpg" alt="date & time" width="360"/>
+|<img src="/screenshots/w-dev-datetime.jpg" alt="date & time" width="360"/>|<img src="/screenshots/w-dev-datetime-light.jpg" alt="date & time" width="360"/>|
+|---|---|
 
 ### Color tools
-<img src="/screenshots/w-dev-color.jpg" alt="color" width="360"/>
-<img src="/screenshots/w-dev-color-light.jpg" alt="color" width="360"/>
+|<img src="/screenshots/w-dev-color.jpg" alt="color" width="360"/>|<img src="/screenshots/w-dev-color-light.jpg" alt="color" width="360"/>|
+|---|---|
 
 ### Rubber duck assistant 🙂
-<img src="/screenshots/w-dev-duck.jpg" alt="rubberduck" width="360"/>
-<img src="/screenshots/w-dev-duck-light.jpg" alt="rubberduck" width="360"/>
+|<img src="/screenshots/w-dev-duck.jpg" alt="rubberduck" width="360"/>|<img src="/screenshots/w-dev-duck-light.jpg" alt="rubberduck" width="360"/>|
+|---|---|
 
 ### Notes
-<img src="/screenshots/w-notes.jpg" alt="notes" width="360"/>
-<img src="/screenshots/w-notes-light.jpg" alt="notes" width="360"/>
+|<img src="/screenshots/w-notes.jpg" alt="notes" width="360"/>|<img src="/screenshots/w-notes-light.jpg" alt="notes" width="360"/>|
+|---|---|
 
 Simple Notes widget.
 
 ### Settings menu
-<img src="/screenshots/settings-menu.jpg" alt="settings" width="280"/>
-<img src="/screenshots/settings-menu-light.jpg" alt="settings" width="280"/>
+|<img src="/screenshots/settings-menu.jpg" alt="settings" width="280"/>|<img src="/screenshots/settings-menu-light.jpg" alt="settings" width="280"/>|
+|---|---|
 
 ### Tray menu
-<img src="/screenshots/tray.jpg" alt="tray" width="360"/>
+|<img src="/screenshots/tray.jpg" alt="tray" width="360"/>|
+|---|
 
 - **Tray menu:** You can lock position, change size (Small/Medium/Large), open About, or Quit.
 - **The main window** is frameless, transparent, non‑resizable, and skipped from the taskbar by default; sizing and locking are controlled via the tray and settings.
-
-
 
 ---
 
