@@ -1,5 +1,5 @@
 
-// Wait function
+// Sleep function
 export const sleep = (s: number) => new Promise(resolve => setTimeout(resolve, s * 1000));
 
 // Debounce function
@@ -14,6 +14,7 @@ export const debounce = <T extends (...args: any[]) => void>(
   }
 }
 
+// Format bytes to human readable format
 export const formatBytes = (bytes: number, decimals = 2) => {
   if (!+bytes) return '0 B'
 
@@ -26,6 +27,7 @@ export const formatBytes = (bytes: number, decimals = 2) => {
   return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`
 }
 
+// Format bytes to human readable format
 export const formatBytesMetric = (bytes:number, decimals = 2) => {
   if (!+bytes) return '0 B'
 

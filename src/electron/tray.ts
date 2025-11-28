@@ -3,7 +3,7 @@ import is from 'electron-is'
 
 import {config} from "../config";
 import {APP_WIDTH} from "../constants";
-import {getAppSettings} from "./settings";
+import appSettings from "./settings";
 import winController from "./windows";
 
 
@@ -82,13 +82,13 @@ class TrayController {
   }
 
   get appSize() {
-    const appSettings = getAppSettings()
-    return appSettings.width === APP_WIDTH.SMALL ? 'small' : appSettings.width === APP_WIDTH.MEDIUM ? 'medium' : 'large'
+    const settings = appSettings.settings
+    return settings.width === APP_WIDTH.SMALL ? 'small' : settings.width === APP_WIDTH.MEDIUM ? 'medium' : 'large'
   }
 
   get appLocked() {
-    const appSettings = getAppSettings()
-    return appSettings.locked
+    const settings = appSettings.settings
+    return settings.locked
   }
 
 }

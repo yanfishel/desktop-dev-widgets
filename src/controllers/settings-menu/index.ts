@@ -10,7 +10,7 @@ import notesController from "../../controllers/notes";
 import devUtilsController from "../../controllers/dev-utils";
 import systemInfoController from "../../controllers/system-info";
 
-import {settingsContainerHtml, settingsFooterHtml, settingsMenuFooterHtml} from "./html";
+import {settingsContainerHtml, settingsFooterHtml } from "./html";
 import "./style.css"
 
 
@@ -119,7 +119,7 @@ class SettingsMenuController {
       handle: '.menu-item-handle',
       ghostClass: 'menu-item-ghost',
       dataIdAttr: 'data-widget',
-      onEnd: (evt:any) => {
+      onEnd: () => {
         const sorted = this.#sortable.toArray()
         const settings = getWidgetsSettings()
         sorted.forEach((id, index) => {
@@ -133,14 +133,12 @@ class SettingsMenuController {
         setWidgetsSetting('widgets', settings.widgets)
       }
     })
-    const sortedArray:any[] = []
+    const sortedArray:string[] = []
     Object.keys(settings.widgets).forEach((key:keyof TWidgets) => {
       sortedArray[ settings.widgets[key].order-1 ] = settings.widgets[key].id
     })
 
     this.#sortable.sort(sortedArray);
-
-    //this.getAppInfo()
   }
 
   private listeners() {
@@ -161,17 +159,6 @@ class SettingsMenuController {
         this.#settingsMenu.style.display = 'none'
       }
     })
-
-  }
-
-  private async getAppInfo(){
-    const {packageJson, versions} = await window.electronAPI.getAppInfo()
-    console.log(packageJson);
-    if(!packageJson) return
-
-    const html = settingsMenuFooterHtml(packageJson)
-
-    this.#menuFooter.innerHTML = html
 
   }
 

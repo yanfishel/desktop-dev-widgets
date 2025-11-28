@@ -181,11 +181,6 @@ class WeatherController {
       }
       return
     }
-    /*location = {
-      ...location,
-      lat: 31.75871290706921,
-      lon: 35.20813346146496
-    }*/
     const forecast = getStorageItem(STORAGE_KEYS.WIDGET_WEATHER_FORECAST)
     if(forecast){
       const data = JSON.parse(forecast)

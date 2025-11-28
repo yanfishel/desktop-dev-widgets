@@ -59,7 +59,7 @@ export const settingsMenuWeatherHtml = `
 <div class="settings-menu-item">
   <div class="settings-item-content">
     <div class="item-content-row">
-      <label for="geo-position">Geo Position</label>
+      <label for="geo-position">Location</label>
       <select name="geo-position" id="geo-position">
         <option value="auto">Auto</option>
         <option value="manual">Manual</option>

@@ -7,8 +7,6 @@ import mainController from "./controllers/main-controller";
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  //alert('Hello World from Renderer!')
-
     mainController.init()
 
     mainController.buildWidgets()

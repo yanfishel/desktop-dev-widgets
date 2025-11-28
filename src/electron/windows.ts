@@ -4,9 +4,9 @@ import is from 'electron-is'
 
 import {config} from "../config";
 import {APP_WIDTH} from "../constants";
-import {getAppSettings, setAppSettings} from "./settings";
-import trayController from "./tray";
 import {IpcChannels} from "../ipc/channels";
+import appSettings from "./settings";
+import trayController from "./tray";
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
@@ -17,13 +17,8 @@ declare const ABOUT_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
 class WinController {
   static instance: WinController | null = null
 
-  appSettings:IAppSettings
-  mainWindow: BrowserWindow | null = null
-  aboutWindow: BrowserWindow | null = null
-
-  constructor() {
-    this.appSettings = getAppSettings()
-  }
+  #mainWindow: BrowserWindow | null = null
+  #aboutWindow: BrowserWindow | null = null
 
   static getInstance() {
     if (!WinController.instance) {
@@ -33,21 +28,23 @@ class WinController {
     return WinController.instance
   }
 
-  createMain(){
-    if (this.mainWindow !== null) {
-      this.mainWindow.show()
+  public createMain(){
+    if (this.#mainWindow !== null) {
+      this.#mainWindow.show()
       return
     }
 
+    const settings = appSettings.settings
+
     // Create the browser window.
-    this.mainWindow = new BrowserWindow({
+    this.#mainWindow = new BrowserWindow({
       title: config.applicationName,
-      x: this.appSettings.x !== undefined ? this.appSettings.x : undefined,
-      y: this.appSettings.y !== undefined ? this.appSettings.y : undefined,
-      width: this.appSettings.width || APP_WIDTH.LARGE, // Set the initial width of the window
-      height: this.appSettings.height || APP_WIDTH.LARGE, // Set the initial height of the window
+      x: settings.x !== undefined ? settings.x : undefined,
+      y: settings.y !== undefined ? settings.y : undefined,
+      width: settings.width || APP_WIDTH.LARGE, // Set the initial width of the window
+      height: settings.height || APP_WIDTH.LARGE, // Set the initial height of the window
       minHeight: APP_WIDTH.LARGE,
-      minWidth: this.appSettings.width || APP_WIDTH.LARGE,
+      minWidth: settings.width || APP_WIDTH.LARGE,
       center: false,
       //type:'desktop',
       webPreferences: {
@@ -70,18 +67,18 @@ class WinController {
       icon: config.iconPath, // Set the icon for the app
     })
 
-    this.mainWindow
+    this.#mainWindow
       .on('closed', () => this.onMainWinowClosed())
       .on('moved', () => this.onMainWinowMoved())
 
-    this.mainWindow.setSkipTaskbar(true)
+    this.#mainWindow.setSkipTaskbar(true)
 
     // Hide the traffic light buttons (minimize, maximize, close)
-    is.macOS() && this.mainWindow.setWindowButtonVisibility(false)
+    is.macOS() && this.#mainWindow.setWindowButtonVisibility(false)
 
     // Load the main window content
     if (MAIN_WINDOW_WEBPACK_ENTRY) {
-      this.mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY)
+      this.#mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY)
     }
 
     // Reasign DevTools for debugging
@@ -91,36 +88,41 @@ class WinController {
 
   }
 
-  reasignDevTools() {
-    register(this.mainWindow, 'F12', () => {
-      this.mainWindow.webContents.openDevTools()
+  public reasignDevTools() {
+    register(this.#mainWindow, 'F12', () => {
+      this.#mainWindow.webContents.openDevTools()
     })
   }
 
-  sendToMain(channel:string, value:any) {
-    if(!this.mainWindow) return
-    this.mainWindow.webContents.send(channel, value)
+  public sendToMain(channel:string, value:any) {
+    if(!this.#mainWindow) return
+    this.#mainWindow.webContents.send(channel, value)
   }
 
-  onMainWinowMoved() {
-    const [x, y] = this.mainWindow.getPosition()
-    const [w] = this.mainWindow.getSize()
+  private onMainWinowMoved() {
+    if(!this.#mainWindow){
+      return
+    }
+    const [x, y] = this.#mainWindow.getPosition()
+    const [w] = this.#mainWindow.getSize()
 
     const displays = screen.getAllDisplays()
     const display = displays.find(display => display.nativeOrigin.x <= x && display.nativeOrigin.y <= y)
     if(display) {
       const height = display.workAreaSize.height - y
-      this.mainWindow.setBounds({ x, y, width: w, height })
-      const settings = {
-        ...this.appSettings,
+      this.#mainWindow.setBounds({ x, y, width: w, height })
+
+      const settings = appSettings.settings
+      const updated = {
+        ...settings,
         x, y, height
       }
-      setAppSettings(settings)
+      appSettings.save(updated)
     }
   }
 
-  onMainWinowClosed() {
-    this.mainWindow = null
+  private onMainWinowClosed() {
+    this.#mainWindow = null
     if (BrowserWindow.getAllWindows().length !== 0) {
       this.notification(
         config.applicationName,
@@ -130,13 +132,13 @@ class WinController {
   }
 
   resize(size:TWidgetsSize){
-    if(!this.mainWindow){
+    if(!this.#mainWindow){
       return
     }
 
     const newWidth = size === 'small' ? APP_WIDTH.SMALL : size === 'medium' ? APP_WIDTH.MEDIUM : APP_WIDTH.LARGE
 
-    let bounds = this.mainWindow.getBounds()
+    let bounds = this.#mainWindow.getBounds()
     bounds = {...bounds, width: newWidth }
     // Calculate the new bounds based on the size
     const screens = screen.getAllDisplays()
@@ -144,38 +146,39 @@ class WinController {
     if(bounds.x + newWidth > maxX) {
       bounds = { ...bounds, x: maxX - newWidth }
     }
-    this.mainWindow.setBounds(bounds)
+    this.#mainWindow.setBounds(bounds)
     this.sendToMain(IpcChannels.WIDGET_SIZE, size)
-    const settings = {
-      ...this.appSettings,
+
+    const settings = appSettings.settings
+    const updated = {
+      ...settings,
       x:bounds.x, y:bounds.y, width:bounds.width, height:bounds.height
     }
-    setAppSettings(settings)
+    appSettings.save(updated)
 
     // Rebuild the tray
     trayController.rebuild()
-
   }
 
-  lock(locked:boolean){
-    if(!this.mainWindow) return
+  public lock(locked:boolean){
+    if(!this.#mainWindow) return
 
     this.sendToMain(IpcChannels.LOCK_POSITION, locked)
-    const appSettings = getAppSettings()
-    const settings = { ...appSettings, locked }
-    setAppSettings(settings)
+    const settings = appSettings.settings
+    const upadated = { ...settings, locked }
+    appSettings.save(upadated)
 
     // Rebuild the tray
     trayController.rebuild()
   }
 
-  createAbout(){
-    if (this.aboutWindow !== null) {
-      this.aboutWindow.show()
+  public createAbout(){
+    if (this.#aboutWindow !== null) {
+      this.#aboutWindow.show()
       return
     }
 
-    this.aboutWindow = new BrowserWindow({
+    this.#aboutWindow = new BrowserWindow({
       title: `About ${config.applicationName}`,
       width: 400, // Set the initial width of the window
       height: 400, // Set the initial height of the window
@@ -196,25 +199,25 @@ class WinController {
       movable: true,
       icon: config.iconPath, // Set the icon for the app
     }).on('closed', () => {
-      this.aboutWindow = null
+      this.#aboutWindow = null
     })
     // Hide the traffic light buttons (minimize, maximize, close)
-    is.macOS() && this.aboutWindow.setWindowButtonVisibility(false)
+    is.macOS() && this.#aboutWindow.setWindowButtonVisibility(false)
 
-    this.aboutWindow.loadURL(ABOUT_WINDOW_WEBPACK_ENTRY)
+    this.#aboutWindow.loadURL(ABOUT_WINDOW_WEBPACK_ENTRY)
 
-    this.aboutWindow.webContents.once('dom-ready', () => {
+    this.#aboutWindow.webContents.once('dom-ready', () => {
         const app_name = app.name || app.getName();
         const version = app.getVersion();
-        this.aboutWindow.webContents.send('info', app_name, version);
+        this.#aboutWindow.webContents.send('info', app_name, version);
     })
 
-    register(this.aboutWindow, 'F12', () => {
-      this.aboutWindow.webContents.openDevTools()
+    register(this.#aboutWindow, 'F12', () => {
+      this.#aboutWindow.webContents.openDevTools()
     })
   }
 
-  notification( title: string, body = '' ) {
+  public notification( title: string, body = '' ) {
     new Notification({ title, body }).show()
   }
 

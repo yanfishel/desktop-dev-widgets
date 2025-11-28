@@ -2,9 +2,7 @@ import { contextBridge, ipcRenderer } from 'electron'
 import {IpcChannels} from "./channels";
 
 
-/**
- * Exposes Electron API to the main world.
- */
+/** -- Exposes Electron API to the main world. - */
 contextBridge.exposeInMainWorld('electronAPI', {
 
   setWidgetsSize: (size: string) =>
@@ -32,6 +30,6 @@ contextBridge.exposeInMainWorld('electronAPI', {
     ipcRenderer.on(IpcChannels.LOCK_POSITION, callback),
 
   onPowerMonitorEvent: (callback:any) =>
-    ipcRenderer.on(IpcChannels.POWER_MONITOR_EVENT, callback),
+    ipcRenderer.on(IpcChannels.POWER_MONITOR_EVENT, callback)
 
 })

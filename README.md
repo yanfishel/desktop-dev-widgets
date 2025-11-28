@@ -1,7 +1,7 @@
 Desktop Dev Widgets
 ===
 
-#### Vanilla Typescript. No frameworks. Minimum dependences
+#### Vanilla Typescript. Pure CSS. No frameworks. Minimum dependences
 
 Desktop Dev Widgets is a cross‑platform Electron application that provides small, always‑on‑top desktop widgets tailored for developers. It includes widgets such as an analog clock, weather, notes, system information, web search, and various dev utilities (encoding/decoding, date/time helpers, color tools, and a playful rubber‑duck assistant). A tray icon lets you quickly toggle options like size and lock position, open the About window, or quit the app.
 

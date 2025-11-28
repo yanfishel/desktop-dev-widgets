@@ -92,12 +92,8 @@ class NotesController {
   }
 
   private switchVisibility(edit = false){
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    this.#input.style.opacity = edit ? 1 : 0
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    this.#view.style.opacity = edit ? 0 : 1
+    this.#input.style.opacity = edit ? '1' : '0'
+    this.#view.style.opacity = edit ? '0' : '1'
   }
   
   private updateNotes(notes:string){

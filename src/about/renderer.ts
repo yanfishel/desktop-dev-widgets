@@ -1,6 +1,8 @@
+import {logoIcon} from "../assets";
 
 document.addEventListener('DOMContentLoaded', () => {
 
+  const iconEl = document.getElementById('icon')
   const nameEl = document.getElementById('name')
   const descriptionEl = document.getElementById('description')
   const homepageEl = document.getElementById('homepage')
@@ -8,15 +10,19 @@ document.addEventListener('DOMContentLoaded', () => {
   const versionsTable = document.getElementById('versions')
   const bugsEl = document.getElementById('bugs')
 
+  iconEl.innerHTML = logoIcon
+
+  // Get App Info
   window.electronAPI.getAppInfo().then(({packageJson, versions}) => {
 
+    // App Info & Description
     if(packageJson){
       nameEl.innerHTML = `${packageJson.productName ?? ''} <span>${packageJson.version ?? '0'}</span>`
       descriptionEl.textContent = packageJson.description ?? ''
       if( packageJson.homepage ) {
         homepageEl.innerHTML = `<a href='#' data-href="${packageJson.homepage}">Homepage</a>`
       }
-      if( packageJson.author && (packageJson.author.name || packageJson.author.email)) {
+      if( packageJson.author && (packageJson.author?.name || packageJson.author?.email)) {
         author.innerHTML = `${packageJson.author?.name && packageJson.author?.email ? `Author: <a href='mailto:${packageJson.author.email}'>@${packageJson.author.name}</a>` : ''}`
       }
       if(packageJson.bugs?.url) {
@@ -24,6 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
+    // Versions Table
     if(versions){
       for (const [name, value] of versions) {
         const tr = document.createElement('tr');
@@ -37,6 +44,11 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
+    // Credits
+    const credits = document.querySelector('.credits')
+    credits.innerHTML = `<div id="icons-credit">Weather icons <a href="#" data-href="https://www.figma.com/@pitsch">@pitsch</a></div>`
+
+    // External Links
     document.querySelectorAll('a[data-href]').forEach((link:HTMLElement) => {
       link.addEventListener('click', (e) => {
         e.preventDefault();

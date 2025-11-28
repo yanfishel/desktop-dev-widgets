@@ -3,20 +3,21 @@ import base32Encode from "base32-encode";
 import {documentIcon} from "../assets";
 import {IMAGES_MIME} from "../constants";
 
-
+// Convert a file to a Base64 string
 export const fileToBase64 = async (file:File) => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = () => {
-        resolve(reader.result); // This will be the Base64 data URL
-      };
-      reader.onerror = (error) => {
-        reject(error);
-      };
-      reader.readAsDataURL(file);
-    });
-  }
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      resolve(reader.result); // This will be the Base64 data URL
+    };
+    reader.onerror = (error) => {
+      reject(error);
+    };
+    reader.readAsDataURL(file);
+  });
+}
 
+// Convert a file to a Base32 string
 export const filetoBase32 = async (file:File) => {
   try {
     const uint8Array = await readFileAsUint8Array(file);
@@ -27,6 +28,7 @@ export const filetoBase32 = async (file:File) => {
   }
 }
 
+// Read a file as an Uint8Array
 export const readFileAsUint8Array = async (file:File) => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -36,6 +38,7 @@ export const readFileAsUint8Array = async (file:File) => {
   });
 }
 
+// Convert a Base64 string to a File
 export const fileFromBase64 = (base64String:string) => {
   const binaryString = atob(base64String);
   const bytes = new Uint8Array(binaryString.length);
@@ -45,10 +48,12 @@ export const fileFromBase64 = (base64String:string) => {
   return new File([bytes], 'decoded-file.txt', { type: 'text/plain' });
 }
 
+// Check if a string is a Base64 string
 export const isBase64 = (value:string) => {
   return /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$/.test(value);
 }
 
+// Preview an HTML file in a DOM element element
 export const htmlFilePreview = (file:File|string) => {
   if(typeof file !== 'string' && 'type' in file) {
     if(!IMAGES_MIME.includes(file.type)) {

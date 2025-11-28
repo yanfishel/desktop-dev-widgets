@@ -26,12 +26,14 @@ type TWidgets = {
   notes: TWidget
 }
 
-interface IAppInfo {
-    productName?: string;
-    description?: string;
-    homepage?: string;
-    license?: string | LicenseEntry;
-
+interface IPackageJson {
+  productName?: string;
+  version?: string;
+  description?: string;
+  homepage?: string;
+  author?: { name: string; email: string };
+  bugs?: { url: string };
+  license?: string | LicenseEntry;
 }
 
 interface IWidgetsSettings {
@@ -50,7 +52,7 @@ interface Window {
     setLockPosition: (locked: boolean) => void
     openExternal: (url: string) => Promise<void>
     openAboutWinow: () => Promise<void>
-    getAppInfo: () => Promise<any>
+    getAppInfo: () => Promise<{ packageJson:IPackageJson, versions:string[][] }>
     getDiskUsage: () => Promise< Systeminformation.FsSizeData[] >
     getSystemInfo: () => Promise< { info:Systeminformation.CurrentLoadData, memory:Systeminformation.MemData } >
     getPublicIP: () => Promise<string>

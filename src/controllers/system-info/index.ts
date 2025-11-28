@@ -16,7 +16,7 @@ class SystemInfo {
   #globalTimeinput: HTMLInputElement
   #started = false
   #processing = false
-  #cpuPercents: number[] = new Array(this.chartstep).fill(0) // [0,0,0,0,0,0,0,0,0,0,0]
+  #cpuPercents: number[] = new Array(this.chartstep).fill(0)
   #ramPercents: number[] = new Array(this.chartstep).fill(0)
   #rxSec: number[] = new Array(this.chartstep).fill(0)
   #txSec: number[] = new Array(this.chartstep).fill(0)
