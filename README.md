@@ -7,10 +7,11 @@ Desktop Dev Widgets is a cross‑platform Electron application that provides sma
 
 ### Dark and Light mode
 
-|  <img src="/screenshots/dark.jpg" alt="dark" width="180"/>  | <img src="/screenshots/light.jpg" alt="light" width="180"/>  |
-|---|---|
+| <img src="/screenshots/dark.jpg" alt="dark" width="220"/> | <img src="/screenshots/light.jpg" alt="light" width="220"/> |
+|-----------------------------------------------------------|-------------------------------------------------------------|
 
-Dark and light modes that follow your OS system settings or chosen in settings.
+Dark and light modes that follow your OS system settings or chosen in settings.<br/>The main window is frameless, transparent, non‑resizable, and skipped from the taskbar by default; sizing and locking are controlled via the tray and settings.
+
 
 ### Clock and Weather
 |<img src="/screenshots/w-clock.jpg" alt="clock" width="360"/>| <img src="/screenshots/w-clock-light.jpg" alt="clock" width="360"/>|
@@ -65,8 +66,7 @@ Avaliable search engines: Google, Bing, Perplexity, DuckDuckGo.
 |<img src="/screenshots/tray.jpg" alt="tray" width="360"/>|
 |---|
 
-- **Tray menu:** You can lock position, change size (Small/Medium/Large), open About, or Quit.
-- **The main window** is frameless, transparent, non‑resizable, and skipped from the taskbar by default; sizing and locking are controlled via the tray and settings.
+**Tray menu:** You can lock position, change size (Small/Medium/Large), open About, or Quit.
 
 ---
 
