@@ -141,7 +141,7 @@ Settings such as window position, size, and lock state are persisted and used to
 
 ## Development tips
 - DevTools: Press `F12` while the main window is focused to open DevTools.
-- If you encounter a problem, please open [an issue](`https://github.com/yanfishel/desktop-dev-widgets/issues`)
+- If you encounter a problem, please open [an issue](https://github.com/yanfishel/desktop-dev-widgets/issues)
 
 
 ## License
