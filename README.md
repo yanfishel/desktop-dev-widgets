@@ -1,5 +1,8 @@
-Desktop Dev Widgets
-===
+# Desktop Dev Widgets
+
+
+[![License](https://img.shields.io/github/license/yanfishel/desktop-dev-widgets)](/LICENSE.txt) [![RepoSize](https://img.shields.io/github/repo-size/yanfishel/desktop-dev-widgets?logo=github)](https://github.com/yanfishel/desktop-dev-widgets) 
+
 
 #### Vanilla Typescript. Pure CSS. No frameworks. Minimum dependences
 
@@ -75,7 +78,7 @@ Avaliable search engines: Google, Bing, Perplexity, DuckDuckGo.
 - Runtime: [Electron](https://www.electronjs.org/)
 - Build tooling: [Electron Forge](https://www.electronforge.io/)
 
-### Libruaries:
+#### Libruaries:
 - [Systeminformation](https://github.com/sebhildebrandt/systeminformation)
 - [Date-fns](https://date-fns.org/)
 - [Jose](https://github.com/panva/jose)
@@ -126,7 +129,7 @@ All scripts are defined in `package.json`.
 - Create installers: `npm run make`
 - Publish: `npm run publish` (requires publisher configuration)
 
-Webpack is used for both the main and renderer processes. TypeScript is compiled via `ts-loader` with `transpileOnly: true`, and CSS in the renderer is handled via `style-loader` + `css-loader`.
+Webpack is used for both the main and renderer processes. <br/>TypeScript is compiled via `ts-loader` with `transpileOnly: true`, and CSS in the renderer is handled via `style-loader` + `css-loader`.
 
 
 ## Configuration and data
