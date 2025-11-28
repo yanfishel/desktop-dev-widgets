@@ -123,7 +123,9 @@ class SystemInfo {
     const time = this.#globalTimeinput.value.split(':')
     const seconds = parseInt(time[2])
     if(seconds === 0){
-      await this.getDiskUsage()
+      if(this.#started) {
+        await this.getDiskUsage()
+      }
     }
     this.#processing = false
     if(this.#started) {
