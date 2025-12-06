@@ -44,15 +44,15 @@ class WebSearch {
       }
     }
 
-    this.#searchIngineSelect.addEventListener('change', (e:any)=> {
-      const engine = SEARCH_ENGINES.find(engine => engine.name === e.target.value)
+    this.#searchIngineSelect.addEventListener('change', (e)=> {
+      const engine = SEARCH_ENGINES.find(engine => engine.name === (e.target as HTMLInputElement).value)
       if(engine) {
         this.#searchIngineIcon.src = engine.icon
         setStorageItem(STORAGE_KEYS.WIDGET_SEARCH_ENGINE, engine.name)
       }
     })
 
-    this.#searchInput.addEventListener('keydown', (e:any)=> {
+    this.#searchInput.addEventListener('keydown', (e:KeyboardEvent)=> {
       if(e.key === 'Enter') {
         this.search()
       }
@@ -70,9 +70,10 @@ class WebSearch {
 
     const checkBox:HTMLInputElement = element.querySelector('input[type="checkbox"]')
     checkBox.checked = settings.widgets.webSearch.active
-    checkBox.addEventListener('change', (e:any)=> {
-      document.getElementById(settings.widgets.webSearch.id).style.display = e.target.checked ? 'block' : 'none'
-      setWidgetsWidgetSetting('webSearch', {...settings.widgets.webSearch, active: e.target.checked })
+    checkBox.addEventListener('change', (e)=> {
+      const checked = (e.target as HTMLInputElement).checked
+      document.getElementById(settings.widgets.webSearch.id).style.display = checked ? 'block' : 'none'
+      setWidgetsWidgetSetting('webSearch', {...settings.widgets.webSearch, active: checked })
     })
 
     return element

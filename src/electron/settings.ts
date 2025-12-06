@@ -1,13 +1,8 @@
 import {dialog, screen} from "electron";
 import * as path from "node:path";
-import {
-  existsSync,
-  mkdirSync,
-  readFileSync,
-  writeFileSync,
-} from 'node:fs'
+import {existsSync, mkdirSync, readFileSync, writeFileSync,} from 'node:fs'
 import {config} from "../config";
-import {APP_SETTINGS_DEFAULT, APP_WIDTH } from "../constants";
+import {APP_SETTINGS_DEFAULT, APP_WIDTH} from "../constants";
 
 
 class AppSettings {
@@ -25,9 +20,8 @@ class AppSettings {
   private readAppSettings() {
     try {
       const settingsDataRaw = readFileSync(config.appSettingsPath, 'utf-8')
-      const settingsData = JSON.parse(settingsDataRaw)
-      return settingsData
-    } catch (error: any) {
+      return JSON.parse(settingsDataRaw)
+    } catch (error) {
       // If the app-settings.json file is missing, initialize it from the public template
       // or create an empty config so the app can start gracefully.
       if (error && error.code === 'ENOENT') {

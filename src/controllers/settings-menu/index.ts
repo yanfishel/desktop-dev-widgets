@@ -151,10 +151,11 @@ class SettingsMenuController {
       this.#settingsMenu.style.display = 'none'
     })
 
-    document.addEventListener('click', (e:any) => {
-      if ( !this.#settingsMenu.contains(e.target)
+    document.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement
+      if ( !this.#settingsMenu.contains(target)
         && e.target !== this.#settingsMenu
-        && !this.#openButton.contains(e.target)
+        && !this.#openButton.contains(target)
         && e.target !== this.#openButton ) {
         this.#settingsMenu.style.display = 'none'
       }

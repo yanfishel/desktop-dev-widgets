@@ -36,7 +36,7 @@ class ThemeController {
     // Add event listener to select element
     const select = element.querySelector('select')
     select.value = settings.theme ?? 'system'
-    select.addEventListener('change', (e:any)=> this.changeTheme(e.target.value))
+    select.addEventListener('change', (e)=> this.changeTheme((e.target as HTMLInputElement).value))
 
     element.appendChild(select)
 

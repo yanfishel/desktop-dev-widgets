@@ -78,13 +78,16 @@ Avaliable search engines: Google, Bing, Perplexity, DuckDuckGo.
 - Runtime: [Electron](https://www.electronjs.org/)
 - Build tooling: [Electron Forge](https://www.electronforge.io/)
 
-#### Libruaries:
+#### Weather:
+- [Open-Meteo](https://open-meteo.com/)
+- Icons by [@pitsch](https://www.figma.com/@pitsch)
+
+#### Dependencies:
 - [Systeminformation](https://github.com/sebhildebrandt/systeminformation)
 - [Date-fns](https://date-fns.org/)
 - [Jose](https://github.com/panva/jose)
 - [Highlight.js](https://highlightjs.org/)
 - [Sortable.js](https://github.com/SortableJS/Sortable)
-
 
 ## Requirements
 - Node.js 18+ (LTS recommended)

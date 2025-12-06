@@ -34,8 +34,8 @@ class LockPositionController {
     this.#lockCheckbox = element.querySelector('input[type="checkbox"]')
     this.#lockCheckbox.checked = settings.locked
 
-    this.#lockCheckbox.addEventListener('change', (e:any)=> {
-      const locked = e.target.checked
+    this.#lockCheckbox.addEventListener('change', (e)=> {
+      const locked = (e.target as HTMLInputElement).checked
       window.electronAPI.setLockPosition(locked)
       document.getElementById('drag-icon').style.display = locked ? 'none' : 'block'
       setWidgetsSetting('locked', locked)

@@ -4,7 +4,7 @@ import "highlight.js/styles/a11y-light.css";
 
 import {debounce, filetoBase32, fileToBase64, formatBytes, getStorageItem, htmlFilePreview, setStorageItem} from "../../../utils";
 import Toast from "../../../controllers/toast";
-import { encodeTabHtml} from "./html";
+import {encodeTabHtml} from "./html";
 import './style.css'
 
 
@@ -45,10 +45,10 @@ class EncodeTabController {
 
     // CLEAR & COPY BUTTONS
     const clearButtons = elem.querySelectorAll('.clear-button')
-    clearButtons.forEach(button => button.addEventListener('click', (e:any)=> this.onClearButtonHandler(e)))
+    clearButtons.forEach(button => button.addEventListener('click', (e)=> this.onClearButtonHandler(e)))
 
     const copyButtons = elem.querySelectorAll('.copy-button')
-    copyButtons.forEach(button => button.addEventListener('click', (e:any)=> this.onCopyButtonHandler(e)))
+    copyButtons.forEach(button => button.addEventListener('click', (e)=> this.onCopyButtonHandler(e)))
 
     // Download File Button
     const downloadButton = elem.querySelector('.download-button')
@@ -86,22 +86,23 @@ class EncodeTabController {
     // SET Encode Type Select
     const selectedEncodeType = getStorageItem('dev-utils-encode-type') ?? 'base64'
     this.#encodeTypeSelect = elem.querySelector('select[name="encode-type"]')
-    this.#encodeTypeSelect.addEventListener('change', (e:any)=> this.toggleEncodeType(e))
+    this.#encodeTypeSelect.addEventListener('change', (e)=> this.toggleEncodeType(e))
     this.#encodeTypeSelect.value = selectedEncodeType
     this.#container.classList.add(`encode-type-${ selectedEncodeType }`)
 
     // SET Signature Secret
     this.#signatureButton = elem.querySelector('.signature-button')
     this.#signatureButton.addEventListener('click', ()=> elem.querySelector('.signature-container').classList.toggle('open'))
-    document.addEventListener('click', (e:any)=> {
-      if(!elem.querySelector('.signature-container').contains(e.target)) {
+    document.addEventListener('click', (e)=> {
+      const target = e.target as HTMLElement
+      if(!elem.querySelector('.signature-container').contains(target)) {
         elem.querySelector('.signature-container').classList.remove('open')
       }
     })
     const signatureSecret = getStorageItem('dev-utils-signature-secret') ?? 's3cre!'
     this.#signatureSecret = elem.querySelector('input[name="signature-secret"]')
     this.#signatureSecret.value = signatureSecret
-    this.#signatureSecret.addEventListener('change', (e:any)=> setStorageItem('dev-utils-signature-secret', e.target.value))
+    this.#signatureSecret.addEventListener('change', (e)=> setStorageItem('dev-utils-signature-secret', (e.target as HTMLInputElement).value))
 
     // Paste plain text from clipboard to contenteditable div
     elem.addEventListener("paste", function(e) {
@@ -120,14 +121,15 @@ class EncodeTabController {
   }
 
 
-  private toggleEncodeType(e:any){
+  private toggleEncodeType(e:Event){
+    const target = e.target as HTMLSelectElement
     [...this.fileEncodeTypes, ...this.textEncodeTypes].forEach(type => this.#container.classList.remove(`encode-type-${type}`))
-    this.#container.classList.add(`encode-type-${e.target.value}`)
+    this.#container.classList.add(`encode-type-${target.value}`)
     this.clearElement(this.#decodedJwtHeaderEditable)
     this.clearElement(this.#decodedTextEditable)
     this.clearElement(this.#encodedTextEditable)
     this.removeFile()
-    setStorageItem('dev-utils-encode-type', e.target.value)
+    setStorageItem('dev-utils-encode-type', target.value)
   }
 
   private async onDecodedJwtHeaderChange(){
@@ -277,9 +279,7 @@ class EncodeTabController {
 
       // Create a Blob object
       const blob = new Blob([bytes], { type: mimeType });
-      const file = new File([blob], 'decoded-file', {type: blob.type})
-
-      return file
+      return new File([blob], 'decoded-file', {type: blob.type})
     } catch (e) {
       console.log('Error create file', e);
       return null
@@ -312,8 +312,9 @@ class EncodeTabController {
     this.#container.classList.remove('has-file', 'file-error')
   }
 
-  private onClearButtonHandler(e:any){
-    const fieldName = e.target.dataset.clear || e.target.closest('.clear-button')?.dataset.clear
+  private onClearButtonHandler(e:Event){
+    const target = e.target as HTMLElement
+    const fieldName = target.dataset.clear || (target.closest('.clear-button') as HTMLElement)?.dataset.clear
     const encodeType = this.#encodeTypeSelect.value
 
     switch (encodeType) {
@@ -360,8 +361,9 @@ class EncodeTabController {
     }
   }
 
-  private async onCopyButtonHandler(e:any){
-    const fieldName = e.target.dataset.copy || e.target.closest('.copy-button')?.dataset.copy
+  private async onCopyButtonHandler(e:Event){
+    const target = e.target as HTMLElement
+    const fieldName = target.dataset.copy || (target.closest('.copy-button') as HTMLElement)?.dataset.copy
     const text = fieldName === 'encoded-text'
       ? this.#encodedTextEditable.textContent
       : this.#decodedTextEditable.textContent
@@ -377,7 +379,7 @@ class EncodeTabController {
     }
   }
 
-  private async handleFileDrop(e:any){
+  private async handleFileDrop(e:DragEvent){
     const file = e.dataTransfer.files[0];
     const encodeTypeSelected = this.#encodeTypeSelect.value
     if(!file || !this.fileEncodeTypes.includes(encodeTypeSelected)) {
@@ -401,8 +403,7 @@ class EncodeTabController {
   private jwtDecodeHeader(text:string){
     try {
       const header = jose.decodeProtectedHeader(text)
-      const parsed = JSON.stringify(header, null, 2)
-      return parsed
+      return JSON.stringify(header, null, 2)
     } catch (e) {
       console.log('Invalid JWT Header', e)
     }
@@ -411,8 +412,7 @@ class EncodeTabController {
   private jwtDecode(text:string){
     try {
       const decoded = jose.decodeJwt(text)
-      const parsed = JSON.stringify(decoded, null, 2)
-      return parsed
+      return JSON.stringify(decoded, null, 2)
     } catch (e) {
       console.log('Invalid JWT', e)
     }

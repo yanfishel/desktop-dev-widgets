@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // External Links
     document.querySelectorAll('a[data-href]').forEach((link:HTMLElement) => {
-      link.addEventListener('click', (e) => {
+      link.addEventListener('click', (e:MouseEvent) => {
         e.preventDefault();
         window.electronAPI.openExternal(link.dataset.href);
       })

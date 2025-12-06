@@ -32,12 +32,13 @@ class SizeController {
     const select = element.querySelector('select')
     select.value = settings.size ?? 'large'
 
-    select.addEventListener('change', (e:any)=> {
+    select.addEventListener('change', (e)=> {
+      const value = (e.target as HTMLInputElement).value as TWidgetsSize
       document.documentElement.classList.remove("widgets-size-small", "widgets-size-medium", "widgets-size-large")
-      document.documentElement.classList.add(`widgets-size-${e.target.value}`)
-      window.electronAPI.setWidgetsSize(e.target.value)
-      settings.size = e.target.value
-      setWidgetsSetting('size', e.target.value)
+      document.documentElement.classList.add(`widgets-size-${value}`)
+      window.electronAPI.setWidgetsSize(value)
+      settings.size = value
+      setWidgetsSetting('size', value)
     })
 
     element.appendChild(select)

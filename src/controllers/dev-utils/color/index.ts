@@ -72,15 +72,15 @@ class ColorController {
     this.#hwb = elem.querySelector('input[name="color-hwb"]')
     this.#hwba = elem.querySelector('input[name="color-hwba"]')
 
-    this.#colorInput.addEventListener('input', debounce((e:any)=> {
-      this.updateColorInputs(e.target.value)
+    this.#colorInput.addEventListener('input', debounce((e:Event)=> {
+      this.updateColorInputs((e.target as HTMLInputElement).value)
     }, 250))
-    this.#colorInput.addEventListener('change', (e:any)=> {
-      this.updateColorInputs(e.target.value)
+    this.#colorInput.addEventListener('change', (e:Event)=> {
+      this.updateColorInputs((e.target as HTMLInputElement).value)
     })
 
-    this.#inputHex.addEventListener('input', debounce((e:any)=> {
-      this.updateColorInputs(e.target.value, 'inputHex')
+    this.#inputHex.addEventListener('input', debounce((e:Event)=> {
+      this.updateColorInputs((e.target as HTMLInputElement).value, 'inputHex')
     }, 250) )
 
     this.#inputR.addEventListener('input', () => this.updateColorInputs(this.rgbaString(), 'inputR'))
@@ -123,7 +123,7 @@ class ColorController {
 
   private updateColorInputs(hex?:string, field = 'colorInput'){
     this.#error.classList.remove('show')
-    let color = null
+    let color:ColorTranslator
     if(hex && field) {
       color = this.getColorInstance(hex)
       if (field !== 'inputHex' && field !== 'inputAlpha' && field !== 'inputA') {
@@ -191,8 +191,9 @@ class ColorController {
     return `rgba(${this.#inputR.value}, ${this.#inputG.value}, ${this.#inputB.value}, ${inputA ? +this.#inputA.value/100 : this.#inputAlpha.value})`;
   }
 
-  private async copyToClipboard(e:any) {
-    const fieldName = e.target.dataset.copy || e.target.closest('.copy-button')?.dataset.copy
+  private async copyToClipboard(e: Event | MouseEvent | TouchEvent) {
+    const target = e.target as HTMLElement;
+    const fieldName = target.dataset.copy || (target.closest('.copy-button') as HTMLElement)?.dataset.copy
     if(!fieldName) return
     let value = ''
     switch (fieldName) {

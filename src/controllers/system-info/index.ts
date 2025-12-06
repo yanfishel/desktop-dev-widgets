@@ -84,10 +84,11 @@ class SystemInfo {
     const checkbox:HTMLInputElement = element.querySelector('input[name="systeminfo-active"]')
     checkbox.checked = settings.widgets.systemInfo.active
 
-    checkbox.addEventListener('change', (e:any)=> {
-      document.getElementById(settings.widgets.systemInfo.id).style.display = e.target.checked ? 'block' : 'none'
-      this.toggleActive(e.target.checked)
-      setWidgetsWidgetSetting('systemInfo', {...settings.widgets.systemInfo, active: e.target.checked })
+    checkbox.addEventListener('change', (e)=> {
+      const target = e.target as HTMLInputElement
+      document.getElementById(settings.widgets.systemInfo.id).style.display = target.checked ? 'block' : 'none'
+      this.toggleActive(target.checked)
+      setWidgetsWidgetSetting('systemInfo', {...settings.widgets.systemInfo, active: target.checked })
     })
     return element
   }
@@ -153,7 +154,7 @@ class SystemInfo {
     }
   }
 
-  private updateNetworkStat({stats, iface}: {stats:any[], iface:any }){
+  private updateNetworkStat({stats, iface}: {stats: Systeminformation.NetworkStatsData[], iface: Systeminformation.NetworkInterfacesData }){
     let rx_sec = 0, tx_sec = 0
     stats.forEach(item => {
       rx_sec += +(item.rx_sec * 8 / 1000).toFixed(2)
@@ -202,7 +203,7 @@ class SystemInfo {
     if(this.#cpuPercents.length > this.chartstep) this.#cpuPercents.shift()
 
     const ramTotal = formatBytesMetric(memory.total, 1)
-    const ramUsed = formatBytesMetric(memory.used)
+    //const ramUsed = formatBytesMetric(memory.used)
     const ramPercent = +(memory.used / memory.total * 100).toFixed(1)
     this.#ramStatus.innerHTML = `${ramTotal}`
     this.#ramPercent.innerHTML = `${ramPercent}%`

@@ -96,7 +96,7 @@ class DateTimeTabController {
     })
 
     this.#dateInputs.forEach(input => {
-      input.elem.addEventListener('keyup', (e: any) => {
+      input.elem.addEventListener('keyup', (e) => {
         const valid = this.validField(e)
         if(!valid) return
         if(input.name === 'milliseconds' || input.name === 'seconds') {
@@ -206,7 +206,7 @@ class DateTimeTabController {
     const standart = DATE_FORMAT_STANDARTS.find(format => format.name === this.#standartFormat.value)
     this.#addOffset.disabled = standart?.name === 'ISO-8601-date-time-UTC'
     this.#addTimeZone.disabled = standart?.name === 'ISO-8601-date-time-UTC'
-    let formattedString = ''
+    let formattedString:string
     if(standart?.name === 'ISO-8601-date-time-UTC'){
       const y = date.getUTCFullYear()
       const m = (date.getUTCMonth()+1).toString().padStart(2, '0')
@@ -224,10 +224,11 @@ class DateTimeTabController {
     this.#dateString.value = formattedString
   }
 
-  private validField(event:any){
+  private validField(event:KeyboardEvent|InputEvent|Partial<InputEvent>){
     this.#elem.querySelectorAll('input[class="has-error"]').forEach(input => input.classList.remove('has-error'))
-    const name = event.target.name;
-    const parsedValue = parseInt(event.target.value)
+    const target = event.target as HTMLInputElement
+    const name = target.name;
+    const parsedValue = parseInt(target.value)
     let isValid = !isNaN(parsedValue)
     switch (name) {
       case 'year': isValid = parsedValue >= 1970 && parsedValue <= 9999; break;
@@ -239,14 +240,15 @@ class DateTimeTabController {
       default: break;
     }
     if(!isValid) {
-      event.target.classList.add('has-error')
+      target.classList.add('has-error')
       return false
     }
     return true
   }
 
-  private async copyToClipboard(e:any) {
-    const fieldName = e.target.dataset.copy || e.target.closest('.copy-button')?.dataset.copy
+  private async copyToClipboard(e:Event) {
+    const target = e.target as HTMLElement
+    const fieldName = target.dataset.copy || (target.closest('.copy-button') as HTMLElement)?.dataset.copy
     if(!fieldName) return
     let value = ''
     switch (fieldName) {

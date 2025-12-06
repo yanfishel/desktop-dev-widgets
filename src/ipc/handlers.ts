@@ -5,7 +5,7 @@ import winController from "../electron/windows";
 import {getDiskUsage, getNetworkStats, getPackageJson, getPublicIP, getSystemInfo, openExternalLink} from "../electron/services";
 
 
-ipcMain.handle(IpcChannels.WIDGET_SIZE, (event, size:TWidgetsSize) => winController.resize(size))
+ipcMain.handle(IpcChannels.WIDGET_SIZE, (_event, size:TWidgetsSize) => winController.resize(size))
 
 ipcMain.handle(IpcChannels.LOCK_POSITION, (_event, locked) => winController.lock(locked) )
 

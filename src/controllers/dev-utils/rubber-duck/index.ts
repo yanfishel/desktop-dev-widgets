@@ -35,15 +35,17 @@ class RubberDuckTabController {
 
     this.#openInfoButton.addEventListener('click', ()=> this.#duckInfo.classList.add('open'))
     this.#closeInfoButton.addEventListener('click', ()=> this.#duckInfo.classList.remove('open'))
-    document.addEventListener('click', (e:any)=> {
-      if(!this.#duckInfo.contains(e.target) && !this.#openInfoButton.contains(e.target)) {
+    document.addEventListener('click', (e:MouseEvent)=> {
+      const target = e.target as HTMLElement
+      if(!this.#duckInfo.contains(target) && !this.#openInfoButton.contains(target)) {
         this.#duckInfo.classList.remove('open')
       }
     })
 
     elem.querySelectorAll('.external-link').forEach((link:HTMLElement)=> {
-      link.addEventListener('click', (e:any)=> {
-        const url = e.target.dataset.url
+      link.addEventListener('click', (e:MouseEvent)=> {
+        const target = e.target as HTMLElement
+        const url = target.dataset.url
         if(!url) return
         this.#duckInfo.classList.remove('open')
         window.electronAPI.openExternal(url)

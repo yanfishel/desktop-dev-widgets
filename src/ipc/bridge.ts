@@ -23,13 +23,13 @@ contextBridge.exposeInMainWorld('electronAPI', {
   getPublicIP: () => ipcRenderer.invoke(IpcChannels.GET_PUBLIC_IP),
   getNetworkStatsInfo: () => ipcRenderer.invoke(IpcChannels.GET_NETWORK_STATS_INFO),
 
-  onWidgetsResize: (callback:any) =>
+  onWidgetsResize: (callback:()=>void) =>
     ipcRenderer.on(IpcChannels.WIDGET_SIZE, callback),
 
-  onLockPosition: (callback:any) =>
+  onLockPosition: (callback:()=>void) =>
     ipcRenderer.on(IpcChannels.LOCK_POSITION, callback),
 
-  onPowerMonitorEvent: (callback:any) =>
+  onPowerMonitorEvent: (callback:()=>void) =>
     ipcRenderer.on(IpcChannels.POWER_MONITOR_EVENT, callback)
 
 })

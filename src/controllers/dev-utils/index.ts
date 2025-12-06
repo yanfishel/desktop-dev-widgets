@@ -41,11 +41,11 @@ class DevUtils {
     const activeTab = getStorageItem(STORAGE_KEYS.WIDGET_DEV_UTILS_TAB) ?? 'encode'
     dateTimeTabController.toggleActive(settings.widgets.devUtils.active && activeTab === 'datetime')
     const tabControl = elem.querySelectorAll('input[name="tab-control"]')
-    tabControl.forEach((tab:HTMLInputElement, idx) =>{
+    tabControl.forEach((tab:HTMLInputElement, idx:number) =>{
       if(activeTab) tab.checked = activeTab === tab.dataset.tab
       else tab.checked = idx === 0
-      tab.addEventListener('change', (e:any)=> {
-        const tabActive = e.target.dataset.tab
+      tab.addEventListener('change', (e:Event)=> {
+        const tabActive = (e.target as HTMLInputElement).dataset.tab
         dateTimeTabController.toggleActive(tabActive === 'datetime')
         setStorageItem(STORAGE_KEYS.WIDGET_DEV_UTILS_TAB, tabActive)
       })
@@ -65,10 +65,11 @@ class DevUtils {
     const checkBox:HTMLInputElement = element.querySelector('input[type="checkbox"]')
     checkBox.checked = settings.widgets.devUtils.active
 
-    checkBox.addEventListener('change', (e:any)=> {
-      document.getElementById(settings.widgets.devUtils.id).style.display = e.target.checked ? 'block' : 'none'
-      dateTimeTabController.toggleActive(e.target.checked)
-      setWidgetsWidgetSetting('devUtils', {...settings.widgets.devUtils, active:e.target.checked})
+    checkBox.addEventListener('change', (e)=> {
+      const target = e.target as HTMLInputElement
+      document.getElementById(settings.widgets.devUtils.id).style.display = target.checked ? 'block' : 'none'
+      dateTimeTabController.toggleActive(target.checked)
+      setWidgetsWidgetSetting('devUtils', {...settings.widgets.devUtils, active:target.checked })
     })
 
     return element

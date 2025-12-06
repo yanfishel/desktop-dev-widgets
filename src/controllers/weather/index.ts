@@ -81,9 +81,10 @@ class WeatherController {
     // Current weather visible Checkbox
     const weatherCheckbox:HTMLInputElement = element.querySelector('input[name="weather-active"]')
     weatherCheckbox.checked = settings.weather.active
-    weatherCheckbox.addEventListener('change', (e:any)=> {
-      setWidgetsSetting('weather', {...settings.weather, active: e.target.checked})
-      this.toggleWeather(e.target.checked)
+    weatherCheckbox.addEventListener('change', (e)=> {
+      const checked = (e.target as HTMLInputElement).checked
+      setWidgetsSetting('weather', {...settings.weather, active: checked})
+      this.toggleWeather(checked)
     })
 
     // Geolocation Auto/Manual settings
@@ -92,9 +93,10 @@ class WeatherController {
     const geoPositionSelect:HTMLSelectElement = element.querySelector('select[name="geo-position"]')
     geoPositionSelect.value = settings.autoGeoPosition ? 'auto' : 'manual'
 
-    geoPositionSelect.addEventListener('change', (e:any)=> {
-      setWidgetsSetting('autoGeoPosition', e.target.value === 'auto')
-      manualGeoPositionBlock.style.display = e.target.value === 'auto' ? 'none' : 'flex'
+    geoPositionSelect.addEventListener('change', (e)=> {
+      const value = (e.target as HTMLSelectElement).value
+      setWidgetsSetting('autoGeoPosition', value === 'auto')
+      manualGeoPositionBlock.style.display = value === 'auto' ? 'none' : 'flex'
       this.updateAll()
     })
 
@@ -105,18 +107,18 @@ class WeatherController {
     const geoManualLon:HTMLInputElement = element.querySelector('input[name="lon"]')
     geoManualLon.value = settings.location?.lon.toString() ?? ''
 
-    geoManualCity?.addEventListener('change', (e:any)=> {
-      setWidgetsSetting('location', {name: e.target.value, lat: geoManualLat.value, lon: geoManualLon.value})
+    geoManualCity?.addEventListener('change', (e)=> {
+      setWidgetsSetting('location', {name: (e.target as HTMLInputElement).value, lat: geoManualLat.value, lon: geoManualLon.value})
       this.updateAll()
     })
 
-    geoManualLat?.addEventListener('change', (e:any)=> {
-      setWidgetsSetting('location', {name: geoManualCity.value, lat: e.target.value, lon: geoManualLon.value})
+    geoManualLat?.addEventListener('change', (e)=> {
+      setWidgetsSetting('location', {name: geoManualCity.value, lat: (e.target as HTMLInputElement).value, lon: geoManualLon.value})
       this.updateAll()
     })
 
-    geoManualLon?.addEventListener('change', (e:any)=> {
-      setWidgetsSetting('location', {name: geoManualCity.value, lat: geoManualLat.value, lon: e.target.value})
+    geoManualLon?.addEventListener('change', (e)=> {
+      setWidgetsSetting('location', {name: geoManualCity.value, lat: geoManualLat.value, lon: (e.target as HTMLInputElement).value})
       this.updateAll()
     })
 
@@ -134,9 +136,10 @@ class WeatherController {
     const dailyWeatherCheckbox:HTMLInputElement = element.querySelector('input[name="daily-weather-active"]')
     dailyWeatherCheckbox.checked = settings.widgets.dailyWeather.active
 
-    dailyWeatherCheckbox.addEventListener('change', (e:any)=> {
-      setWidgetsWidgetSetting('dailyWeather', {...settings.widgets.dailyWeather, active: e.target.checked })
-      this.toggleDailyWeather(e.target.checked)
+    dailyWeatherCheckbox.addEventListener('change', (e)=> {
+      const checked = (e.target as HTMLInputElement).checked
+      setWidgetsWidgetSetting('dailyWeather', {...settings.widgets.dailyWeather, active: checked })
+      this.toggleDailyWeather(checked)
     })
 
     return element
@@ -290,9 +293,9 @@ class WeatherController {
     await this.updateWeatherDaily()
   }
 
-  private timeListener(e:any){
-    const time = e.target.value.split(':')
-    const hour = time[0]
+  private timeListener(e:Event){
+    const time = (e.target as HTMLInputElement).value.split(':')
+    const hour = parseInt(time[0])
     const minutes = parseInt(time[1], 10)
     // Update weather every hour
     if(minutes === 0){
@@ -304,10 +307,10 @@ class WeatherController {
     }
   }
 
-  private dailyTimeListener(e:any) {
-    const time = e.target.value.split(':')
-    const hour = time[0]
-    const minutes = parseInt(time[1], 10)
+  private dailyTimeListener(e:Event) {
+    const time = (e.target as HTMLInputElement).value.split(':')
+    const hour = parseInt(time[0])
+    //const minutes = parseInt(time[1], 10)
     // Update weekly weather every 3 hour
     if(hour % 3 === 0){
       this.updateWeatherDaily()

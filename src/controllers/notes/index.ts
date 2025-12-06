@@ -60,32 +60,33 @@ class NotesController {
     const checkbox:HTMLInputElement = element.querySelector('input[name="notes-active"]')
     checkbox.checked = settings.widgets.notes.active
 
-    checkbox.addEventListener('change', (e:any)=> {
-      document.getElementById(settings.widgets.notes.id).style.display = e.target.checked ? 'block' : 'none'
-      setWidgetsWidgetSetting('notes', {...settings.widgets.notes, active: e.target.checked })
+    checkbox.addEventListener('change', (e)=> {
+      const target = e.target as HTMLInputElement
+      document.getElementById(settings.widgets.notes.id).style.display = target.checked ? 'block' : 'none'
+      setWidgetsWidgetSetting('notes', {...settings.widgets.notes, active: target.checked })
     })
     return element
   }
   
   private listeners() {
-    this.#input.addEventListener('change', (e:any)=> {
-      this.updateNotes(e.target.value)
+    this.#input.addEventListener('change', (e)=> {
+      this.updateNotes((e.target as HTMLInputElement).value)
     })
-    this.#input.addEventListener('focus', (e:any)=> {
+    this.#input.addEventListener('focus', ()=> {
       this.switchVisibility(true)
     })
-    this.#input.addEventListener('blur', (e:any)=> {
+    this.#input.addEventListener('blur', ()=> {
       this.switchVisibility(false)
     })
-    this.#view.addEventListener('click', (e:any)=> {
+    this.#view.addEventListener('click', ()=> {
       this.#input.focus()
     })
 
-    this.#buttonClear.addEventListener('click', (e:any)=> {
+    this.#buttonClear.addEventListener('click', (e)=> {
       e.preventDefault()
       this.clearNotes()
     })
-    this.#buttonCopy.addEventListener('click', (e:any)=> {
+    this.#buttonCopy.addEventListener('click', (e)=> {
       e.preventDefault()
       this.copyNotesToClipboard()
     })
