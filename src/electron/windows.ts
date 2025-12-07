@@ -7,6 +7,7 @@ import {APP_WIDTH} from "../constants";
 import {IpcChannels} from "../ipc/channels";
 import appSettings from "./settings";
 import trayController from "./tray";
+import serverController from "./server";
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
@@ -81,14 +82,25 @@ class WinController {
       this.#mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY)
     }
 
+    this.#mainWindow.webContents.once('did-finish-load', () => {
+      this.sendToMain(IpcChannels.LOCK_POSITION, settings.locked)
+      this.sendToMain(
+        IpcChannels.WIDGET_SIZE,
+        settings.width === APP_WIDTH.SMALL ? 'small' : settings.width === APP_WIDTH.MEDIUM ? 'medium' : 'large'
+      )
+    })
+
     // Reasign DevTools for debugging
     this.reasignDevTools()
 
     trayController.init()
 
+    //serverController.startServer()
+
   }
 
   public reasignDevTools() {
+    if(process.env.NODE_ENV !== 'development') return
     register(this.#mainWindow, 'F12', () => {
       this.#mainWindow.webContents.openDevTools()
     })
@@ -131,7 +143,7 @@ class WinController {
     }
   }
 
-  resize(size:TWidgetsSize){
+  public resize(size:TWidgetsSize){
     if(!this.#mainWindow){
       return
     }
@@ -166,6 +178,16 @@ class WinController {
     this.sendToMain(IpcChannels.LOCK_POSITION, locked)
     const settings = appSettings.settings
     const upadated = { ...settings, locked }
+    appSettings.save(upadated)
+
+    // Rebuild the tray
+    trayController.rebuild()
+  }
+
+  public setOpenAtLogin(open:boolean){
+    if(!this.#mainWindow) return
+    const settings = appSettings.settings
+    const upadated = { ...settings, openAtLogin: open }
     appSettings.save(upadated)
 
     // Rebuild the tray

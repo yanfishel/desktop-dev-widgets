@@ -2,6 +2,7 @@ import {app, BrowserWindow } from 'electron';
 
 import winController from "./electron/windows";
 import './ipc/handlers'
+import appSettings from "./electron/settings";
 
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -32,7 +33,9 @@ app.on('window-all-closed', () => {
   }
 });
 
+const settings = appSettings.settings
+
 // Set the application to automatically start at login
-/*app.setLoginItemSettings({
-  openAtLogin: true, // Open the app at login
-})*/
+app.setLoginItemSettings({
+  openAtLogin: settings.openAtLogin, // Open the app at login
+})

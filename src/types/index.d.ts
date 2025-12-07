@@ -5,7 +5,7 @@ interface IAppSettings {
   x: number
   y: number
   locked: boolean
-  alwaysOnTop: boolean
+  openAtLogin: boolean
 }
 
 type TTheme = 'system' | 'light' | 'dark'

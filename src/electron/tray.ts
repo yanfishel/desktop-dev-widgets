@@ -22,7 +22,8 @@ class TrayController {
 
   init(){
     // Create a new tray instance with the tray icon
-    this.tray = new Tray(this.icon)
+    const trayIcon = this.icon
+    this.tray = new Tray(trayIcon)
 
     // Set the tooltip for the tray
     this.tray.setToolTip(config.applicationName)
@@ -50,6 +51,9 @@ class TrayController {
       { type: 'header', label: config.applicationName },
       { type: 'separator' },
       { label: 'Options', submenu: [
+          { label: 'Open at Login', type:'checkbox', checked: this.openAtLogin,  click: (menuItem) => {
+            winController.setOpenAtLogin(menuItem.checked)
+          } },
           { label: 'Lock position', type:'checkbox', checked: this.appLocked,  click: (menuItem) => {
             winController.lock(menuItem.checked)
           } },
@@ -89,6 +93,11 @@ class TrayController {
   get appLocked() {
     const settings = appSettings.settings
     return settings.locked
+  }
+
+  get openAtLogin(){
+    const settings = appSettings.settings
+    return settings.openAtLogin
   }
 
 }

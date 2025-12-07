@@ -5,13 +5,13 @@ export const APP_WIDTH = {
   LARGE: 440,
 }
 
-export const APP_SETTINGS_DEFAULT = {
+export const APP_SETTINGS_DEFAULT:IAppSettings = {
   width: APP_WIDTH.LARGE,
   height: APP_WIDTH.LARGE,
   x: 0,
   y: 0,
   locked: false,
-  alwaysOnTop: false
+  openAtLogin: false
 }
 
 export const WIDGETS_SETTINGS_DEFAULT:IWidgetsSettings = {

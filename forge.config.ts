@@ -14,10 +14,14 @@ import { rendererConfig } from './webpack.renderer.config';
 const config: ForgeConfig = {
   packagerConfig: {
     asar: true,
+    icon: './public/images/icon-256',
   },
   rebuildConfig: {},
   makers: [
-    new MakerSquirrel({}),
+    new MakerSquirrel({
+      iconUrl: 'https://raw.githubusercontent.com/yanfishel/desktop-dev-widgets/refs/heads/main/public/images/icon-512.png',
+      setupIcon: './public/images/icon-256.ico',
+    }),
     new MakerZIP({}, ['darwin']),
     new MakerRpm({}),
     new MakerDeb({}),

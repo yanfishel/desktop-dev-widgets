@@ -1,7 +1,7 @@
 {
   "name": "desktop-dev-widgets",
   "productName": "Desktop Dev Widgets",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Desktop widgets for developer",
   "homepage": "https://github.com/yanfishel/desktop-dev-widgets#readme",
   "main": ".webpack/main",
@@ -12,7 +12,11 @@
     "publish": "electron-forge publish",
     "lint": "eslint --ext .ts,.tsx ."
   },
-  "keywords": ["widget", "desktop", "electron"],
+  "keywords": [
+    "widget",
+    "desktop",
+    "electron"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/yanfishel/desktop-dev-widgets.git"
@@ -52,6 +56,7 @@
   },
   "dependencies": {
     "@date-fns/tz": "^1.4.1",
+    "@types/node": "^24.10.1",
     "base32-encode": "^2.0.0",
     "colortranslator": "^5.0.0",
     "date-fns": "^4.1.0",
