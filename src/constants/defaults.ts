@@ -40,15 +40,20 @@ export const WIDGETS_SETTINGS_DEFAULT:IWidgetsSettings = {
       active: true,
       order: 3
     },
+    mockServer: {
+      id: 'widget-mock-server',
+      active: true,
+      order: 4
+    },
     devUtils: {
       id: 'widget-dev-utils',
       active: true,
-      order: 4
+      order: 5
     },
     notes: {
       id: 'widget-notes',
       active: true,
-      order: 5
+      order: 6
     }
   }
 }

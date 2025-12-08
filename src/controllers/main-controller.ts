@@ -8,6 +8,7 @@ import notesController from "./notes";
 import webSearchController from "./web-search";
 import devUtilsController from "./dev-utils";
 import systemInfoController from "./system-info";
+import mockServerController from "./mock-server";
 
 class MainController {
   static instance: MainController | null = null
@@ -55,6 +56,9 @@ class MainController {
     // System Info
     systemInfoController.build(this.#contentContainer)
 
+    // Mck Server
+    mockServerController.build(this.#contentContainer)
+
     // Dev Utils
     devUtilsController.build(this.#contentContainer)
 
@@ -76,17 +80,26 @@ class MainController {
   }
 
   electronAPI(){
+    // Listen for mock server response event
+    window.electronAPI.onMockServerResponse((_event, response) => {
+      mockServerController.serverResponse(response)
+    })
+    // Listen for mock server error event
+    window.electronAPI.onMockServerError((_event, error) => {
+      mockServerController.serverError(error)
+    })
+
     // Listen for widgets resize event
     window.electronAPI.onWidgetsResize((_event, size) => {
       sizeController.setWidgetsSize(size)
     })
-
+    // Listen for widgets theme change event
     window.electronAPI.onPowerMonitorEvent((_event, name) => {
       if(name === 'resume') {
         this.onResume()
       }
     })
-
+    // Listen for widgets theme change event
     window.electronAPI.onLockPosition((_event, locked) => {
       lockPositionController.toggleLockPosition(locked)
     })

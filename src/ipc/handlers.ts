@@ -3,6 +3,7 @@ import { ipcMain, powerMonitor } from 'electron'
 import {IpcChannels} from "./channels";
 import winController from "../electron/windows";
 import {getDiskUsage, getNetworkStats, getPackageJson, getPublicIP, getSystemInfo, openExternalLink} from "../electron/services";
+import serverController from "../electron/server";
 
 
 ipcMain.handle(IpcChannels.WIDGET_SIZE, (_event, size:TWidgetsSize) => winController.resize(size))
@@ -22,6 +23,11 @@ ipcMain.handle(IpcChannels.GET_NETWORK_STATS_INFO, async () => getNetworkStats()
 ipcMain.handle(IpcChannels.GET_PUBLIC_IP, async () => getPublicIP())
 
 ipcMain.handle(IpcChannels.GET_DISK_USAGE, async () => getDiskUsage())
+
+// MOCK SERVER
+ipcMain.handle(IpcChannels.MOCK_SERVER_START, () => serverController.startServer())
+ipcMain.handle(IpcChannels.MOCK_SERVER_STOP, () => serverController.stopServer())
+ipcMain.handle(IpcChannels.MOCK_SERVER_TEST, (_event, port) => serverController.testServer(port))
 
 // Power Monitor Events
 powerMonitor.addListener('lock-screen', () => {

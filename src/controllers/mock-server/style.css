@@ -1,0 +1,39 @@
+
+
+#widget-mock-server {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+
+  .container {
+    height: 200px;
+
+    input[type="number"] {
+      width: 100%;
+      min-width: 20px;
+      max-width: 35px;
+      &::-webkit-inner-spin-button,
+      &::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+    }
+  }
+
+  .loader {
+    position: absolute;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgb(from var(--container-background) r g b / 0.65);
+    * {
+      transition: none;
+    }
+    svg {
+      transition: none;
+      color: var(--accent);
+      font-size: 3rem;
+    }
+  }
+}

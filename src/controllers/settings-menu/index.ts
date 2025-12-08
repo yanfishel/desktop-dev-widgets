@@ -12,6 +12,7 @@ import systemInfoController from "../../controllers/system-info";
 
 import {settingsContainerHtml, settingsFooterHtml } from "./html";
 import "./style.css"
+import mockServerController from "../mock-server";
 
 
 class SettingsMenuController {
@@ -86,6 +87,12 @@ class SettingsMenuController {
     itemRowSisteminfo.dataset.widget = settings.widgets.systemInfo.id
     itemRowSisteminfo.style.order = settings.widgets.systemInfo.order.toString()
     sortable.appendChild( itemRowSisteminfo )
+
+    // Mock Server Item
+    const itemRowMockServer = mockServerController.settingsMenuElement()
+    itemRowMockServer.dataset.widget = settings.widgets.mockServer.id
+    itemRowMockServer.style.order = settings.widgets.mockServer.order.toString()
+    sortable.appendChild( itemRowMockServer )
 
     // Dev Utils Item
     const itemRowDevUtils = devUtilsController.settingsMenuElement()

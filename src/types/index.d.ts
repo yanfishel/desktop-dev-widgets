@@ -23,6 +23,7 @@ type TWidgets = {
   webSearch: TWidget
   systemInfo: TWidget
   devUtils: TWidget
+  mockServer: TWidget
   notes: TWidget
 }
 
@@ -57,6 +58,13 @@ interface Window {
     getSystemInfo: () => Promise< { info:Systeminformation.CurrentLoadData, memory:Systeminformation.MemData } >
     getPublicIP: () => Promise<string>
     getNetworkStatsInfo: () => Promise<{ stats:Systeminformation.NetworkStatsData[], iface:Systeminformation.NetworkInterfacesData } >
+
+    mockServerTest: (port:number) => void
+    mockServerStart: (port:number) => void
+    mockServerStop: () => void
+
+    onMockServerResponse: (callback: (_event: any, response:string) => void) => void
+    onMockServerError: (callback: (_event: any, error:string) => void) => void
 
     onWidgetsResize: (callback: (_event: any, size: TWidgetsSize) => void) => void
     onLockPosition: (callback: (_event: any, locked: boolean) => void) => void

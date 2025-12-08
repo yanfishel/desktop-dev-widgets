@@ -270,8 +270,13 @@ button {
   cursor: pointer;
   transition: opacity 0.2s ease-in-out;
 
-  &:hover {
+  &:not(:disabled):hover {
     background: rgb( from var(--accent) r g b / 0.45);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
   }
 }
 

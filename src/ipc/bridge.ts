@@ -23,6 +23,13 @@ contextBridge.exposeInMainWorld('electronAPI', {
   getPublicIP: () => ipcRenderer.invoke(IpcChannels.GET_PUBLIC_IP),
   getNetworkStatsInfo: () => ipcRenderer.invoke(IpcChannels.GET_NETWORK_STATS_INFO),
 
+  mockServerStart: () => ipcRenderer.invoke(IpcChannels.MOCK_SERVER_START),
+  mockServerStop: () => ipcRenderer.invoke(IpcChannels.MOCK_SERVER_STOP),
+  mockServerTest: (port:number) => ipcRenderer.invoke(IpcChannels.MOCK_SERVER_TEST, port),
+
+  onMockServerResponse: (callback:(response:any)=>void) => ipcRenderer.on(IpcChannels.MOCK_SERVER_RESPONSE, callback),
+  onMockServerError: (callback:(response:any)=>void) => ipcRenderer.on(IpcChannels.MOCK_SERVER_ERROR, callback),
+
   onWidgetsResize: (callback:()=>void) =>
     ipcRenderer.on(IpcChannels.WIDGET_SIZE, callback),
 
