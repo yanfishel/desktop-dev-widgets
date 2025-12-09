@@ -15,8 +15,8 @@ class MockServerController {
   #loader: HTMLElement
   #portInput: HTMLInputElement
   #testButton: HTMLButtonElement
-  #startButton: HTMLButtonElement
-  #stopButton: HTMLButtonElement
+  #onOffCheckbox: HTMLInputElement
+
 
   static getInstance() {
     if (!MockServerController.instance) {
@@ -25,6 +25,7 @@ class MockServerController {
 
     return MockServerController.instance
   }
+
 
   public build(container: HTMLElement) {
     const settings = getWidgetsSettings()
@@ -41,14 +42,15 @@ class MockServerController {
     this.#loader = elem.querySelector('.loader')
 
     this.#testButton = elem.querySelector('.test-button')
-    this.#startButton = elem.querySelector('.start-button')
-    this.#stopButton = elem.querySelector('.stop-button')
-
     this.#testButton.addEventListener('click', ()=> this.testServer() )
-    this.#startButton.addEventListener('click', ()=> this.startServer() )
-    this.#stopButton.addEventListener('click', ()=> this.stopServer() )
+
+    this.#onOffCheckbox = elem.querySelector('input[name="mock-server-on-off"]')
+    this.#onOffCheckbox.addEventListener('change', (e)=> this.toggleServer((e.target as HTMLInputElement).checked) )
 
     this.#toast = new Toast(elem)
+
+    this.toggleServer()
+    this.serverIsRunning(false)
 
     container.appendChild(elem)
   }
@@ -70,6 +72,35 @@ class MockServerController {
     return element
   }
 
+  private async toggleServer(on = false){
+    const settings = getWidgetsSettings()
+    if(!settings.widgets.mockServer.active) {
+      return
+    }
+    this.loading(true)
+    if(on) {
+      window.electronAPI.mockServerStart(this.#port)
+    } else {
+      window.electronAPI.mockServerStop()
+    }
+  }
+
+  private testServer(){
+    const settings = getWidgetsSettings()
+    if(!settings.widgets.mockServer.active) {
+      return
+    }
+    this.loading(true)
+    this.#port = this.#portInput.valueAsNumber
+    window.electronAPI.mockServerTest(this.#port)
+  }
+
+  private serverIsRunning(isRunning:boolean){
+    this.loading(false)
+    this.#isRunning = isRunning
+    this.#testButton.disabled = isRunning
+    this.#onOffCheckbox.checked = isRunning
+  }
 
   public serverResponse(response:string){
     try {
@@ -105,31 +136,6 @@ class MockServerController {
     } finally {
      this.serverIsRunning(false)
     }
-  }
-
-  private async startServer(){}
-
-  private async stopServer(){
-    this.loading(true)
-    window.electronAPI.mockServerStop()
-  }
-
-  private testServer(){
-    const settings = getWidgetsSettings()
-    if(!settings.widgets.mockServer.active) {
-      return
-    }
-    this.loading(true)
-    this.#port = this.#portInput.valueAsNumber
-    window.electronAPI.mockServerTest(this.#port)
-  }
-
-  private serverIsRunning(isRunning:boolean){
-    this.loading(false)
-    this.#isRunning = isRunning
-    this.#testButton.disabled = isRunning
-    this.#startButton.disabled = isRunning
-    this.#stopButton.disabled = !isRunning
   }
 
   private loading(isLoading:boolean){

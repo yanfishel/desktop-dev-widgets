@@ -7,7 +7,15 @@ export const getWidgetsSettings = ():IWidgetsSettings => {
   if(localSettings) return localSettings
   const settings = getStorageItem(STORAGE_KEYS.WIDGETS_SETTINGS)
   if(settings) {
-    return {...WIDGETS_SETTINGS_DEFAULT, ...JSON.parse(settings)}
+    const parsedSettings = JSON.parse(settings)
+    return {
+      ...WIDGETS_SETTINGS_DEFAULT,
+      ...parsedSettings,
+      widgets: {
+        ...WIDGETS_SETTINGS_DEFAULT.widgets,
+        ...parsedSettings.widgets
+      }
+    }
   }
   const defaultSettings = WIDGETS_SETTINGS_DEFAULT
   setWidgetsSettings(defaultSettings)

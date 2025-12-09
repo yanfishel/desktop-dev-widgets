@@ -58,3 +58,11 @@ export const WIDGETS_SETTINGS_DEFAULT:IWidgetsSettings = {
   }
 }
 
+export const MOCK_SERVER_SCHEME_DEFAULT = [
+  {
+    path: '/',
+    scheme: [
+      { name: '', value:'', type: 'string' }
+    ]
+  }
+]

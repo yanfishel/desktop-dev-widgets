@@ -47,23 +47,29 @@ class ServerController {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     this.#server = http.createServer((req:any, res:any) => {
-      console.log(`Server received request for: ${req.url}`);
 
       if (req.method !== 'GET') {
         res.writeHead(405, { 'Allow': 'GET' });
-        return res.end(JSON.stringify({ error: 'Method not allowed' }));
+        res.end(JSON.stringify({ error: 'Method not allowed' }));
       }
+
+      const host = req.headers.host || `${this.#HOST}:${this.#PORT}`;
+      const url = new URL(req.url, `http://${host}`);
+      const { pathname } = url
+
+      console.log(`Server received request for URL: ${req.url}, pathname: ${pathname}`);
 
       res.statusCode = 200;
       res.setHeader('Content-Type', 'text/plain');
       res.end(`Hello from the Electron server on port ${this.#PORT}!\n`);
 
-      // Example of sending a message back to the renderer process via IPC
-      //browserWindow.webContents.send('server-message', `Request processed for URL: ${req.url}`);
+      // Not found response
+      res.writeHead(404);
+      res.end(JSON.stringify({ error: 'Resource not found' }));
     });
 
     this.#server.listen(this.#PORT, this.#HOST, () => {
-      console.log(`HTTP server listening on http://localhost:${this.#PORT}`);
+      console.log(`HTTP server listening on http://${this.#HOST}:${this.#PORT}`);
       this.responseToMain(SERVER_RESPONSE.SERVER_STARTED)
     });
 
