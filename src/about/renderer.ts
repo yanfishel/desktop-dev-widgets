@@ -46,7 +46,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Credits
     const credits = document.querySelector('.credits')
-    credits.innerHTML = `<div id="icons-credit">Weather icons <a href="#" data-href="https://www.figma.com/@pitsch">@pitsch</a></div>`
+    credits.innerHTML = `<div id="icons-credit">Weather <a href="#" data-href="https://open-meteo.com">Open meteo</a></div>
+                        <div id="icons-credit">Weather icons <a href="#" data-href="https://www.figma.com/@pitsch">@pitsch</a></div>`
 
     // External Links
     document.querySelectorAll('a[data-href]').forEach((link:HTMLElement) => {
