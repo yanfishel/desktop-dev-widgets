@@ -22,6 +22,14 @@ app.whenReady().then(() => {
     }
   });
 
+
+  const settings = appSettings.settings
+
+  // Set the application to automatically start at login
+  app.setLoginItemSettings({
+    openAtLogin: settings.openAtLogin, // Open the app at login
+  })
+
 });
 
 // Quit when all windows are closed, except on macOS. There, it's common
@@ -33,9 +41,3 @@ app.on('window-all-closed', () => {
   }
 });
 
-const settings = appSettings.settings
-
-// Set the application to automatically start at login
-app.setLoginItemSettings({
-  openAtLogin: settings.openAtLogin, // Open the app at login
-})
