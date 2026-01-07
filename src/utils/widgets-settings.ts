@@ -29,14 +29,14 @@ export const setWidgetsSettings = (settings:IWidgetsSettings) => {
   setStorageItem(STORAGE_KEYS.WIDGETS_SETTINGS, settingsString)
 }
 
-export const setWidgetsSetting = (key: keyof IWidgetsSettings, value:any):IWidgetsSettings => {
+export const setWidgetsSetting = (key: keyof IWidgetsSettings, value:unknown):IWidgetsSettings => {
   const settings = {...getWidgetsSettings(), [key]: value }
   localSettings = settings
   setWidgetsSettings(settings)
   return settings
 }
 
-export const setWidgetsWidgetSetting = (key: string, value:any) => {
+export const setWidgetsWidgetSetting = (key: string, value:TWidget) => {
   const current = getWidgetsSettings()
   const settings = {
     ...current,

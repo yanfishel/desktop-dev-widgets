@@ -10,7 +10,7 @@ export const rubberDuckTabHtml = `
       ${ helpIconHover }
     </div>
     <div class="rubber-duck-image"></div>
-    <div class="rubber-duck-info">
+    <div id="rubber-duck-info" class="rubber-duck-info">
         <button class="close-info-button">${ closeIcon }</button>
         <p><b>Rubber duck debugging</b> (or rubberducking) is a debugging technique in software engineering. 
         A programmer explains their code, step by step, in natural language - either aloud or in writing - to reveal mistakes and misunderstandings.</p>

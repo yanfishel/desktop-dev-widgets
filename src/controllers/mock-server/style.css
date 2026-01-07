@@ -36,6 +36,19 @@
       button {
         height: 24px;
       }
+
+      input[role="switch"] {
+        width: 24px;
+        height: 14px;
+        &:before {
+          width: 12px;
+          height: 12px;
+          margin: 0 1px;
+        }
+        &:checked:before {
+          left: 10px;
+        }
+      }
     }
   }
 

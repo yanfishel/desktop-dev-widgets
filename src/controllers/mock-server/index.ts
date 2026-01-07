@@ -53,6 +53,7 @@ class MockServerController {
     this.serverIsRunning(false)
 
     container.appendChild(elem)
+
   }
 
   public settingsMenuElement(){
@@ -98,6 +99,7 @@ class MockServerController {
   private serverIsRunning(isRunning:boolean){
     this.loading(false)
     this.#isRunning = isRunning
+    this.#portInput.disabled = isRunning
     this.#testButton.disabled = isRunning
     this.#onOffCheckbox.checked = isRunning
   }

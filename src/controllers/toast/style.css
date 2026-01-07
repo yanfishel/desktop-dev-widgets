@@ -4,8 +4,8 @@
   top: 10px;
   left: 50%;
   transform: translateX(-50%) translateY(0) scale(1);
-  height: 26px;
-  padding: 5px 12px 7px;
+  min-height: 26px;
+  padding: 7px 12px 7px;
   border-radius: 5px;
   display: flex;
   align-items: center;

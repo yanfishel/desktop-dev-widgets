@@ -1,4 +1,5 @@
 // types.d.ts
+
 interface IAppSettings {
   width: number
   height: number
@@ -47,6 +48,18 @@ interface IWidgetsSettings {
   widgets: TWidgets
 }
 
+
+type S_NetworkStatsData = Systeminformation.NetworkStatsData
+
+type S_NetworkInterfacesData = Systeminformation.NetworkInterfacesData
+
+type S_CurrentLoadData = Systeminformation.CurrentLoadData
+
+type S_MemData = Systeminformation.MemData
+
+type S_FsSizeData = Systeminformation.FsSizeData
+
+
 interface Window {
   electronAPI: {
     setWidgetsSize: (size: string) => void
@@ -54,20 +67,20 @@ interface Window {
     openExternal: (url: string) => Promise<void>
     openAboutWinow: () => Promise<void>
     getAppInfo: () => Promise<{ packageJson:IPackageJson, versions:string[][] }>
-    getDiskUsage: () => Promise< Systeminformation.FsSizeData[] >
-    getSystemInfo: () => Promise< { info:Systeminformation.CurrentLoadData, memory:Systeminformation.MemData } >
+    getDiskUsage: () => Promise< S_FsSizeData[] >
+    getSystemInfo: () => Promise< { info:S_CurrentLoadData, memory:S_MemData } >
     getPublicIP: () => Promise<string>
-    getNetworkStatsInfo: () => Promise<{ stats:Systeminformation.NetworkStatsData[], iface:Systeminformation.NetworkInterfacesData } >
+    getNetworkStatsInfo: () => Promise<{ stats:S_NetworkStatsData[], iface:S_NetworkInterfacesData } >
 
     mockServerTest: (port:number) => void
     mockServerStart: (port:number) => void
     mockServerStop: () => void
 
-    onMockServerResponse: (callback: (_event: any, response:string) => void) => void
-    onMockServerError: (callback: (_event: any, error:string) => void) => void
+    onMockServerResponse: (callback: (_event: unknown, response:string) => void) => void
+    onMockServerError: (callback: (_event: unknown, error:string) => void) => void
 
-    onWidgetsResize: (callback: (_event: any, size: TWidgetsSize) => void) => void
-    onLockPosition: (callback: (_event: any, locked: boolean) => void) => void
-    onPowerMonitorEvent: (callback: (_event: any, name:string ) => void) => void
+    onWidgetsResize: (callback: (_event: unknown, size: TWidgetsSize) => void) => void
+    onLockPosition: (callback: (_event: unknown, locked: boolean) => void) => void
+    onPowerMonitorEvent: (callback: (_event: unknown, name:string ) => void) => void
   }
 }

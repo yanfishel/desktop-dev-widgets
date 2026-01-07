@@ -1,13 +1,14 @@
 import {app, BrowserWindow, Notification, screen} from "electron";
 import { register } from 'electron-localshortcut';
 import is from 'electron-is'
+import path from "node:path";
 
 import {config} from "../config";
 import {APP_WIDTH} from "../constants";
 import {IpcChannels} from "../ipc/channels";
 import appSettings from "./settings";
 import trayController from "./tray";
-import serverController from "./server";
+//import serverController from "./server";
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
@@ -75,14 +76,19 @@ class WinController {
     this.#mainWindow.setSkipTaskbar(true)
 
     // Hide the traffic light buttons (minimize, maximize, close)
-    is.macOS() && this.#mainWindow.setWindowButtonVisibility(false)
+    if(is.macOS()) {
+      this.#mainWindow.setWindowButtonVisibility(false)
+    }
 
     // Load the main window content
     if (MAIN_WINDOW_WEBPACK_ENTRY) {
+      console.log(MAIN_WINDOW_WEBPACK_ENTRY);
       this.#mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY)
+    } else {
+      this.#mainWindow.loadFile(path.join(__dirname, `../renderer/main_window/index.html`))
     }
 
-    this.#mainWindow.webContents.once('did-finish-load', () => {
+    this.#mainWindow.webContents.on('did-finish-load', () => {
       this.sendToMain(IpcChannels.LOCK_POSITION, settings.locked)
       this.sendToMain(
         IpcChannels.WIDGET_SIZE,
@@ -106,7 +112,7 @@ class WinController {
     })
   }
 
-  public sendToMain(channel:string, value:any) {
+  public sendToMain(channel:string, value:unknown) {
     if(!this.#mainWindow) return
     this.#mainWindow.webContents.send(channel, value)
   }
@@ -223,8 +229,11 @@ class WinController {
     }).on('closed', () => {
       this.#aboutWindow = null
     })
+
     // Hide the traffic light buttons (minimize, maximize, close)
-    is.macOS() && this.#aboutWindow.setWindowButtonVisibility(false)
+    if(is.macOS()) {
+      this.#aboutWindow.setWindowButtonVisibility(false)
+    }
 
     this.#aboutWindow.loadURL(ABOUT_WINDOW_WEBPACK_ENTRY)
 

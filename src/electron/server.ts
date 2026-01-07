@@ -88,7 +88,7 @@ class ServerController {
         this.responseToMain( SERVER_RESPONSE.SERVER_TESTED )
         this.stopServer(true)
       })
-      .on('error', (e:any) => this.onServerError(e));
+      .on('error', (e:unknown) => this.onServerError(e));
   }
 
   public stopServer(silent = false) {

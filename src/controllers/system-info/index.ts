@@ -1,7 +1,6 @@
-import {Systeminformation} from "systeminformation";
-
 import {ethernetIcon, wifiIcon} from "../../assets";
 import {getWidgetsSettings, formatBytesMetric, networkChartMaxValue, setWidgetsWidgetSetting} from "../../utils";
+
 import {diskUsageItemHtml, settingsMenuSysInfoHtml, systemInfoHtml} from "./html";
 import "./style.css"
 
@@ -154,7 +153,7 @@ class SystemInfo {
     }
   }
 
-  private updateNetworkStat({stats, iface}: {stats: Systeminformation.NetworkStatsData[], iface: Systeminformation.NetworkInterfacesData }){
+  private updateNetworkStat({stats, iface}: {stats: S_NetworkStatsData[], iface: S_NetworkInterfacesData }){
     let rx_sec = 0, tx_sec = 0
     stats.forEach(item => {
       rx_sec += +(item.rx_sec * 8 / 1000).toFixed(2)
@@ -195,7 +194,7 @@ class SystemInfo {
     }
   }
 
-  private updateCpuRamStatus({info, memory}: {info:Systeminformation.CurrentLoadData, memory:Systeminformation.MemData }){
+  private updateCpuRamStatus({info, memory}: {info:S_CurrentLoadData, memory:S_MemData }){
     const cpuPercent = info.currentLoad.toFixed(1)
     this.#cpuStatus.innerHTML = `${info.cpus.length} cores`
     this.#cpuPercent.innerHTML = `${cpuPercent}%`
@@ -228,7 +227,7 @@ class SystemInfo {
     this.updateDiskUsage(diskUsage)
   }
 
-  private updateDiskUsage(data:Systeminformation.FsSizeData[] ){
+  private updateDiskUsage(data:S_FsSizeData[] ){
     if(!data) {
       this.#diskUsageContainer.innerHTML = '<p class="error">No data available</p>'
       return
