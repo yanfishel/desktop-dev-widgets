@@ -58,17 +58,19 @@ class MockServerController {
 
   public settingsMenuElement(){
     const settings = getWidgetsSettings()
+    const widgetSettings = settings.widgets.mockServer
 
     const element = document.createElement('div')
     element.classList.add('settings-menu-item')
     element.innerHTML = settingsMenuMockServerHtml
     const checkbox:HTMLInputElement = element.querySelector('input[name="mock-server-active"]')
-    checkbox.checked = settings.widgets.mockServer.active
+    checkbox.checked = widgetSettings.active
 
     checkbox.addEventListener('change', (e)=> {
       const target = e.target as HTMLInputElement
-      document.getElementById(settings.widgets.mockServer.id).style.display = target.checked ? 'block' : 'none'
-      setWidgetsWidgetSetting('mockServer', {...settings.widgets.mockServer, active: target.checked })
+      const wSettings = getWidgetsSettings()
+      document.getElementById(wSettings.widgets.mockServer.id).style.display = target.checked ? 'block' : 'none'
+      setWidgetsWidgetSetting('mockServer', {...wSettings.widgets.mockServer, active: target.checked })
     })
     return element
   }
