@@ -1,54 +1,46 @@
 :root {
-  --text-primary: #111827;
+  color-scheme: light dark;
+  --font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  -webkit-user-select: none;
+  user-select: none;
+
+  --text-primary: light-dark(#111827, #f8fafc);
   --text-muted: rgb( from var(--text-primary) r g b / 0.35);
   --accent: #38bdf8;
   --accent-contrast: #fff;
 
-  --main-color-invert: #f8fafc;
-  --main-background-invert: rgb(32, 34, 43);
+  --main-color-invert: light-dark(#f8fafc, #111827);
+  --main-background-invert: light-dark(rgb(32, 34, 43), rgb(246, 248, 250));
 
   --button-opacity: 0.55;
-  --main-background: rgb(246, 248, 250);
-  --container-background: rgb(246, 248, 250);
+  --main-background: light-dark(rgb(246, 248, 250), rgb(32, 34, 43));
+  --container-background: light-dark(rgb(246, 248, 250), rgb(32, 34, 43));
   --container-opacity: 0.98;
 
-  --text-shadow: 1px 1px 0 rgba(255,255,255,0.45);
-  --container-box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.65) inset, 0 14px 30px -24px rgba(15, 23, 42, 0.9);
-  --input-background: rgba(0,0,0,0.05);
+  --text-shadow: 1px 1px 0 light-dark(rgba(255,255,255,0.45), rgba(0,0,0,1));
+  --container-box-shadow: 0 0 0 1px light-dark(rgba(255, 255, 255, 0.65), rgba(15, 23, 42, 0.65)) inset,
+                          0 14px 30px -24px light-dark(rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.9));
+  --input-background: light-dark(rgba(0,0,0,0.05), rgba(255,255,255,0.05));
 
   --border: rgb( from var(--text-primary) r g b / 0.15);
   --border-radius: 6px;
-  --scrollbar-background: #F7F7F9;
-  --scrollbar-thumb: rgba(0,0,0,0.25);
+  --scrollbar-background: light-dark(#F7F7F9, #102331);
+  --scrollbar-thumb: light-dark(rgba(0,0,0,0.25), rgba(255,255,255,0.25));
 
   --weather-days-number: 7;
   --top-container-height: 125px;
   --weather-icon-size: 70px;
   --widgets-distance: .85rem;
   --action-bar-padding: 30px;
-
-
-  --font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-
-  -webkit-user-select: none;
-  user-select: none;
 }
-.theme-dark {
-  --text-primary: #f8fafc;
 
-  --main-color-invert: #111827;
-  --main-background-invert: rgb(246, 248, 250);
-
-  --button-opacity: 0.35;
-  --main-background: rgb(32, 34, 43);
-  --container-background: rgb(32, 34, 43);
-
-  --text-shadow: 1px 1px 0 rgba(0,0,0,1);
-  --container-box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.65) inset, 0 14px 30px -24px rgba(15, 23, 42, 0.9);
-  --input-background: rgba(255,255,255,0.05);
-
-  --scrollbar-background: #102331;
-  --scrollbar-thumb: rgba(255,255,255,0.25);
+/* Light Mode */
+[data-theme="light"] {
+  color-scheme: light;
+}
+/* Dark Mode */
+[data-theme="dark"] {
+  color-scheme: dark;
 }
 
 .widgets-size-medium {
@@ -145,7 +137,6 @@ body {
 .content-container-wrapper {
   width: 100%;
   flex: 1;
-  /*height: calc(100% - var(--top-container-height));*/
   overflow-y: auto;
 }
 #content-container {
@@ -162,7 +153,6 @@ body {
   width: 100%;
   padding: 8px;
   border-radius: var(--border-radius);
-  /*box-shadow: var( --container-box-shadow);*/
   background: rgba(from var(--container-background) r g b / var(--container-opacity));
   text-align: center;
   display: flex;

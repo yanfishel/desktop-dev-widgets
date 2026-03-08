@@ -175,7 +175,7 @@
 
 
 /* -- DARK THEME - */
-.theme-dark {
+[data-theme="dark"] {
   #weather-widget .container .weather-info .weather .icon img {
     filter: brightness(0.7);
   }
