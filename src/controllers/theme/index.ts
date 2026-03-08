@@ -67,10 +67,9 @@ class ThemeController {
   }
 
   private setDarkTheme(set:boolean){
+    document.documentElement.removeAttribute('data-theme')
     if(set){
-      document.documentElement.classList.add("theme-dark")
-    } else {
-      document.documentElement.classList.remove("theme-dark")
+      document.documentElement.setAttribute('data-theme', 'dark')
     }
   }
 
